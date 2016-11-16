@@ -1,4 +1,4 @@
-//Maya Preference 2016.5 (Release 1)
+//Maya Preference 2016 (Release 1)
 //
 //
 
@@ -22,6 +22,7 @@ hotkeyCtx -type "Editor" -addClient "polyTexturePlacementPanel";
 hotkeyCtx -type "Editor" -addClient "nodeEditorPanel";
 hotkeyCtx -type "Editor" -addClient "outlinerPanel";
 hotkeyCtx -type "Editor" -addClient "shapePanel";
+hotkeyCtx -type "Editor" -addClient "cteEditor";
 hotkeyCtx -type "Editor" -addClient "posePanel";
 hotkeyCtx -type "Editor" -addClient "profilerPanel";
 hotkeyCtx -type "Editor" -addClient "hyperGraphPanel";

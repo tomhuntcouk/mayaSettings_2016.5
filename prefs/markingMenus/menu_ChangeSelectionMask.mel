@@ -22,7 +22,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem84;
+        menuItem87;
 
     menuItem
         -label "Hierarchy" 
@@ -47,7 +47,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem85;
+        menuItem88;
 
     menuItem
         -label "Animation Mask" 
@@ -72,7 +72,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem86;
+        menuItem89;
 
     menuItem
         -label "Deformations Mask" 
@@ -97,7 +97,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem87;
+        menuItem90;
 
     menuItem
         -label "Dynamics Mask" 
@@ -122,7 +122,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem88;
+        menuItem91;
 
     menuItem
         -label "Polygons Mask" 
@@ -147,7 +147,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem89;
+        menuItem92;
 
     menuItem
         -label "Rendering Mask" 
@@ -172,7 +172,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem90;
+        menuItem93;
 
     menuItem
         -label "Object/Components" 
@@ -197,7 +197,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem91;
+        menuItem94;
 
 setParent -m ..;
 

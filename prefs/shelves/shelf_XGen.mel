@@ -7,14 +7,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Open the XGen Window" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Open Description Editor" 
         -labelOffset 0
@@ -25,13 +24,13 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgDEditor.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgDEditor.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgDEditor.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgDEditor.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -version "2015" 
-        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescriptionEditor" 
+        -command "XgCreateDescriptionEditor" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -39,14 +38,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Update the XGen Preview" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Update Preview" 
         -labelOffset 0
@@ -57,8 +55,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPreview.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPreview.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPreview.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPreview.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -71,14 +69,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Clear the XGen Preview" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Clear Preview" 
         -labelOffset 0
@@ -89,8 +86,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPreviewClear.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPreviewClear.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPreviewClear.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPreviewClear.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -103,14 +100,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Create a new XGen Description" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Create Description" 
         -labelOffset 0
@@ -121,13 +117,13 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgCreateDescription.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgCreateDescription.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgCreateDescription.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgCreateDescription.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -version "2015" 
-        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescription" 
+        -command "XgCreateDescription" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -135,14 +131,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Patches bindings menu." 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Bind Patches" 
         -labelOffset 0
@@ -153,8 +148,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgBindFaces.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgBindFaces.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgBindFaces.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgBindFaces.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -167,14 +162,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Add or Move Guides" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Add/Move Guides" 
         -labelOffset 0
@@ -185,8 +179,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgGuideContext.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgGuideContext.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgGuideContext.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgGuideContext.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -199,14 +193,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Hide/Show the Guides of the current XGen Description" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Toggle Guides Visibility" 
         -labelOffset 0
@@ -217,8 +210,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgToggleGuide.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgToggleGuide.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgToggleGuide.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgToggleGuide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -231,14 +224,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Turn the Selectability of Guides on and off" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Toggle Guides Selectability" 
         -labelOffset 0
@@ -249,8 +241,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgToggleGuideReference.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgToggleGuideReference.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgToggleGuideReference.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgToggleGuideReference.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -263,14 +255,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Mirror selected Guides across the X-axis" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Mirror Guides X-axis" 
         -labelOffset 0
@@ -281,8 +272,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgFlipGuides.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgFlipGuides.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgFlipGuides.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgFlipGuides.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -295,14 +286,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Match XGen patch visibility to geometry visibility." 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Sync Patch Visibility" 
         -labelOffset 0
@@ -313,8 +303,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -327,14 +317,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Flip selected between patches and their associated geometry" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Flip Selected" 
         -labelOffset 0
@@ -345,8 +334,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgSelectionToggle.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgSelectionToggle.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgSelectionToggle.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgSelectionToggle.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -359,14 +348,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Select Primitives\nMMB to Isolate Primitves" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Select Primitives" 
         -labelOffset 0
@@ -377,8 +365,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPrimSelection.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPrimSelection.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPrimSelection.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgPrimSelection.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -391,14 +379,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Cull selected Primitves\nMore culling options can be found in the Generator Tab" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Cull Primitives" 
         -labelOffset 0
@@ -409,8 +396,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -423,14 +410,13 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Sculpt guides" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Sculpt Guides" 
         -labelOffset 0
@@ -441,8 +427,8 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgGuideSculptTool.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgGuideSculptTool.png" 
+        -image "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgGuideSculptTool.png" 
+        -image1 "/Applications/Autodesk/maya2016/plug-ins/xgen//icons/xgGuideSculptTool.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -450,39 +436,6 @@ global proc shelf_XGen () {
         -command "python(\"xgui.createDescriptionEditor(False).guideSculptContext(False)\")" 
         -sourceType "mel" 
         -doubleClickCommand "python(\"xgui.createDescriptionEditor(False).guideSculptContext(True)\")" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Convert primitives to polygons" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Convert Primitives to Polygons" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPolyConvert.png" 
-        -image1 "/Applications/Autodesk/maya2016.5/plug-ins/xgen//icons/xgPolyConvert.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(False)\")" 
-        -sourceType "mel" 
-        -doubleClickCommand "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(True)\")" 
         -commandRepeatable 1
         -flat 1
     ;

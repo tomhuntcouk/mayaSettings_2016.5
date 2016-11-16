@@ -1,24 +1,3 @@
-import pymel.all as pm
-import os.path
-
-TEXPATH = 'main.1'
-
-nodes = pm.ls(type=pm.nodetypes.ShadingDependNode)
-
-for node in nodes :
-    if( node.hasAttr('color') ) :
-        for input in node.attr('color').inputs() :
-            if( type(input) == pm.nodetypes.File ) :
-                oldName = input.attr('fileTextureName').get()
-                newName = os.path.basename( oldName )
-                newName = os.path.splitext(newName)[0]
-                
-                newName += '.tif'
-                print newName
-                if( newName.startswith( 'LA_' ) ) :
-                    newName = newName.replace( 'LA_', '' )
-                
-                newPath= os.path.join( TEXPATH, newName )
-               
-                
-                input.attr('fileTextureName').set( newPath)
+import sys
+for i in sys.path :
+    print i

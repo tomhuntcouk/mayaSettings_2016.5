@@ -22,7 +22,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem56;
+        menuItem59;
 
     menuItem
         -label "Hypershade/Render/Persp" 
@@ -47,7 +47,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem57;
+        menuItem60;
 
     menuItem
         -label "Hypershade/Outliner/Persp" 
@@ -72,7 +72,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem58;
+        menuItem61;
 
     menuItem
         -label "Hypershade/Persp" 
@@ -97,7 +97,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem59;
+        menuItem62;
 
     menuItem
         -label "Persp/Outliner" 
@@ -122,7 +122,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem60;
+        menuItem63;
 
     menuItem
         -label "Persp/Graph/Outliner" 
@@ -147,7 +147,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem61;
+        menuItem64;
 
     menuItem
         -label "Persp/Graph" 
@@ -172,7 +172,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem62;
+        menuItem65;
 
     menuItem
         -label "Persp/Relationship Editor" 
@@ -197,7 +197,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem63;
+        menuItem66;
 
 setParent -m ..;
 

@@ -14,7 +14,6 @@ global proc shelf_Custom () {
         -preventOverride 0
         -annotation "ngSkinTools UI" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -labelOffset 0
         -rotation 0

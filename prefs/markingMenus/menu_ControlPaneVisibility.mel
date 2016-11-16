@@ -23,7 +23,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem72;
+        menuItem75;
 
     menuItem
         -label "Status Line" 
@@ -49,7 +49,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem73;
+        menuItem76;
 
     menuItem
         -label "Attributes" 
@@ -72,7 +72,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem74;
+        menuItem77;
 
         menuItem
             -label "Channel Box" 
@@ -98,7 +98,7 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem75;
+            menuItem78;
 
         menuItem
             -label "Layer Editor" 
@@ -124,7 +124,7 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem76;
+            menuItem79;
 
         menuItem
             -label "Attribute Editor" 
@@ -150,7 +150,7 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem77;
+            menuItem80;
 
         menuItem
             -label "Tool Settings" 
@@ -176,7 +176,7 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem78;
+            menuItem81;
 
     setParent -m ..;
 
@@ -204,7 +204,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem79;
+        menuItem82;
 
     menuItem
         -label "Time Slider" 
@@ -230,7 +230,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem80;
+        menuItem83;
 
     menuItem
         -label "Range Slider" 
@@ -256,7 +256,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem81;
+        menuItem84;
 
     menuItem
         -label "Shelf" 
@@ -282,7 +282,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem82;
+        menuItem85;
 
     menuItem
         -label "Command Line" 
@@ -308,7 +308,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem83;
+        menuItem86;
 
 setParent -m ..;
 

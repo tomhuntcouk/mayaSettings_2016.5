@@ -22,7 +22,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem64;
+        menuItem67;
 
     menuItem
         -label "Graph Editor" 
@@ -47,7 +47,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem65;
+        menuItem68;
 
     menuItem
         -label "Dope Sheet" 
@@ -72,7 +72,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem66;
+        menuItem69;
 
     menuItem
         -label "Hypergraph" 
@@ -97,7 +97,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem67;
+        menuItem70;
 
     menuItem
         -label "Node Editor" 
@@ -122,7 +122,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem68;
+        menuItem71;
 
     menuItem
         -label "Hypershade" 
@@ -147,7 +147,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem69;
+        menuItem72;
 
     menuItem
         -label "Render View" 
@@ -172,7 +172,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem70;
+        menuItem73;
 
     menuItem
         -label "Sets" 
@@ -197,7 +197,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem71;
+        menuItem74;
 
 setParent -m ..;
 
