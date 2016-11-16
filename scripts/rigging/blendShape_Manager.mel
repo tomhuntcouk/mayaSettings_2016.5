@@ -1,0 +1,1199 @@
+/*
+blendShape_Manager.mel
+version: beta 0.72
+
+author : Sebastian Woldanski
+	http://woold.w.interia.pl
+	bug reports, comments, please mail to woold@interia.pl or woold@polbox.com
+
+Description: utility for management and editing of blendShapes, especially adding, removing, recreating and substituting targets and inbetweens
+
+Notes:
+
+	General description of commands is placed in annotation flag on every button, so keep mouse over a button and description will pop-up.
+	In BLENDSHAPE scroll list you can only select and work with one blendShape at the moment.
+	Double click in this area will pop-up rename window for blendShape.
+	In TARGET list double clik will select all targets, because you can work on multi selected targets, the same is in INBETWEEN.
+
+history:
+	v 0.72
+		- bug with "go to the value"  button corrected by Ced. Thanx ;-)
+		- fixed problems with "add targets" and add "current state"
+		- other small fixes
+
+	v 0.71
+		-english version, tested only with Maya 3.0 but should work with 4.0
+
+bugs and issues and limitations:
+
+	There is no undo support. Every time after undo  press "Update BlendShapes" button to refresh interface.
+	It is recomended to have only one blendShape in history of object. With more it can be unusable.
+	Sometimes, because of complicated history or other issues, operations do not work, try first to materialize target and select it and than use buttons
+	I could have made some english  mistakes  ;-) I humbly apologize for that. Please correct me.
+	Materializing,  adding current state, removing targets can be long lasting actions because bS_M has to recreate input geometry.
+
+Usage:
+	blendShape_Manager
+
+Thanx for inspiration and tips to  Bryan Ewert, Roland Rayer, and Robin Scher for insights how to use  textScrollList and build interface
+and all A|W mel gurus
+*/
+
+global proc generalBlendSzejper (string $tryb )
+{
+string $CurSel[];
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $tempTargets[] = `textScrollList -q -si targety_ScrollList`;
+int $tempIndexTargets[] = `textScrollList -q -sii targety_ScrollList`;
+switch ($tryb)
+	{
+	case "SelinputGeom":
+		inputGeoms_from_Targets ($tempTargets[0]);
+		break;
+	case "suwaczekWartosci":
+			for ($atrybu in $tempTargets)
+				{
+				setAttr ($tempBlendshape[0] +  "." + $atrybu) (`floatSliderGrp -q -v trgSlider`);
+				}
+			break;
+	case "poleWartosci":
+			for ($atrybu in $tempTargets)
+				{
+				setAttr ($tempBlendshape[0] +  "." + $atrybu) (`floatSliderGrp -q -v trgSlider`);
+				}
+			break;
+	case "ustawVal":
+				floatSliderGrp -e -v (`getAttr ($tempBlendshape[0] +  "." + $tempTargets[0])`) trgSlider;
+			break;
+	case "select_bsh":
+		//wybierz zaznaczonego bSh w cenie
+			if (`size $tempBlendshape` )
+				{
+					select -r $tempBlendshape[0];
+					updatujListeblendShapow;
+				}
+			break;
+	case "del":
+		//wybierz zaznaczonego bSh w cenie
+			if (`size $tempBlendshape` )
+				{
+					delete $tempBlendshape[0];
+					updatujListeblendShapow;
+					updatujListeTargetow;
+					updatuj_liste_Inbetweens;
+				}
+			break;
+	case "load_from_sel":
+			string $Sell[] = `ls -sl` ;
+			if (`size $Sell`)
+				{
+				string $czyMaBsh[] = `listHistory $Sell[0]`;
+				string $czyBsHWybrany;
+				for ($node in $czyMaBsh)
+					{
+					if (`nodeType $node` == "blendShape"     )
+					$czyBsHWybrany = $node;
+					}
+				if ($czyBsHWybrany != "" )
+					{
+						textScrollList -e -selectItem  $czyBsHWybrany blendShapy_ScrollList;
+						int $zoom[] = `textScrollList -q -selectIndexedItem   blendShapy_ScrollList`;
+					//zoomoje
+						textScrollList -e -showIndexedItem   $zoom[0] blendShapy_ScrollList ;
+					//refr targety
+						updatujListeTargetow ;
+					}
+				else
+					{
+					warning "selected object don`t have blendShape in it`s history";
+					}
+				}
+			break;
+	case "prune":
+		//wybierz zaznaczonego bSh w cenie
+			blendShape -e  -pr $tempBlendshape[0];
+			break;
+	case "rename_bSh":
+		//wybierz zaznaczonego bSh w cenie
+			string $temp[] = `textScrollList -q -si blendShapy_ScrollList`;
+			if (`size $temp` )
+				{
+					renameSelection $temp[0] 0;
+				}
+			break;
+	case "rename_targets":
+		//wybierz zaznaczonego bSh w cenie
+			string $temp[] = `textScrollList -q -si targety_ScrollList`;
+			if (`size $temp` )
+				{
+					renameSelection $temp[0] 1;
+					updatuj_liste_Inbetweens;
+
+				}
+			break;
+
+		break;
+	case "selectAllTargets":
+		int $xcv = `textScrollList -q -ni targety_ScrollList`;
+		for ($y=1; $y<= $xcv; $y++)
+			{
+			textScrollList -e -sii  $y targety_ScrollList;
+			}
+		break;
+	case "setTargets1":
+		string $rty[] = `textScrollList -q -si targety_ScrollList`;
+		for ($ggg in $rty)
+			{
+				setAttr ((`aktualnieEdytowanyBsh`) + "." + $ggg) 	1 ;
+				floatSliderGrp -e -v 1 trgSlider;
+			}
+		break;
+
+
+	case "setTargets1r0":
+		string $raty[] = `textScrollList -q -si targety_ScrollList`;
+		string $rtyAll[] = `textScrollList -q -ai targety_ScrollList`;
+		for ($cv in $rtyAll)
+			{
+				setAttr ((`aktualnieEdytowanyBsh`) + "." + $cv) 	0 ;
+				floatSliderGrp -e -v 0 trgSlider;
+			}
+		for ($der in $raty)
+			{
+				setAttr ((`aktualnieEdytowanyBsh`) + "." + $der) 	1 ;
+				floatSliderGrp -e -v 1 trgSlider;
+			}
+		break;
+	case "setTargets0":
+		string $rty[] = `textScrollList -q -si targety_ScrollList`;
+		for ($ggg in $rty)
+			{
+				setAttr ((`aktualnieEdytowanyBsh`) + "." + $ggg) 	0 ;
+				floatSliderGrp -e -v 0 trgSlider;
+			}
+		break;
+	case "podmienGeo":
+		$CurSel = `ls -sl -dag -lf`;
+		int $abi[] = `textScrollList -q -sii targety_ScrollList`;
+	//sprawdza czy takie same typy geometrii
+		string $objee =`return_Object_from_bSh`;
+		//bierze shapa obiektu wynikowego z blendShapa
+		string $nazwa[] = `listRelatives -s -ni  $objee`;
+		int $adf =  $abi[0] - 1;
+		// sprwadzamy czy to nurb czy curva czy mesh
+		if (  `nodeType $CurSel[0] ` == `nodeType $nazwa[0] `   )
+			{
+			if (`nodeType $CurSel[0] ` == "mesh" )
+				{
+				connectAttr -f  ($CurSel[0]  + ".worldMesh[0]") ($tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $adf + "].inputTargetItem[6000].inputGeomTarget") ;
+				}
+			else if ( `nodeType $CurSel[0] ` == "nurbSurface"  || `nodeType $CurSel[0] ` == "nurbsCurve")
+				{
+				connectAttr -f ($CurSel[0]  + ".worldSpace[0]")($tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $adf + "].inputTargetItem[6000].inputGeomTarget") ;
+				}
+			}
+		break;
+	case "addTarget":
+			string $uuuuuu[] = `ls -sl ` ;
+
+			if (`size $uuuuuu` != 0    )
+				{
+
+				string $objFromBshh = `return_Object_from_bSh`;
+				for ($uuu in $uuuuuu)
+					{
+							int $lastWeight = 0;
+							string $debuglist[] = `listAttr -m -st "inputTarget*" $tempBlendshape[0]`;
+							// >= 2 becuse if there is empty weight[0] after delete every target
+							if (  `size $debuglist` >= 2)
+								{
+								string $tokenz[];
+								int $suz = (`size $debuglist`) - 1;
+								tokenize $debuglist[$suz] "inputTargetGroup" $tokenz;
+								$lastWeight = `match "[0-9]+" $tokenz[1]`;
+								$lastWeight = $lastWeight + 1;
+								}
+							blendShape -e -tc 1 -t $objFromBshh $lastWeight $uuu  1 $tempBlendshape[0];
+					}
+
+				updatujListeTargetow ;
+				}
+			else
+				{
+					warning "!!! Select some objects to add !!!";
+				}
+		break;
+
+	case "removeTarget":
+		string $materialize[] = ` materializeTarget `;
+		string $obiektBshowy = `return_Object_from_bSh`;
+		//musimy sprawdzic czy ma inbetweeny
+		string $zwroconetargety;
+		waitCursor -state on;
+		for ($targs in $tempTargets)
+			{
+			int $AutentycznaWaga = `zwracaWage_z_aliasa $targs`;
+			string $ileInbb[] = `textScrollList -q -ai inbeetween_ScrollList`;
+			$zwroconetargety = `inputGeoms_from_Targets $targs`;
+			if (`size $ileInbb`)
+				{
+				for ($inbbeetr in $ileInbb)
+					{
+					textScrollList -e -si $inbbeetr inbeetween_ScrollList;
+					generalInbetween deleteInb;
+					}
+
+				blendShape  -e  -tc 0 -rm -t   $obiektBshowy $AutentycznaWaga  $zwroconetargety  1 -t $obiektBshowy $AutentycznaWaga $obiektBshowy 1 $obiektBshowy;
+				}
+			else
+				{
+				blendShape -e  -rm -t  $obiektBshowy  $AutentycznaWaga   $zwroconetargety  1 ;
+				}
+			}
+		if ( `size   $materialize`  )
+			{
+			delete $materialize;
+			}
+		updatujListeTargetow ;
+		updatuj_liste_Inbetweens;
+		waitCursor -state off;
+		break;
+
+	case "addTargetCur":
+/*		string $tempAllTargets[] =`listAttr -m ($tempBlendshape[0] +".w")`;
+		string $FortempTargets[];
+		int $yu = 0;
+		for ($trgg in $tempAllTargets)
+			{
+
+				if (`gmatch  "_tempTarget" $trgg`  )
+				{
+					$FortempTargets[$yu] = $trgg;
+					$yu++;
+				}
+			}
+		$FortempTargets = `sort $FortempTargets`;
+*/
+
+		string $dder;
+		$dder =  $tempBlendshape[0];
+			if (`objExists ("Targety_" + $dder) ` == 0 )
+				{
+				string $locGrupujacyTargety = `createNode transform -n ("Targety_" + $dder)`;
+				createNode locator -n ("Targety_" + $dder + "Shape") -p $locGrupujacyTargety;
+				}
+		string $cubeu[] = `polyCube -ch 0 -n "_tempTarget" `;
+		string $patN[] = `parent -r  $cubeu[0] ("Targety_" + $dder)`;
+		string $shapppe[] = `ls -sl -dag -lf $patN[0]`;
+		connectAttr -f ($dder + ".outputGeometry[0]") ( $shapppe[0] + ".inMesh" );
+		refresh;
+		disconnectAttr  ($dder + ".outputGeometry[0]") ( $shapppe[0]  + ".inMesh");
+		select -r $patN[0];
+		generalBlendSzejper addTarget;
+
+		break;
+	}
+}
+global proc generalInbetween (string $tryb)
+{
+
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $tempTargetsCed[] = `textScrollList -q -si targety_ScrollList`;
+string $tempAllTargets[] =`listAttr -m ($tempBlendshape[0] +".w")`;
+string $tempInbetweeny[] = `textScrollList -q -si inbeetween_ScrollList`;
+string $CurSel[];
+for ($node in $tempInbetweeny)
+	{
+	string $tokeno[];
+	tokenize $node "  >> " $tokeno;
+	float $AbsoluteInbetweenValue = $tokeno[1];
+	float $DeAbsoluteInbetweenValue = $AbsoluteInbetweenValue * 1000 + 5000 ;
+	int $i = `zwracaWage_z_aliasa $tokeno[0]`;
+	string $coPodlaczyc = $tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $i  + "].inputTargetItem[" + $DeAbsoluteInbetweenValue + "].inputGeomTarget";
+	string $meshZrodlowy[] = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+	switch ($tryb)
+		{
+		case "deleteInb":
+			if ( `size  $meshZrodlowy`)
+				{
+					string $aa = `return_Object_from_bSh`;
+					blendShape -e  -tc 0 -rm -t $aa $i $meshZrodlowy[0] 1 $tempBlendshape[0];
+				}
+				// jezeli nie ma to materializuje wywala inb i wywala materializacje
+			else
+				{
+					generalInbetween materialize;
+					$meshZrodlowy = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+					string $aa = `return_Object_from_bSh`;
+					blendShape -e  -tc 0 -rm -t $aa $i $meshZrodlowy[0] 1 $tempBlendshape[0];
+					delete $meshZrodlowy[0];
+				}
+			break;
+		case "dematerialize":
+			if ( `size  $meshZrodlowy`)
+				{
+				delete $meshZrodlowy[0];
+				}
+			break;
+		case "podmienGeom":
+			string $sell[] = `ls -sl -dag -lf`;
+			if ( `size  $sell`)
+				{
+				connectAttr -f  ($sell[0] + ".worldMesh[0]") ($tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $i  + "].inputTargetItem[" + $DeAbsoluteInbetweenValue + "].inputGeomTarget") ;
+				}
+			break;
+		case "setValue":
+			setAttr ($tempBlendshape[0]  + ".w[" + $i + "]") $AbsoluteInbetweenValue;
+			floatSliderGrp -e -v (`getAttr ($tempBlendshape[0] + "." +$tempTargetsCed[0] )`) trgSlider;
+			break;
+		case "materialize":
+		if ( !(`size  $meshZrodlowy` ))
+			{
+			// sprwadzamy czy to nurb czy curva czy mesh
+			string $typGeometrii ;
+			string $coBlokuje[];
+			string $objee =`return_Object_from_bSh`;
+			string $nazwa[] = `listRelatives -s -ni  $objee`;
+			if (`nodeType $nazwa[0] ` == "mesh" )
+				{
+				polyCube -ch 0 -n  ($tempBlendshape[0] + "_temp_Inb_" + $DeAbsoluteInbetweenValue);
+				$typGeometrii = "mesh";
+				}
+			else if (`nodeType $nazwa[0] ` == "nurbsCurve")
+				{
+				$typGeometrii = "nurb";
+				curve -n ($tempBlendshape[0] + "_temp_Inb_" + $DeAbsoluteInbetweenValue) -d 1 -p 16.689882 0 -0.859041 -p 18.959445 0 -7.29444 -k 0 -k 1 ;
+				}
+			else if (`nodeType $nazwa[0] ` == "nurbsSurface")
+				{
+				$typGeometrii = "nurb";
+				nurbsPlane -n  ($tempBlendshape[0] + "_temp_Inb_" + $DeAbsoluteInbetweenValue) -p 0 0 0 -ax 0 1 0 -w 1 -lr 1 -d 2 -u 1 -v 1 -ch 0;
+				}
+			string $obiektTemp[] = `ls -sl -dag -lf`;
+			//tworzymy poczatkowa cube
+				float $wartosci[];
+			//setuje na zero wszystkie targety i zbieramy wartosci poczatkowe
+				$j=0;
+				for ($target in $tempAllTargets)
+					{
+					$coBlokuje = ` listConnections -d 1 -s 1 ($tempBlendshape[0] + "."+ $target)`;
+					if ( `size $coBlokuje`    )
+						{
+							catch (`setAttr ($coBlokuje[0] + ".nodeState") 2`);
+						}
+					$wartosci[$j] = `getAttr ($tempBlendshape[0] + "."+ $target)`;
+					setAttr ($tempBlendshape[0] + "."+ $target) 0;
+					$j++;
+					}
+				//setuje target wybrany na wartosc inbetwena
+				setAttr ($tempBlendshape[0]  + ".w[" + $i + "]") $AbsoluteInbetweenValue;
+				switch ($typGeometrii)
+					{
+					case "mesh":
+							connectAttr -f ($tempBlendshape[0] + ".outputGeometry[0]")  ($obiektTemp[0] + ".inMesh");
+							refresh;
+							setAttr ($tempBlendshape[0] + ".w["+ $i + "]") 0;
+							disconnectAttr  ($tempBlendshape[0] + ".outputGeometry[0]")  ($obiektTemp[0] + ".inMesh");
+							connectAttr -f   ($obiektTemp[0] + ".worldMesh[0]") ($tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $i  + "].inputTargetItem[" + $DeAbsoluteInbetweenValue + "].inputGeomTarget") ;
+						break;
+					case "nurb":
+							connectAttr -f ($tempBlendshape[0] + ".outputGeometry[0]")  ($obiektTemp[0] + ".create");
+							refresh;
+							setAttr ($tempBlendshape[0] + ".w["+ $i + "]") 0;
+							disconnectAttr  ($tempBlendshape[0] + ".outputGeometry[0]") ($obiektTemp[0] + ".create");
+							connectAttr -f  ($obiektTemp[0] + ".worldSpace[0]") ($tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $i  + "].inputTargetItem[" + $DeAbsoluteInbetweenValue + "].inputGeomTarget") ;
+						break;
+					}
+				if (`objExists ("Targety_" + $tempBlendshape[0]) ` == 0 )
+					{
+					string $locGrupujacyTargety = `createNode transform -n ("Targety_" + $tempBlendshape[0])`;
+					createNode locator -n ("Targety_" + $tempBlendshape[0] + "Shape") -p $locGrupujacyTargety;
+					}
+				parent -r  ($tempBlendshape[0] + "_temp_Inb_" + $DeAbsoluteInbetweenValue) ("Targety_" + $tempBlendshape[0]);
+			//przywraca dawne wartosci
+				$j =0;
+				for ($target in $tempAllTargets)
+					{
+					setAttr ($tempBlendshape[0] + "."+ $target) $wartosci[$j];
+					if ( `size $coBlokuje`    )
+						{
+							catch (`setAttr ($coBlokuje[0] + ".nodeState") 0`);
+						}
+					$j++;
+					}
+				}
+			else
+				{
+				warning "is already materialized";
+				}
+			break;
+		}
+	}
+updatuj_liste_Inbetweens;
+}
+
+
+global proc generalInbetween2 (string $tryb)
+{
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+int $tempIndexInbetweenyv[] = `textScrollList -q -sii targety_ScrollList`;
+string $tempInbetweeny[] = `textScrollList -q -si inbeetween_ScrollList`;
+string $CurSel[] = `ls -sl`;
+switch ($tryb)
+	{
+	 case "selectAllInb":
+		int $xcv = `textScrollList -q -ni inbeetween_ScrollList`;
+		for ($y=1; $y<= $xcv; $y++)
+			{
+			textScrollList -e -sii  $y inbeetween_ScrollList;
+			}
+		break;
+	 case "addInb":
+		if ( `size $CurSel ` &&  `size $tempIndexInbetweenyv ` )
+			{
+			string $obiekt_z_bShx = `return_Object_from_bSh`;
+			float $waga_Inb[] = `floatFieldGrp -q -v InbetSlider`;
+			blendShape -e  -ib -t $obiekt_z_bShx ($tempIndexInbetweenyv[0]-1)  $CurSel[0] $waga_Inb[0] $tempBlendshape[0];
+			updatuj_liste_Inbetweens;
+			}
+		else
+		warning "Select target on the list";
+	 break;
+	 case "debug":
+		string $debuglist[] = `listAttr -m -st "inputTarget*" $tempBlendshape[0]`;
+		print $debuglist;
+	 break;
+	 case "changePosInb":
+	 	if (  `size  $tempInbetweeny`  )
+	 		{
+			generalInbetween materialize;
+			textScrollList -e -si $tempInbetweeny[0] inbeetween_ScrollList;
+			generalInbetween2 SelinputGeom;
+			textScrollList -e -si $tempInbetweeny[0] inbeetween_ScrollList;
+			generalInbetween deleteInb;
+			generalInbetween2 addInb;
+			}
+		else
+			warning "Select one inbetween";
+	 break;
+	 case "SelinputGeom":
+		string $tempAllTargets[] =`listAttr -m ($tempBlendshape[0] +".w")`;
+		string $tokeno[];
+		tokenize $tempInbetweeny[0] "  >> " $tokeno;
+		float $AbsoluteInbetweenValue = $tokeno[1];
+		float $DeAbsoluteInbetweenValue = $AbsoluteInbetweenValue * 1000 + 5000 ;
+		int $i = `zwracaWage_z_aliasa $tokeno[0]`;
+		string $coPodlaczyc = $tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $i  + "].inputTargetItem[" + $DeAbsoluteInbetweenValue + "].inputGeomTarget";
+		string $meshZrodlowy[] = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+		if (     `size $meshZrodlowy`)
+			{
+				select -r $meshZrodlowy[0];
+			}
+	 break;
+	}
+}
+global  proc string return_Object_from_bSh ()
+{
+string $Sell[] = `ls -sl   ` ;
+if ( `textScrollList -q -nsi blendShapy_ScrollList  ` != 0  )
+	{
+	string $wewe[] = `textScrollList -q -si blendShapy_ScrollList`;
+	string $retrr[];
+	string $czyMaBsh4[] = `listHistory -f 1 $wewe[0]`;
+		for ($ytuyu in $czyMaBsh4)
+			{
+			string $yvbnv = `nodeType $ytuyu` ;
+			if ( $yvbnv == "mesh" ||   $yvbnv == "nurbsSurface"  ||   $yvbnv == "nurbsCurve"    )
+				{
+					$retrr= `listRelatives -p  $ytuyu`;
+					break;
+				}
+		}
+	return $retrr[0];
+	}
+else
+	{
+	warning "!!! no blendShape in the list is selected !!!";
+	return "";
+	}
+}
+//procedura zwraca nazwe i wybiera obiekt wchodzacy na input targeta
+global proc string inputGeoms_from_Targets (string $name)
+{
+int $index	 = `zwracaWage_z_aliasa $name`;
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $geometrie;
+string $coPodlaczyc = $tempBlendshape[0] +  ".inputTarget[0].inputTargetGroup[" + $index  + "].inputTargetItem[6000].inputGeomTarget";
+string $meShZrodlowy[] = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+if (  `size  $meShZrodlowy`)
+	{
+	select -r $meShZrodlowy[0];
+	return $meShZrodlowy[0];
+	}
+else
+	{
+	warning "!!! target geometry is dematerialized !!!";
+	return "";
+	}
+}
+global proc renameSelection ( string $currentSelectionName , int $mod)
+{
+	//
+	// Prompt the user for a new selection name
+	//
+	string $result = `promptDialog
+					-title "Rename Selection"
+					-message "Enter New Selection Name:"
+					-text $currentSelectionName
+					-button "OK"
+					-button "Cancel"
+					-defaultButton "OK"
+					-cancelButton "Cancel"
+					-dismissString "Cancel"
+					-parent BLENDszejperUI`
+					;
+	if ( $result == "OK" )
+		{
+			string $newSelectionName = `promptDialog -q`;
+			switch ($mod)
+				{
+					case 0:
+							 {
+								if ( catch ($newSelectionName = `rename $currentSelectionName $newSelectionName`) )
+									{
+										//
+										// error due to non - unique name for context
+										//
+									confirmDialog -title "Alert"
+										-button "OK"
+										-defaultButton "OK"
+										-message "       Error in trying to rename Selection.  Please select another        "
+										-parent BLENDszejperUI;
+									}
+								optionVar -sv OptVar_default_bSh_sel $newSelectionName;
+								updatujListeblendShapow;
+							}
+						break;
+					case 1:
+							int  $temp[] = `textScrollList -q -sii targety_ScrollList`;
+							string $attrybut = (`aktualnieEdytowanyBsh`) + ".w[" + ($temp[0] - 1) + "]";
+							 {
+								if ( catch ($newSelectionName = `aliasAttr $newSelectionName $attrybut `) )
+									{
+										//
+										// error due to non - unique name for context
+										//
+									confirmDialog -title "Alert"
+										-button "OK"
+										-defaultButton "OK"
+										-message "       Error in trying to rename Selection.  Please select another        "
+										-parent BLENDszejperUI;
+									}
+								updatujListeTargetow ;
+							}
+						break;
+				}
+		}
+}
+//wywala podswietlone
+global proc dematerializeTarget ()
+{
+string $aktualnyBSH[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $tempTargets[] = `textScrollList -q -si targety_ScrollList`;
+for ($target in $tempTargets)
+	{
+	string $AutentycznaWaga = `zwracaWage_z_aliasa $target`;
+	//tu odiolem 1 ze wzgledu na to ze textScroll
+	string $coPodlaczyc = $aktualnyBSH[0] +  ".inputTarget[0].inputTargetGroup[" + $AutentycznaWaga + "].inputTargetItem[6000].inputGeomTarget";
+	string $meshZrodlowy[] = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+	if (`size $meshZrodlowy` != 0)
+		{
+		delete $meshZrodlowy;
+		}
+	else
+		{
+		print "juz dawno zdematerializowany \n";
+		}
+	}
+}
+global proc int zwracaWage_z_aliasa (string $name)
+{
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $aliasy[] = `aliasAttr -q $tempBlendshape[0]`;
+
+for ($i=0; $i<size($aliasy); $i++)
+	{
+	if ($aliasy[$i] == $name)
+		{
+		string $aa[];
+		string $rt = $aliasy[($i + 1)];
+		tokenize $rt "weight[" $aa;
+		int $AliasWeight = `match "[0-9]+" $aa[0]`;
+		return $AliasWeight;
+		}
+	}
+}
+global proc string[] materializeTarget ()
+{
+waitCursor -state on;
+//twozy l i sprawdza lokatora $bSh_targety
+//sprawdza czy sa zdematerial i dla kazdego zdem worzy mesha boxa dla kazdego wybranego parentuje go lokat i renamuje na target
+//stawi bSh do aktualnej pozycji - connectuje meshe oraz refreshuje. Breakuje connections
+string $aktualnyBSH[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $tempTargets[] = `textScrollList -q -si targety_ScrollList`;
+//int $tempIndexTargets[] = `textScrollList -q -sii targety_ScrollList`;
+//lista nazw
+string $aliasy[] = `listAttr -m ($aktualnyBSH[0] +".w")`;
+//zbieramy poczatkowe wartosci bSh
+float $wartosci[];
+string $zmaterializowane[];
+string $coBlokuje[];
+$j=0;
+//zbiera wartosci polozenia suwakow by potem do nich powrocic
+for ($waga in $aliasy)
+	{
+	$wartosci[$j] = `getAttr ($aktualnyBSH[0] + "."+ $waga)`;
+	$j++;
+	}
+int $g = 0;
+//dla wybranego targetu np 3 i 5 i 6
+for ($target in $tempTargets)
+	{
+	//tu odiolem 1 ze wzgledu na to ze textScroll
+	string $AutentycznaWaga = `zwracaWage_z_aliasa $target`;
+	string $coPodlaczyc = $aktualnyBSH[0] +  ".inputTarget[0].inputTargetGroup[" + $AutentycznaWaga + "].inputTargetItem[6000].inputGeomTarget";
+	string $meshZrodlowy[] = `listConnections -s 1 -d 0 -scn 1 $coPodlaczyc`;
+	//tworzymy lokator grupujacy jezeli nie istnieje
+	if (`size $meshZrodlowy` == 0)
+		{
+		if (`objExists ("Targety_" + $aktualnyBSH[0]) ` == 0 )
+			{
+			string $locGrupujacyTargety = `createNode transform -n ("Targety_" + $aktualnyBSH[0])`;
+			createNode locator -n ("Targety_" + $aktualnyBSH[0] + "Shape") -p $locGrupujacyTargety;
+			}
+		// sprwadzamy czy to nurb czy curva czy mesh
+		string $typGeometrii ;
+		string $objee =`return_Object_from_bSh`;
+		string $nazwa[] = `listRelatives -s -ni  $objee`;
+		if (`nodeType $nazwa[0] ` == "mesh" )
+			{
+			polyCube -ch 0 -n ($aktualnyBSH[0] + "_tempZX_" + $target);
+			$typGeometrii = "mesh";
+			}
+		else if (`nodeType $nazwa[0] ` == "nurbsCurve")
+			{
+			$typGeometrii = "nurb";
+			curve -n ($aktualnyBSH[0] + "_tempZX_" + $target)  -d 1 -p 16.689882 0 -0.859041 -p 18.959445 0 -7.29444 -k 0 -k 1 ;
+			}
+		else if (`nodeType $nazwa[0] ` == "nurbsSurface")
+			{
+			$typGeometrii = "nurb";
+			nurbsPlane -n ($aktualnyBSH[0] + "_tempZX_" + $target) -p 0 0 0 -ax 0 1 0 -w 1 -lr 1 -d 2 -u 1 -v 1 -ch 0;
+			}
+		//bierze shapa z dopiero co stworzonej geometrii
+		string $obiektTemp[] = `ls -sl -dag -lf`;
+		parent -r  ($aktualnyBSH[0] + "_tempZX_" + $target) ("Targety_" + $aktualnyBSH[0]);
+
+//setuje wszystkie targety na zero
+		$i=0;
+		for ($waga in $aliasy)
+			{
+			//zablokowane
+			$coBlokuje = ` listConnections -d 1 -s 1 ($aktualnyBSH[0] + "."+ $waga)`;
+			if ( `size $coBlokuje`    )
+				{
+					catch (`setAttr ($coBlokuje[0] + ".nodeState") 2`);
+				}
+			setAttr ($aktualnyBSH[0] + "."+ $waga) 0;
+			$i++;
+			}
+//setuje target wybrany na 1	(chyba trzeba odjac)
+		setAttr ($aktualnyBSH[0] + "." + $target  ) 1;
+//tu moze byc problem jezeli nazwy sa w miszmaszu
+		switch ($typGeometrii)
+			{
+			case "mesh":
+					connectAttr -f ($aktualnyBSH[0] + ".outputGeometry[0]") ($obiektTemp[0] + ".inMesh");
+					refresh;
+					setAttr ($aktualnyBSH[0] + "."+ $waga) 0;
+					disconnectAttr  ($aktualnyBSH[0] + ".outputGeometry[0]") ($obiektTemp[0] + ".inMesh");
+					connectAttr -f  ($obiektTemp[0] + ".worldMesh[0]") ($aktualnyBSH[0] +  ".inputTarget[0].inputTargetGroup[" + $AutentycznaWaga + "].inputTargetItem[6000].inputGeomTarget") ;
+				break;
+			case "nurb":
+					connectAttr -f ($aktualnyBSH[0] + ".outputGeometry[0]") ($obiektTemp[0] + ".create");
+					refresh;
+					setAttr ($aktualnyBSH[0] + "."+ $waga) 0;
+					disconnectAttr  ($aktualnyBSH[0] + ".outputGeometry[0]") ($obiektTemp[0] + ".create");
+					connectAttr -f  ($obiektTemp[0] + ".worldSpace[0]") ($aktualnyBSH[0] +  ".inputTarget[0].inputTargetGroup[" + $AutentycznaWaga + "].inputTargetItem[6000].inputGeomTarget") ;
+				break;
+			}
+		string $nn = `rename ($aktualnyBSH[0] + "_tempZX_" + $target) $target `;
+		$zmaterializowane[$g] = $nn;
+		}
+	$g++;
+	}
+//ponownie wracamy do starych wartosci bSh
+$j=0;
+for ($target in $aliasy)
+	{
+	setAttr ($aktualnyBSH[0] + "."+ $target) $wartosci[$j];
+	if ( `size $coBlokuje`    )
+		{
+			setAttr ($coBlokuje[0] + ".nodeState") 0;
+		}
+	$j++;
+	}
+waitCursor -state off;
+return $zmaterializowane;
+
+}
+
+global proc updatujListeblendShapow ()
+{
+string $default_bSh_sel;
+string $bShaa[] = `ls -type "blendShape"`;
+textScrollList -e -removeAll blendShapy_ScrollList;
+if ( `size   $bShaa`  )
+	{
+	for ($node in $bShaa)
+		{
+		textScrollList -e -append $node blendShapy_ScrollList;
+		}
+	if ( `optionVar -exists OptVar_default_bSh_sel` && `size $bShaa`)
+		{
+			//pobiera var
+			$default_bSh_sel = `optionVar -q OptVar_default_bSh_sel`;
+			for ($node in $bShaa)
+				{
+					if ($node == $default_bSh_sel)
+						{
+						//wybiera na scrolliscie
+							textScrollList -e -si $default_bSh_sel  blendShapy_ScrollList;
+						//sprawdza ktore to id
+							int $zoom[] = `textScrollList -q -selectIndexedItem   blendShapy_ScrollList`;
+						//zoomoje
+									textScrollList -e -showIndexedItem   $zoom[0] blendShapy_ScrollList ;
+						//refr targety
+						optionVar -sv OptVar_default_bSh_sel $default_bSh_sel;
+						}
+				}
+			int $asa[] = `textScrollList -q -selectIndexedItem blendShapy_ScrollList` ;
+			if   ( `size $asa`  )
+				{
+					updatujListeTargetow ;
+				}
+		}
+	}
+}
+global proc updatujListeTargetow ()
+{
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+if ( `size $tempBlendshape`   == 0 )
+	{
+		textScrollList -e -removeAll targety_ScrollList;
+	}
+else
+	{
+	int $aaa = `textScrollList -q -ni targety_ScrollList` ;
+	if (  $aaa != 0  )
+		{
+		textScrollList -e -removeAll targety_ScrollList;
+		}
+	for ($node in (`ReturnTargets $tempBlendshape[0] 0`))
+		{
+		textScrollList -e -append $node targety_ScrollList;
+		}
+	}
+}
+global proc string[] ReturnTargets (string $blendShape, int $aliasyCzyindexZlistyexy)
+	//zwraca str arr z
+{
+//zwraca albo aliasy  0 albo indexZlistyexy 1
+string $aliasy[] = `listAttr -m ($blendShape +".w")`;
+string $listaindexZlistyexowLubAliasow[];
+return $aliasy;
+}
+//tworzy i zwraca nazwe aktualnego bsh
+global proc string aktualnieEdytowanyBsh()
+{
+global string $bSh;
+string $bShs[] = `ls -sl -type "blendShape"`;
+if ( `size  $bShs` != 0   )
+	{
+	$bSh = $bShs[0];
+	return $bSh;
+	}
+else
+	{
+	if ( $bSh == ""   )
+		{
+		error "nie wybrales blenShapa";
+		}
+	else
+		{
+		return $bSh;
+		}
+	}
+optionVar -sv OptVar_default_bSh_sel $bSh;
+}
+
+global proc updatuj_liste_Inbetweens()
+{
+string $inbetwee[];
+string $tempBlendshape[] = `textScrollList -q -si blendShapy_ScrollList`;
+string $tempTargets[] = `textScrollList -q -si targety_ScrollList`;
+int $tempIndexTargets[] = `textScrollList -q -sii targety_ScrollList`;
+string $tempInbetwens[] = `textScrollList -q -si inbeetween_ScrollList`;
+int $tempNumberOfTargets = `textScrollList -q -ni  targety_ScrollList`;
+string $tempAllTargets[];
+string $match;
+string $allAttrs_InputTarget[];
+int $asavf;
+textScrollList -e -removeAll inbeetween_ScrollList;
+
+if ( `size $tempBlendshape`   )
+	{
+	$allAttrs_InputTarget = `listAttr -m -st "inputTarget*"   $tempBlendshape[0] `;
+	$tempAllTargets =`listAttr -m ($tempBlendshape[0] +".w")`;
+	}
+//wywalamy liste
+if (  `size $tempTargets`   )
+{
+for ($targs in $tempTargets )
+	{
+		$asavf = `zwracaWage_z_aliasa  $targs`;
+		$match = "*inputTargetGroup\\[" + $asavf  + "].input*";
+
+		for ($inpuTarget in $allAttrs_InputTarget)
+			{
+		// tu odrzucamy wszystkie oprocz targetow jednej z wag
+			if ( `gmatch  $inpuTarget  $match`)
+					{
+				//musze stokenizowac aby dostac tokena z samymi [....]
+					string $tokenz[];
+					tokenize $inpuTarget "." $tokenz;
+				// tu match zwraca tylko liczby
+					float $InbetweenValue = `match "[0-9]+" $tokenz[2]`;
+				//tworzymy absolutna wartosc
+					float $AbsoluteInbetweenValue = ($InbetweenValue - 5000) / 1000 ;
+				//aby nie pokazywal targetu  czyli inbetweena na 6000 czyli na 1
+						if ($AbsoluteInbetweenValue != 1)
+							{
+							string $zbiorka = ( $targs + " >> " +   $AbsoluteInbetweenValue);
+							textScrollList -e -append $zbiorka inbeetween_ScrollList;
+							}
+					}
+			}
+	}
+}
+}
+
+global proc wybierzBSH()
+{
+global string $bSh;
+string $aa[] = `textScrollList -q -si blendShapy_ScrollList`;
+updatujListeTargetow;
+$bSh = $aa[0];
+optionVar -sv OptVar_default_bSh_sel $aa[0];
+updatuj_liste_Inbetweens;
+}
+
+global proc blendShape_Manager()
+{
+if (`window -exists BLENDszejperUI`) deleteUI BLENDszejperUI;
+window -t "blendShape Manager v0.71" -maximizeButton 0 -iconName "bShMan" -rtf 1 -w 223 BLENDszejperUI;
+formLayout
+	BLENDszejperForm;
+	columnLayout
+		-adj  1
+		-h 300
+		bShaper_A_Layout ;
+				text -l "  BLENDSHAPES" -h 17 -al "left";
+				textScrollList
+						-doubleClickCommand  "generalBlendSzejper rename_bSh"
+						-selectCommand "wybierzBSH"
+						-numberOfRows 8
+						-allowMultiSelection  0
+						-showIndexedItem  1
+					blendShapy_ScrollList;
+				text -l "  TARGETS: " -h 17 -al "left";
+					textScrollList
+						-doubleClickCommand  "generalBlendSzejper selectAllTargets; updatuj_liste_Inbetweens"
+						-selectCommand "generalBlendSzejper ustawVal; updatuj_liste_Inbetweens"
+						-numberOfRows 18
+						-allowMultiSelection  1
+						-showIndexedItem  1
+					targety_ScrollList;
+				text -l "  INBETWEENS: " -h 17 -al "left";
+					textScrollList
+						-doubleClickCommand  "generalInbetween2 selectAllInb"
+						-numberOfRows 12
+						-allowMultiSelection  1
+						-showIndexedItem  1
+					inbeetween_ScrollList;
+// to tworzy poczatkowa selekcje
+			setParent..;
+//updatujListeblendShapow;
+updatujListeblendShapow;
+updatuj_liste_Inbetweens;
+	columnLayout
+		-adj 1
+		-h 300
+		bShaper_Button_A_Layout;
+				button
+					-l "select bSh"
+					-ann "select blendShape node in the scene"
+					-h 17
+					-c "generalBlendSzejper select_bsh"
+					;
+				button
+					-l "load from sel"
+					-ann "highlight blendShape from selected object"
+					-h 17
+					-c "generalBlendSzejper load_from_sel"
+					;
+				button
+					-l "select object"
+					-h 17
+					-ann "select object that has selected blendShape"
+					-c "select -r  (`return_Object_from_bSh`)"
+					;
+				button
+					-l "create new"
+					-ann "create new blendShape"
+					-h 17
+					-c "CreateBlendShape; updatujListeblendShapow"
+					;
+				button
+					-l "delete"
+					-ann "delete blendShape"
+					-h 17
+					-c "generalBlendSzejper del"
+					;
+				button
+					-l "prune "
+					-ann "removes from deformer points that are not affected in current state"
+					-h 17
+					-c "generalBlendSzejper prune"
+					;
+				button
+					-l "rebuild"
+					-ann "not implemented yet"
+					-en 0
+					-h 17
+					;
+		separator -style "none" -h 20 ;
+
+		rowLayout
+			-numberOfColumns 2
+			-columnAttach2 left left
+			-cw2 45 45			;
+				button
+					-l "  >> 0"
+					-ann "sets selected targets values to 0"
+					-h 17
+					-w 45
+					-c "generalBlendSzejper setTargets0"
+					;
+				button
+					-l "  >> 1"
+					-ann "sets selected targets values to 1"
+					-h 17
+					-w 45
+					-c "generalBlendSzejper setTargets1 "
+					;
+		setParent..;
+				button
+					-l " >> 1 / rest 0"
+					-ann "sets selected targets value to 1, all rest targets to 0"
+					-h 17
+					-c "generalBlendSzejper setTargets1r0 "
+					;
+//blendshapy
+				floatSliderGrp
+					-label "  v"
+					-pre 3
+					-s 0.01
+					-field true
+		    			-minValue 0
+		    			-maxValue 1
+		    			-fieldMinValue -10
+		    			-fieldMaxValue 10
+		    			-value 0
+		    			-cw3 15 35 40
+		    			-cc "generalBlendSzejper poleWartosci"
+		    			-dc "generalBlendSzejper suwaczekWartosci"
+		    			-adj 3
+		    			trgSlider
+		    			;
+			separator -h 5 -style "none";
+				button
+					-l "del targets"
+					-ann "delete selected targets"
+					-h 17
+					-c "generalBlendSzejper removeTarget"
+					;
+				button
+					-l "add targets"
+					-ann "add targets from selected objects"
+					-h 17
+					-c "generalBlendSzejper addTarget"
+					;
+				button
+					-l "add current"
+					-ann "duplicate current state of blendShape and add it as a new target"
+					-h 17
+					-c "generalBlendSzejper addTargetCur"
+					;
+//targety
+	separator -h 5 -style "none";
+				button
+					-l "sel input geom"
+					-ann "select object connected to the target"
+					-h 17
+					-c "generalBlendSzejper SelinputGeom"
+					;
+				button -l "dematerialize"
+					-c "dematerializeTarget"
+					-ann "delete object connected to the target"
+					-h 17
+					dematerializeButtone;
+				button -l "materialize" -c "materializeTarget"
+					-ann "reconstruct geometry of the target"
+					-h 17
+					materializeButtone;
+				button
+					-l "substitute"
+					-ann "substitute target object with new, selected object"
+					-h 17
+					-c "generalBlendSzejper podmienGeo"
+					;
+				button
+					-l "rename"
+					-ann "rename target"
+					-h 17
+					-c "generalBlendSzejper rename_targets"
+					;
+				button -l "refresh targets"
+					-ann "refresh list of the targets. Sometimes needed"
+					-h 17
+					-c "updatujListeTargetow "
+					updButtone;
+				button
+					-l "change position"
+					-ann "not implemented yet"
+					-en 0
+					-h 17
+					//-c "updatujListeblendShapow"
+					;
+//inbetweeny
+			separator -style "none" -h 18 ;
+				button
+					-l "del inbetween"
+					-ann "delete inbetween"
+					-en 1
+					-h 17
+					-c "generalInbetween deleteInb"
+					;
+				button
+					-l "go to the value"
+					-ann "set target value to the point where inbetween was added"
+					-en 1
+					-h 17
+					-c "generalInbetween setValue"
+					;
+				button
+					-l "dematerialize"
+					-ann "delete object connected to the inbetween"
+					-en 1
+					-h 17
+					-c "generalInbetween dematerialize"
+					;
+				button
+					-l "materialize"
+					-ann "reconstruct geometry of the inbetween"
+					-en 1
+					-h 17
+					-c "generalInbetween materialize"
+					;
+				button
+					-l "substitute"
+					-ann "substitute inbetween object with new, selected object"
+					-en 1
+					-h 17
+					-c "generalInbetween podmienGeom"
+					;
+				button
+					-l "sel input geom"
+					-ann "select object connected to the inbetween"
+					-h 17
+					-c "generalInbetween2 SelinputGeom"
+					;
+				floatFieldGrp
+					-ann "value for adding and shifting position of inbetween"
+					-label " weight"
+					-pre 3
+		    			-value1 0.5
+		    			-cw 1 40
+		    			-cw 2 40
+		    			InbetSlider
+		    			;
+				button
+					-l "add new"
+					-ann "add new inbetween to the current target at the position taken from the weight field"
+					-h 17
+					-c "generalInbetween2 addInb"
+					;
+				button
+					-l "change pos"
+					-ann "moves selected inbetween to the new position taken from the weight field"
+					-en 1
+					-h 17
+					-c "generalInbetween2 changePosInb"
+					;
+			separator -style "none" -h 8;
+				button
+					-l "print debug"
+					-ann "prints all multi attributes for targets. For checking"
+					-h 17
+					-c "generalInbetween2 debug"
+					;
+
+
+			setParent ..;
+
+		separator -style "in" logobShMan;
+
+		button -h 26 -w 80 -l "Update BlendShapes"
+			-c "updatujListeblendShapow; updatujListeTargetow; updatuj_liste_Inbetweens" updateButton;
+		button -h 26 -w 80 -l "Close"
+			-c "deleteUI BLENDszejperUI" closeButton;
+
+		;
+
+	setParent ..;
+
+formLayout -e
+	-af bShaper_A_Layout 	top 	 5
+	-ac bShaper_A_Layout 	right 	  5 	bShaper_Button_A_Layout
+	-af bShaper_A_Layout 	left 	 5
+	-ac bShaper_A_Layout 	bottom 	5 	logobShMan
+	-af bShaper_Button_A_Layout top 5
+	-af bShaper_Button_A_Layout right 5
+	-an bShaper_Button_A_Layout left
+	-ac bShaper_Button_A_Layout bottom 5 logobShMan
+	-af logobShMan left 0
+	-af logobShMan right 0
+	-ac logobShMan bottom 5 updateButton
+	-an logobShMan top
+	-af updateButton left 5
+	-af updateButton bottom 5
+	-ap updateButton right 3 50
+	-an updateButton top
+	-ap closeButton left 2 50
+	-af closeButton bottom 5
+	-af closeButton right 5
+	-an closeButton top
+	BLENDszejperForm;
+showWindow BLENDszejperUI;
+}

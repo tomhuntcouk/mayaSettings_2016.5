@@ -1,0 +1,65 @@
+import pymel.all as pm
+import os
+from glob import glob
+
+def __create_shelf_frame( shelf_file, shelf_name, layout ) :
+	shelf_function = os.path.basename( shelf_file ).replace( '.mel', '' )	
+	shelf_frame = pm.frameLayout( label=shelf_name, collapsable=True, p=layout )			
+	shelf_layout = pm.gridLayout( ag=True, nc=8 )
+	pm.mel.eval( 'source "%s"' % ( shelf_file ) )
+	pm.mel.eval( '%s()' % ( shelf_function ) )
+	
+	return shelf_frame
+
+def __load_shelves( layout ) :
+	children = layout.getChildArray()
+	if children :
+		for child in children :
+			pm.deleteUI( child )
+
+	shelves_path = pm.internalVar( userShelfDir=True )
+	shelf_frames = []
+	shelves = glob( shelves_path + '/shelf*.mel' )
+	for i in range( 1, len( shelves ) + 1 ) :				
+		# shelf_file = shelves[i-1]
+		# shelf_name = os.path.basename(shelves[i-1]).replace( 'shelf_', '' )
+		shelf_file = pm.Env.optionVars.get( 'shelfFile%s' % i )	
+		shelf_file = os.path.join( shelves_path, '%s.mel' % shelf_file )
+		shelf_name = pm.Env.optionVars.get( 'shelfName%s' % i )
+		shelf_frames.append( __create_shelf_frame( shelf_file, shelf_name, layout ) )
+	layout.redistribute( *[0] * len( shelf_frames ) )
+	for shelf_frame in shelf_frames :
+		shelf_frame.setCollapse( True )
+
+	return shelf_frames
+
+
+def create( layout ) :
+	print 'Creating shelves'
+	container = pm.verticalLayout( p=layout )
+	scroll_layout = pm.scrollLayout( p=container )
+	top_layout = pm.verticalLayout( p=scroll_layout )
+	bottom_layout = pm.verticalLayout( p=container )
+
+	shelf_frames = __load_shelves( top_layout )
+	pm.button(
+		label='Refresh Shelves', 
+		c=lambda x : __load_shelves( top_layout ),
+		p=bottom_layout
+	)
+	pm.button(
+		label='Edit Shelves',
+		c=lambda x : pm.mel.eval( 'ShelfPreferencesWindow' ), 
+		p=bottom_layout
+	)	
+
+	bottom_layout.redistribute()
+	container.redistribute( 12, 1 )
+
+
+
+
+
+	
+
+

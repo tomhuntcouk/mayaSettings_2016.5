@@ -1,0 +1,22 @@
+global proc toggleAttrToolChannel()
+{
+	if (`isUIComponentVisible("Attribute Editor")`)
+	{
+		ToggleAttributeEditor();
+		ToggleChannelsLayers();	
+	}else{
+		if (`isUIComponentVisible("Channel Box / Layer Editor")`)
+		{
+			ToggleChannelsLayers();
+			ToggleToolSettings();
+		}else{
+			if (`isUIComponentVisible("Tool Settings")`)
+			{
+				ToggleAttributeEditor();
+				ToggleToolSettings();
+			}else{
+				ToggleAttributeEditor();
+			}
+		}
+	}
+}

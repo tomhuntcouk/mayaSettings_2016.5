@@ -1,0 +1,33 @@
+global proc toggleThumbnailUpdate()
+{
+	if(`renderThumbnailUpdate -q` == 0 )
+	{
+		renderThumbnailUpdate true;
+		print "Update ON";
+	}
+	else if (`renderThumbnailUpdate -q` == 1 )
+	{
+		renderThumbnailUpdate false;
+		print "Update OFF";
+	}
+}
+
+proc createThumbnailUpdateMenuItem()
+{
+	global string $gMainDisplayMenu;
+	string $menuItem[] = `menu -q -ia $gMainDisplayMenu`;
+	if(stringArrayCount("toggleThumbnailUpdateMenuItem", $menuItem)==0)
+	{
+		
+		setParent -menu $gMainDisplayMenu;
+		menuItem -divider true;
+		menuItem 
+			-label "Toggle Thumbnail Update"
+			-annotation "Toggle Hypershade Material thumbnail update"
+			-command ("toggleThumbnailUpdate()")
+			toggleThumbnailUpdateMenuItem;
+		setParent -m ..;
+	}
+}
+
+createThumbnailUpdateMenuItem();

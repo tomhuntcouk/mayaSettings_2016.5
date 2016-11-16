@@ -1,0 +1,25 @@
+import pymel.all as pm
+
+sel = pm.ls(sl=True)
+obj = sel[0]
+crv = sel[1]
+
+divisions = 40
+maxparam = crv.findParamFromLength( crv.length() )
+paramstep = maxparam / divisions
+
+for i in range(divisions + 1) :
+    param = i * paramstep
+    print param
+    try :
+        p = crv.getPointAtParam(param, space='world')
+        p /= 100
+    except :
+        print param
+        continue
+
+    dup = obj.duplicate()[0]
+    dup.setTranslation(p, space='world')
+
+    
+pm.select(sel)

@@ -1,0 +1,1 @@
+string $objects[] = `ls -selection`;for($object in $objects){	$sdk = `group -n ($object+"_SDK") $object`;	group -n ($object+"_ZERO") $sdk;}

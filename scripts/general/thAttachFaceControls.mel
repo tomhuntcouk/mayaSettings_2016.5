@@ -1,0 +1,192 @@
+/**************************************
+		
+	for ($object in listOfInfluences)
+		get the asscoiated blendshape node using connectionInfo ($object+"Shape.worldMesh[0]")
+		create 4 remapColour nodes and multDiv nodes
+		set curves for remapColours
+		
+		connect outputX of multdiv to blendshape weights
+		
+	clear influence texboxes
+	
+	
+	
+	
+	ISSUES
+	
+	UI needs to be lists instead of textboxes
+
+***************************************/
+
+
+global proc addObjectToField(string $field)
+{
+	string $sel[] = `ls -sl`;
+	$obj = stringArrayToString($sel, "||");
+	
+	$currentText = `textFieldButtonGrp -q -text $field`;
+	
+	if ($currentText == "")
+		textFieldButtonGrp -e -text $obj $field;
+	else
+		textFieldButtonGrp -e -text ($currentText+"||"+$obj) $field;
+
+}
+
+global proc setUpRemapColor(string $rcNode, int $r[], int $g[], int $b[])
+{
+		setAttr ($rcNode+".red[0].red_FloatValue") $r[0];
+		setAttr ($rcNode+".red[0].red_Position") 0.0;
+		setAttr ($rcNode+".red[0].red_Interp") 1;
+		
+		setAttr ($rcNode+".red[1].red_FloatValue") $r[1];
+		setAttr ($rcNode+".red[1].red_Position") 0.5;
+		setAttr ($rcNode+".red[1].red_Interp") 1;
+		
+		setAttr ($rcNode+".red[2].red_FloatValue") $r[2];
+		setAttr ($rcNode+".red[2].red_Position") 1.0;
+		setAttr ($rcNode+".red[2].red_Interp") 1;
+		
+		
+		setAttr ($rcNode+".green[0].green_FloatValue") $g[0];
+		setAttr ($rcNode+".green[0].green_Position") 0.0;
+		setAttr ($rcNode+".green[0].green_Interp") 1;
+		
+		setAttr ($rcNode+".green[1].green_FloatValue") $g[1];
+		setAttr ($rcNode+".green[1].green_Position") 0.5;
+		setAttr ($rcNode+".green[1].green_Interp") 1;
+		
+		setAttr ($rcNode+".green[2].green_FloatValue") $g[2];
+		setAttr ($rcNode+".green[2].green_Position") 1.0;
+		setAttr ($rcNode+".green[2].green_Interp") 1;
+		
+		
+		setAttr ($rcNode+".blue[0].blue_FloatValue") $b[0];
+		setAttr ($rcNode+".blue[0].blue_Position") 0.0;
+		setAttr ($rcNode+".blue[0].blue_Interp") 1;
+		
+		setAttr ($rcNode+".blue[1].blue_FloatValue") $b[1];
+		setAttr ($rcNode+".blue[1].blue_Position") 0.5;
+		setAttr ($rcNode+".blue[1].blue_Interp") 1;
+		
+		setAttr ($rcNode+".blue[2].blue_FloatValue") $b[2];
+		setAttr ($rcNode+".blue[2].blue_Position") 1.0;
+		setAttr ($rcNode+".blue[2].blue_Interp") 1;
+		
+}
+
+global proc connectToBlendShapes(string $control, string $blendshapes[], int $position)
+{
+	for ($x = 0; $x < size($blendshapes); ++$x)
+	{
+		// get influence's blendshape Node
+		
+		string $ci[] = `connectionInfo -dfs ($blendshapes[$x]+"Shape.worldMesh")`;
+		$bsNode = `match "^[A-Za-z_0-9]+" $ci[0]`;
+		
+		print ($bsNode+"\n");
+		
+		// create remapColor node and set up curves for quadrant of control
+		
+		$remapCol = `createNode remapColor -n ($bsNode+"_"+$blendshapes[$x]+"_remapColour")`;
+		
+		setAttr ($remapCol+".imn") -1;
+		setAttr ($remapCol+".imx") 1;
+		
+		switch($position) // 1: tl, 2: tr, 3: bl, 4: br
+		{
+			case 1:
+			 	setUpRemapColor($remapCol, {1, 1, 0}, {0, 0, 1}, {0, 1, 1});
+				break;
+			case 2:
+				setUpRemapColor($remapCol, {0, 1, 1}, {0, 0, 1}, {0, 1, 1});
+				break;
+			case 3:
+				setUpRemapColor($remapCol, {1, 1, 0}, {1, 0, 0}, {0, 1, 1});
+				break;
+			case 4:
+				setUpRemapColor($remapCol, {0, 1, 1}, {1, 0, 0}, {0, 1, 1});
+				break;
+		}
+		
+		// create multDiv node
+		
+		$multdiv = `createNode multiplyDivide -n ($bsNode+"_"+$blendshapes[$x]+"_multdiv")`;
+		
+		// connect control position to remapColor
+		// connect outR and outG to i1X and i2X
+		
+		connectAttr -f ($control+".translate") ($remapCol+".color");
+		connectAttr -f ($remapCol+".ocr") ($multdiv+".i1x");
+		connectAttr -f ($remapCol+".ocg") ($multdiv+".i2x");
+		
+		// connect outX of multdiv to blendshape weight
+
+		connectAttr -f ($multdiv+".ox") ($bsNode+"."+$blendshapes[$x]);
+	}
+}
+
+global proc attachControls4()
+{
+
+	// turn strings of influences from textboxes into arrays
+
+	$control = `textFieldButtonGrp -q -text controlFieldGrp`;
+	
+	string $tl = `textFieldButtonGrp -q -text topLeftFieldGrp`;
+	string $tr = `textFieldButtonGrp -q -text topRightFieldGrp`;
+	string $bl = `textFieldButtonGrp -q -text bottomLeftFieldGrp`;
+	string $br = `textFieldButtonGrp -q -text bottomRightFieldGrp`;
+	
+	string $tlBS[] = stringToStringArray($tl, "||");
+	$tlBS = stringArrayRemoveDuplicates($tlBS);
+	string $trBS[] = stringToStringArray($tr, "||");
+	$trBS = stringArrayRemoveDuplicates($trBS);
+	string $blBS[] = stringToStringArray($bl, "||");
+	$blBS = stringArrayRemoveDuplicates($blBS);
+	string $brBS[] = stringToStringArray($br, "||");
+	$brBS = stringArrayRemoveDuplicates($brBS);
+	
+	// 1: tl, 2: tr, 3: bl, 4: br
+	
+	connectToBlendShapes($control, $tlBS, 1);
+	connectToBlendShapes($control, $trBS, 2);
+	connectToBlendShapes($control, $blBS, 3);
+	connectToBlendShapes($control, $brBS, 4);
+	
+	deleteUI thAFCWindow;
+	thAttachFaceControls();
+	
+}
+
+global proc thAttachFaceControls()
+{
+	// create UI
+
+	if (`window -exists thAFCWindow` == false)
+	{
+	
+		window -title "thAttachFaceControls" -widthHeight 500 300 -s false thAFCWindow;
+		columnLayout -adjustableColumn true C;
+		
+		separator -h 20 -style "none";
+		
+		textFieldButtonGrp -cw 1 70 -cal 1 left -l "topLeft" -buttonLabel "<<" -buttonCommand "addObjectToField(\"topLeftFieldGrp\")" topLeftFieldGrp;
+		textFieldButtonGrp -cw 1 70 -cal 1 left -l "topRight" -buttonLabel "<<" -buttonCommand "addObjectToField(\"topRightFieldGrp\")" topRightFieldGrp;
+		textFieldButtonGrp -cw 1 70 -cal 1 left -l "bottomLeft" -buttonLabel "<<" -buttonCommand "addObjectToField(\"bottomLeftFieldGrp\")" bottomLeftFieldGrp;
+		textFieldButtonGrp -cw 1 70 -cal 1 left -l "bottomRight" -buttonLabel "<<" -buttonCommand "addObjectToField(\"bottomRightFieldGrp\")" bottomRightFieldGrp;
+	
+	
+		separator -h 20 -style "none";
+		
+		textFieldButtonGrp -cw 1 70 -cal 1 left -l "control" -buttonLabel "<<" -buttonCommand "addObjectToField(\"controlFieldGrp\")" controlFieldGrp;
+	
+		separator -h 20 -style "none";
+		
+		button -l "Attach Controls" -command "attachControls4()";
+		
+			
+		showWindow thAFCWindow;
+	}
+}
+

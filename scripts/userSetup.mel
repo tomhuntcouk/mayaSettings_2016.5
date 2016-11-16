@@ -1,0 +1,20 @@
+//buildDeferredMenus();
+
+source "toggleThumbnailUpdate.mel";
+source "cometMenu.mel";
+
+// force load of userhotkeys
+// source userHotkeys;
+
+
+OutlinerWindow; dockControl -area "left" 
+-content outlinerPanel1Window 
+-label "Outliner" 
+-allowedArea "left" 
+-allowedArea "right" 
+-width 250;
+
+
+
+
+print "\n----userSetup loaded----\n";

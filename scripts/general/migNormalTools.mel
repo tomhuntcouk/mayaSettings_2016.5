@@ -1,0 +1,604 @@
+
+/********************************************\
+   migNormalTools
+   ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+   Version    0.1
+   Author     Mika Göös
+   Updated    14.07.2005
+
+   Documentation at
+   http://migugi.net/normalTools/
+
+\********************************************/
+
+
+
+global proc migNormalTools() {
+
+
+//	if(`windowPref -exists bulgeWindow`)
+//		windowPref -remove bulgeWindow;
+//	if(`windowPref -exists randomizeWindow`)
+//		windowPref -remove randomizeWindow;
+//	if(`windowPref -exists typeInWindow`)
+//		windowPref -remove typeInWindow;
+//	if(`windowPref -exists normalToolsWindow`)
+//		windowPref -remove normalToolsWindow;
+
+
+	if(`menu -exists normalToolsMenu`)
+		deleteUI -menu normalToolsMenu;
+
+	global string $gMainWindow;
+	setParent $gMainWindow;
+
+	menu -l "Normal Tools"
+		 -p $gMainWindow
+		 -to true
+		 normalToolsMenu;
+
+		menuItem -l "Normal Tools UI"         -c "migNormalToolsUI";
+		menuItem -l "Type-in Dialog"          -c "migNormalTypeIn";
+		menuItem -divider true;
+		menuItem -l "Toggle Vertex Normals"   -c "migNormalToggleNormals(0)";
+		menuItem -l "Toggle Face Normals"     -c "migNormalToggleNormals(1)";
+		menuItem -divider true;
+		menuItem -l "Fillet Inside"           -c "migNormalFillet(1)";
+		menuItem -l "Fillet Outside"          -c "migNormalFillet(0)";
+		menuItem -divider true;
+		menuItem -l "Bulge Faces"             -c "migNormalBulge";
+		menuItem -l "Randomize Normals"       -c "migNormalRandomize";
+		menuItem -divider true;
+		menuItem -l "Select Locked"           -c "migNormalSelectLocked(1)";
+		menuItem -l "Select Unlocked"         -c "migNormalSelectLocked(0)";
+
+	hotBox -um;
+}
+
+global proc migNormalToolsUI() {
+
+	if(`window -exists normalToolsWindow`) {
+		deleteUI -window normalToolsWindow;
+		return;
+	}
+
+	if(!`uiTemplate -exists baseTemplate`)
+		uiTemplate baseTemplate;
+
+
+    // ----------------  Templates  ---------------------------------------------
+	frameLayout			-defineTemplate baseTemplate
+						-w 123 -lv false -mw 2 -mh 2 -bs "in" -bgc 0 0 0;
+	columnLayout		-defineTemplate baseTemplate
+						-cal "center" -cat "both" 0 -rs 2 -cw 114 -bgc 0 0 0;
+	rowColumnLayout		-defineTemplate baseTemplate
+						-numberOfColumns 2 -cw 1 57 -cw 2 57;
+	text				-defineTemplate baseTemplate
+						-font "boldLabelFont" -al "center" -w 120;
+	separator			-defineTemplate baseTemplate
+						-st "none" -h 5 -w 120;
+    // --------------------------------------------------------------------------
+
+
+	window -title "Normal Tools"
+	       -sizeable false
+	       -wh 130 462
+	       normalToolsWindow;
+
+		setUITemplate -pushTemplate baseTemplate;
+		columnLayout -ut NONE;
+
+			frameLayout;
+				columnLayout;
+					button -l "Type-in Dialog"		-c "migNormalTypeIn";
+					setParent ..;
+				setParent ..;
+
+			separator;
+
+			text -l "Normal Display";
+			frameLayout;
+				columnLayout;
+					rowColumnLayout;
+						button -l "Vertex"			-c "migNormalToggleNormals(0)";
+						button -l "Face"			-c "migNormalToggleNormals(1)";
+						setParent ..;
+					rowColumnLayout;
+						button -l "Grow"			-c "migNormalSize(1)";
+						button -l "Shrink"			-c "migNormalSize(0)";
+						setParent ..;
+					setParent ..;
+				setParent ..;
+
+			separator;
+
+			text -l "Maya´s default";
+			frameLayout;
+				columnLayout;
+					button -l "Normal Edit Tool"	-c "PolygonNormalEditTool";
+					rowColumnLayout;
+						button -l "Average"			-c "polyAverageNormal";
+						button -l "to Face"			-c "polySetToFaceNormal -setUserNormal";
+						setParent ..;
+					rowColumnLayout;
+						button -l "Reverse"			-c "polyNormal -nm 3 -ch 1";
+						button -l "Conform"			-c "polyNormal -nm 2 -ch 1";
+						setParent ..;
+					setParent ..;
+				setParent ..;
+
+			separator;
+
+			text -l "Fillet";
+			frameLayout;
+				columnLayout;
+					rowColumnLayout;
+						button -l "Inside"			-c "migNormalFillet(1)";
+						button -l "Outside"			-c "migNormalFillet(0)";
+						setParent ..;
+					setParent ..;
+				setParent ..;
+
+			separator;
+
+			text -l "Select Vertices";
+			frameLayout;
+				columnLayout;
+					rowColumnLayout;
+						button -l "Locked"			-c "migNormalSelectLocked(1)";
+						button -l "Unlocked"		-c "migNormalSelectLocked(0)";
+						setParent ..;
+					button -l "Convert to VtxFaces"	-c "select -r `polyListComponentConversion -tvf`";
+					setParent ..;
+				setParent ..;
+
+			separator;
+
+			text -l "Other";
+			frameLayout;
+				columnLayout;
+					button -l "Bulge"				-c "migNormalBulge()";
+					button -l "Randomize"			-c "migNormalRandomize()";
+					setParent ..;
+				setParent ..;
+
+		setUITemplate -popTemplate;
+	showWindow normalToolsWindow;
+}
+
+
+// ====================================================================
+//                       FILLET INSIDE/OUTSIDE
+//
+global proc migNormalFillet(int $filletInside)
+{
+	$startTime = `timerX`;
+
+	string $Fs[] = `filterExpand -sm 34`;
+	if(size($Fs) < 1)
+		error "Select at least one face!";
+
+	string $faceList = "";
+	for($F in $Fs)
+		$faceList += `match "\[[0-9]+\]" $F`;
+	print $faceList;
+
+	string $Vs[] = `polyListComponentConversion -tv -bo $Fs`;
+	$Vs = `filterExpand -sm 31 $Vs`;
+	for($V in $Vs) {
+
+		string $doFilletVFs[];
+		clear  $doFilletVFs;
+		string $dontFilletVF = "";
+
+		string $VFs[] = `polyListComponentConversion -tvf $V`;
+		for($VF in `filterExpand -sm 70 $VFs`) {
+
+			string $VF_Face[]  =`polyListComponentConversion -tf $VF`;
+			string $VF_FaceNum = `match "\[[0-9]+\]" $VF_Face[0]`;
+			       $VF_FaceNum = `substitute "\]" $VF_FaceNum "\\]"`;
+			       $VF_FaceNum = "\\"+$VF_FaceNum;
+
+			$isSelected = (`match $VF_FaceNum $faceList` != "");
+			if(!$filletInside) $isSelected = !$isSelected;
+
+			if( $isSelected )
+				$doFilletVFs[size($doFilletVFs)] = $VF;
+			else
+				$dontFilletVF = $VF;
+		}
+
+		if($dontFilletVF != "") {
+			vector $N = `polyNormalPerVertex -q -xyz $dontFilletVF`;
+			for($VF in $doFilletVFs)
+				polyNormalPerVertex -xyz ($N.x) ($N.y) ($N.z) $VF;
+		}
+	}
+	print (size($Vs)+" border vertices filleted in "+`timerX -startTime $startTime`+" seconds.\n");
+}
+
+
+
+// ====================================================================
+//                    SELECT LOCKED/UNLOCKED
+//
+global proc migNormalSelectLocked(int $selectLocked) {
+
+	$Ps = `filterExpand -sm 12`;
+	if(size($Ps) < 1)
+		error "Select at least one poly object!";
+
+	int $numSelected = 0;
+
+	for($P in $Ps) {
+
+		int $numVs[] = `polyEvaluate -v $P`;
+		int $i;
+		for($i=0; $i<$numVs[0]; $i++) {
+			string $VtxName = ($P+".vtx["+$i+"]");
+			int $isLocked[] = `polyNormalPerVertex -q -al $VtxName`;
+
+			if(!$selectLocked) $isLocked[0] = !$isLocked[0];
+
+			if($isLocked[0]) {
+				select -add $VtxName;
+				$numSelected++;
+			}
+		}
+	}
+	print ($numSelected+" " +  ($selectLocked?"":"un")  + "locked vertices selected.\n");
+}
+
+
+
+// ====================================================================
+//                       TOGGLE FACE/VERTEX NORMALS
+//
+global proc migNormalToggleNormals(int $toggleFace) {
+
+	int $b[] = `polyOptions -q -f`;    int $isFace = $b[0];
+	    $b   = `polyOptions -q -pt`;   int $isVtx  = $b[0];
+	    $b   = `polyOptions -q -pf`;   if($b[0])  $isVtx = $isFace = 1;
+	    $b   = `polyOptions -q -dn`;   if(!$b[0]) $isVtx = $isFace = 0;
+
+	if($toggleFace) $isFace = !$isFace;
+	else            $isVtx  = !$isVtx;
+
+	if($isFace && $isVtx) polyOptions -pf -dn 1;
+	else if($isFace)      polyOptions -f  -dn 1;
+	else if($isVtx)       polyOptions -pt -dn 1;
+	else                  polyOptions -dn 0;
+}
+// ====================================================================
+//                     CHANGE NORMAL DISPLAY SIZE
+//
+global proc migNormalSize(int $grow)
+{
+	float $coeff = 1.5;
+	float $s[] = `polyOptions -q -sn`;
+
+	if($grow) $s[0] *= $coeff;
+	else      $s[0] /= $coeff;
+
+	polyOptions -sn $s[0];
+}
+
+
+
+// ====================================================================
+//                       BULGE FACES -DIALOG
+//
+global proc migNormalBulge()
+{
+	if(`window -exists bulgeWindow`) {
+		deleteUI -window bulgeWindow;
+		return;
+	}
+
+	window -title "Bulge Faces"
+	       -sizeable false
+	       -wh 268 93
+	       bulgeWindow;
+
+		columnLayout;
+
+			rowColumnLayout -numberOfColumns 2
+			          -cw 1 60     -co 1 "left" 5
+					  -cw 2 200;
+				text -l "Amount:" -fn "boldLabelFont" -w 45 bulgeAmountText;
+				floatSliderGrp -field true -min -1.0 -max 1.0 -v 0.0 -cw 1 40 bulgeSldr;
+				setParent ..;
+
+			separator -h 5 -st "none";
+
+			frameLayout -w 260 -h 40 -lv false -mw 13 -mh 7 -bs "in" -bgc 0.0 0.06 0.1;
+				rowColumnLayout -numberOfColumns 2 -bgc 0.0 0.06 0.1 -w 200
+				          -cw 1 100  -cs 1 10  -cal 1 "center"
+				          -cw 2 100  -cs 2 10  -cal 2 "center";
+					button -l "Bulge" -c "migNormalBulgeSelection()";
+					button -l "Close" -c "deleteUI -window bulgeWindow";
+
+	showWindow bulgeWindow;
+}
+global proc migNormalBulgeSelection() {
+
+	string $Fs[] = `filterExpand -sm 34`;
+	if(size($Fs) < 1)
+		error "Select at least one face!";
+
+
+	float $amount = `floatSliderGrp -q -v bulgeSldr`;
+	int   $sign   = sign($amount);
+	      $amount = abs($amount);
+
+	if($amount == 0) {
+		print "0 faces bulged (Amount == 0).\n";
+		return;
+	}
+
+	int $j;
+	for($j=0; $j<size($Fs); $j++)
+	{
+		if($j % 10 == 9)
+			text -e -l ("  "+($j*100/size($Fs))+"%") bulgeAmountText;
+
+		float $vPos[] = `xform -q -t $Fs[$j]`;
+		int   $numVs  = (int)(size($vPos) / 3);
+
+		vector $center = <<0,0,0>>;
+		int $i;
+		for($i=0; $i<$numVs; $i++)
+			$center += <<$vPos[$i*3],  $vPos[$i*3+1],  $vPos[$i*3+2]>>;
+
+		$center /= $numVs;
+
+		string $VFs[] = `polyListComponentConversion -tvf $Fs[$j]`;
+		$VFs = `filterExpand -sm 70 $VFs`;
+		for($VF in $VFs) {
+
+			vector $vfPos = `xform -q -t $VF`;
+
+			vector $current = `polyNormalPerVertex -q -xyz $VF`;
+			vector $extreme = ($vfPos - $center) * $sign;
+			$extreme /= mag($extreme);
+
+			vector $N = $current*(1-$amount) + $extreme*$amount;
+			polyNormalPerVertex -xyz ($N.x) ($N.y) ($N.z) $VF;
+		}
+	}
+
+	text -e -l "Amount:" bulgeAmountText;
+	print (size($Fs)+" faces bulged.\n");
+}
+
+
+// ====================================================================
+//                     RANDOMIZE FACES -DIALOG
+//
+global proc migNormalRandomize()
+{
+	if(`window -exists randomizeWindow`) {
+		deleteUI -window randomizeWindow;
+		return;
+	}
+
+	window -title "Randomize Normals"
+	       -sizeable false
+	       -wh 268 93
+	       randomizeWindow;
+
+		columnLayout;
+
+			rowColumnLayout -numberOfColumns 2
+			          -cw 1 60     -co 1 "left" 5
+					  -cw 2 200;
+				text -l "Amount:" -fn "boldLabelFont" -w 45 amountText;
+				floatSliderGrp -field true -min 0.0 -max 1.0 -v 0.0 -cw 1 40 randomizeSldr;
+				setParent ..;
+
+			separator -h 5 -st "none";
+
+			frameLayout -w 260 -h 40 -lv false -mw 13 -mh 7 -bs "in" -bgc 0.0 0.06 0.1;
+				rowColumnLayout -numberOfColumns 2 -bgc 0.0 0.06 0.1 -w 200
+				          -cw 1 100  -cs 1 10  -cal 1 "center"
+				          -cw 2 100  -cs 2 10  -cal 2 "center";
+					button -l "Apply" -c "migNormalRandomizeSelection()";
+					button -l "Close" -c "deleteUI -window randomizeWindow";
+
+	showWindow randomizeWindow;
+}
+global proc migNormalRandomizeSelection() {
+
+	string $elements[] = `filterExpand -sm 31`;
+	string $type = "vertex";
+
+	if(size($elements) < 1) {
+
+		$elements = `filterExpand -sm 70`;
+		string $type = "vtx-face";
+
+		if(size($elements) < 1)
+			error "Select at least one vertex or a vtx-face!";
+	}
+
+	float $amount = `floatSliderGrp -q -v randomizeSldr`;
+	int $count = size($elements);
+	int $i;
+	for($i=0; $i<$count; $i++) {
+
+		if($i % 50 == 49)
+			text -e -l ("  "+($i*100/$count+1)+"%") amountText;
+
+		float $N[] = `polyNormalPerVertex -q -xyz $elements[$i]`;
+		vector $random = sphrand ($amount/1.001);
+		vector $new = << $N[0]+$random.x, $N[1]+$random.y, $N[2]+$random.z >>;
+		normalize $new;
+		polyNormalPerVertex -xyz ($new.x) ($new.y) ($new.z) $elements[$i];
+	}
+	text -e -l "Amount:" amountText;
+	print ($count + " " + $type + " normals randomized\n");
+}
+
+
+
+
+// ====================================================================
+//                       FIX CORRUPTED FACE NORMALS
+//
+//  This one is not documented. It tries to fix a problem which occurs
+//  when freezing transformations on a object that has negative scale
+//  on one of its axes. The resulting object is then rendered black
+//  because vertex normals and face normals are facing opposite di-
+//  rections causing shading calculation problems.
+//
+global proc migNormalFixCorruptedFaceNormals()
+{
+	string $Ps[] = `filterExpand -sm 12 (eval ("ls -sl"))`;
+
+	if(size($Ps) < 1)
+		error "Select at least one poly object!";
+
+	for($P in $Ps)
+	{
+		makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 $P;
+
+		scale -p 0 0 0 1 1 -1 $P;
+
+		int $numFs[] = `polyEvaluate -f $P`;
+		polyMirrorFace -p 0 0 0 -ws 1 -d 4 $P;
+		delete ($P + ".f[0:" + ($numFs[0]-1) + "]");
+
+		makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+	}
+
+	print (size($Ps)+" objects were processed.\n");
+}
+
+
+// ====================================================================
+//                       NORMAL TYPE-IN DIALOG
+//
+global proc migNormalTypeIn()
+{
+	if(`window -exists typeInWindow`) {
+		deleteUI -window typeInWindow;
+		return;
+	}
+
+	window -title "Set Normals"
+	       -sizeable false
+	       -wh 230 185
+	       typeInWindow;
+
+		columnLayout -cal "center";
+
+			text -l "Specify Plane Normal" -w 230 -al "center" -fn "boldLabelFont";
+			rowColumnLayout -numberOfColumns 3
+			                -cw 1 67  -cs 1 5  -cal 1 "center"
+			                -cw 2 67  -cs 2 5  -cal 2 "center"
+			                -cw 3 67  -cs 3 5  -cal 3 "center";
+				floatField -v 0.0 normalX;
+				floatField -v 0.0 normalY;
+				floatField -v 0.0 normalZ;
+				button -l "X" 						-c "migNormalTypeIn_setPlane( {1,0,0} )";
+				button -l "Y" 						-c "migNormalTypeIn_setPlane( {0,1,0} )";
+				button -l "Z" 						-c "migNormalTypeIn_setPlane( {0,0,1} )";
+				setParent ..;
+
+			separator -w 230 -h 10 -st "double";
+
+			text -l "Get Normal from..." -w 230 -al "center" -fn "boldLabelFont";
+			rowColumnLayout -numberOfColumns 2
+			                -cw 1 103  -cs 1 5  -cal 1 "center"
+			                -cw 2 103  -cs 2 5  -cal 2 "center";
+
+				button -l "Selected Vertex" 		-c "migNormalTypeIn_getFromVtx()";
+				button -l "Selected Face"   		-c "migNormalTypeIn_getFromFace()";
+				setParent ..;
+
+			separator -h 5 -st "none";
+
+			frameLayout -w 221 -h 45 -lv false -mw 3 -mh 7 -bs "in" -bgc 0.0 0.06 0.1;
+				rowColumnLayout -numberOfColumns 2 -bgc 0.0 0.06 0.1 -w 200
+				          -cw 1 90  -cs 1 10  -cal 1 "center"
+				          -cw 2 90  -cs 2 10  -cal 2 "center";
+
+					button -l "Planarize"     -h 26 -c "migNormalTypeIn_planarize(migNormalTypeIn_getPlane())";
+					button -l "Set to Normal" -h 26 -c "migNormalTypeIn_setNormal(migNormalTypeIn_getPlane())";
+
+	showWindow typeInWindow;
+}
+
+global proc migNormalTypeIn_setNormal(float $plane[]) {
+	polyNormalPerVertex -xyz $plane[0] $plane[1] $plane[2];
+}
+global proc migNormalTypeIn_planarize(float $plane[])
+{
+	string $Vs[]  = `filterExpand -sm 31`;
+	string $VFs[] = `filterExpand -sm 70`;
+	if(size($Vs) < 1 && size($VFs) < 1)
+		error "Select at least one vertex!";
+
+	int $numProcessed = size($VFs);
+	for($VF in $VFs)
+		migNormalTypeIn_planarizeVF($VF, $plane);
+
+	$VFs = `polyListComponentConversion -tvf $Vs`;
+	$VFs = `filterExpand -sm 70 $VFs`;
+
+	$numProcessed += size($VFs);
+	for($VF in $VFs)
+		migNormalTypeIn_planarizeVF($VF, $plane);
+
+	print ($numProcessed+" vtx-faces planarized.\n");
+}
+global proc migNormalTypeIn_planarizeVF(string $VF, float $plane[])
+{
+	float $N[] = `polyNormalPerVertex -q -xyz $VF`;
+	$N = crossProduct($plane, crossProduct($N, $plane, 0, 0), 0, 0);
+	if(normalize($N))
+		polyNormalPerVertex -xyz $N[0] $N[1] $N[2]  $VF;
+}
+
+global proc migNormalTypeIn_getFromFace() {
+
+	string $normals[] = `polyInfo -faceNormals`;
+	string $buffer[];
+	tokenize $normals[0] $buffer;
+
+	if (size($buffer) < 5) {
+		warning "Select a face!";
+		return;
+	}
+
+	float $plane[3];
+	$plane[0] = $buffer[2];
+	$plane[1] = $buffer[3];
+	$plane[2] = $buffer[4];
+	migNormalTypeIn_setPlane($plane);
+}
+global proc migNormalTypeIn_getFromVtx() {
+
+	string $Vs[] = `filterExpand -sm 31`;
+	if(size($Vs) < 1) {
+		$Vs = `filterExpand -sm 70`;
+		if(size($Vs) < 1) {
+			warning "Select a vertex!";
+			return;
+		}
+	}
+	float $normals[] = `polyNormalPerVertex -q -xyz $Vs[0]`;
+	migNormalTypeIn_setPlane( {$normals[0], $normals[1], $normals[2]} );
+}
+global proc migNormalTypeIn_setPlane(float $plane[]) {
+	floatField -e -v $plane[0] normalX;
+	floatField -e -v $plane[1] normalY;
+	floatField -e -v $plane[2] normalZ;
+}
+global proc float[] migNormalTypeIn_getPlane() {
+	float $plane[3];
+	$plane[0] = `floatField -q -v normalX`;
+	$plane[1] = `floatField -q -v normalY`;
+	$plane[2] = `floatField -q -v normalZ`;
+	return $plane;
+}

@@ -1,0 +1,1 @@
+string $objects[] = `ls -selection`;string $toCopy = $objects[0];print $toCopy;for($object in $objects){	polyTransfer -v 0 -vc 0 -uv 1 -ao $toCopy $object;}

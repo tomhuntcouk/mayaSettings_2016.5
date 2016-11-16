@@ -1,0 +1,61 @@
+global proc string[] zooUtilsReverseArray( string $array[] ){
+    string $reversedArray[];
+    int $arraySize = `size $array`;
+
+    for( $n = 0; $n < $arraySize; $n++ ) $reversedArray[( $arraySize - 1 - $n )] = $array[$n];
+    return $reversedArray;
+}
+
+global proc averageVertexWeights()
+{
+	waitCursor -state on;
+	
+    string $selOrdered[];
+    clear( $selOrdered );    
+    string $sl[] = `ls -sl -fl`;
+
+    if( size( $sl ) < 3 )
+    {
+        warning( "Please select three vertices." );
+        return;
+    }
+
+    for( $i = 1; $i < size($sl); $i++ )
+    {
+        string $tmpSel[] = `ls -sl -fl`;
+        $selOrdered = stringArrayCatenate( $selOrdered, $tmpSel );
+        undo;
+    }
+
+    $selOrdered = zooUtilsReverseArray( $selOrdered );
+    $selOrdered = stringArrayRemoveDuplicates($selOrdered);
+
+    string $i1 = $selOrdered[0];
+    string $i2 = $selOrdered[1];
+    string $o = $selOrdered[2];
+
+    select $o;
+
+    string $rels[] = `listRelatives -p $o`;
+    string $skin = `findRelatedSkinCluster $rels[0]`;
+
+    string $trans[] = `skinPercent -q -t $skin $i1`;
+	$trans = stringArrayCatenate( $trans, `skinPercent -q -t $skin $i2` );
+	$trans = stringArrayRemoveDuplicates( $trans );
+	
+    for( $i = 0; $i < size($trans); $i++ )
+    {
+
+		float $w1 = `skinPercent -t $trans[$i] -q -v $skin $i1`;
+        float $w2 = `skinPercent -t $trans[$i] -q -v $skin $i2`;
+        float $av = ( $w1 + $w2 ) / 2;
+     	
+        print( $o + " : " + $trans[$i] + " new weight : " + $av + "\n" );
+   
+        skinPercent -tv $trans[$i] $av -r false $skin $o;
+    }
+
+    select $selOrdered;
+
+	waitCursor -state off;
+}

@@ -1,0 +1,73 @@
+global proc createFaceCurveControls()
+{
+	string $curveNames[] = `ls -sl`;
+	
+	int $numberOfSpans, $degree, $numberOfCvs;
+	string $curveShapeName, $clusterName, $clusterTempName, $group;
+	string $clusterNameA[];
+	float $centerPoint[];
+	
+	for($curve in $curveNames)
+	{
+		$curveShapeName = ($curve+"Shape");
+		$numberOfSpans = `getAttr ($curveShapeName+".spans")`;
+		$degree = `getAttr ($curveShapeName+".degree")`;
+		$numberOfCvs = $numberOfSpans + $degree;
+		
+		$group = `group -em -n ($curve+"_GRP")`;
+		$controlsGroup = `group -em -n ($curve+"Controls_GRP")`;
+		$clusterGroup = `group -em -n ($curve+"Clusters_GRP")`;
+		
+		for($i=0; $i<$numberOfCvs; $i++)
+		{
+			//createCluster
+			$clusterTempName = `substitute "_CRV" $curve "_CLS"`;
+			$clusterNameA = `cluster -rel -envelope 1 -n ($clusterTempName+"_"+($i+1)) ($curve+".cv["+$i+"]")`;
+			$clusterName = $clusterNameA[1];
+
+			$controlCurve = `makeSphereControl($curve+"_"+($i+1))`;
+			
+			$centerPoint = `getAttr ($clusterName+".origin")`;
+			move -ws -a $centerPoint[0] $centerPoint[1] $centerPoint[2] ($controlCurve+"_0");
+			
+			pointConstraint -mo $controlCurve $clusterName;
+			
+			parent ($controlCurve+"_0") $group;
+			parent $clusterName $clusterGroup;
+			
+		}
+		
+		hide $clusterGroup;
+		parent $controlsGroup $group;
+		parent $clusterGroup $group;
+	}
+
+
+}
+
+
+
+global proc string makeSphereControl(string $name)
+{
+	string $controlCurveName = `substitute "_CRV" $name "_CNTRL"`;
+	
+	$sphere = `curve -d 1 -p 0 -1 0  -p 0 -0.5 1 -p 0 0.5 1 -p 0 1 0 -p 0 0.5 -1 -p 0 -0.5 -1 -p 0 -1 0 -p 1 -0.5 0 -p 1 0.5 0 -p 0 1 0 -p -1 0.5 0 -p -1 -0.5 0 -p 0 -1 0 -p 0 -0.5 1 -p 0 0 1 -p 0.5 0 1 -p 1 0 0 -p 0.5 0 -1 -p -0.5 0 -1 -p -1 0 0 -p -0.5 0 1 -p 0 0 1 -n $controlCurveName`;
+	
+	
+	scale 0.02 0.02 0.02 $sphere;
+	
+	//$sdk = `circle -ch false -c 0 0 0.2 -nr 0 0 1 -r 0.05 -n ($controlCurveName+"_SDK")`;
+	//CenterPivot $sdk;
+	
+	//parent $sphere $sdk;
+	
+	$sdk = `group -n ($controlCurveName+"_SDK") $sphere`;
+	$group0 = `group -n ($controlCurveName+"_0") $sdk`;
+	
+	move 0 0 0.2 $sphere;
+	makeIdentity -apply true -t 1 -r 1 -s 1 $sphere;
+	
+	return $controlCurveName;
+
+}
+
