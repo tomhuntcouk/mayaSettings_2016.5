@@ -14,7 +14,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "retopoBasic" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "User Script" 
         -labelOffset 0
         -rotation 0
@@ -45,7 +45,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Create polygon faces" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Create Polygon Tool" 
         -labelOffset 0
         -rotation 0
@@ -76,7 +76,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Select border edges to append a face to the selected shell" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Append to Polygon Tool" 
         -labelOffset 0
         -rotation 0
@@ -107,7 +107,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Split selected edge ring" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Insert Edge Loop Tool" 
         -labelOffset 0
         -rotation 0
@@ -137,7 +137,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Select a point on an edge to start cutting the face" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Split Polygon Tool" 
         -labelOffset 0
         -rotation 0
@@ -167,7 +167,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Merge vertices / border edges based on selection" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Merge" 
         -labelOffset 0
         -rotation 0
@@ -198,7 +198,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Merge selected components to their center point" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Merge To Center" 
         -labelOffset 0
         -rotation 0
@@ -228,7 +228,7 @@ global proc shelf_retopology () {
         -preventOverride 0
         -annotation "Sculpt a geometry object" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Sculpt Geometry Tool" 
         -labelOffset 0
         -rotation 0

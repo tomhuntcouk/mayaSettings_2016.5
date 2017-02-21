@@ -14,7 +14,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Assign a new Bssrdf shader to the active objects" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Bssrdf Shader" 
         -labelOffset 0
         -rotation 0
@@ -44,7 +44,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Assign a new Occ Sampler shader to the active objects" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Occ Sampler Shader" 
         -labelOffset 0
         -rotation 0
@@ -74,7 +74,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Assign a new Oren Nayar shader to the active objects" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Oren Nayar Shader" 
         -labelOffset 0
         -rotation 0
@@ -104,7 +104,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Assign a new Ashikhmin shader to the active objects" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Ashikhmin Shader" 
         -labelOffset 0
         -rotation 0
@@ -134,7 +134,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Assign a new Dielectric shader to the active objects" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Dielectric Shader" 
         -labelOffset 0
         -rotation 0
@@ -164,7 +164,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Normal Map shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Normal Map Shader" 
         -labelOffset 0
         -rotation 0
@@ -194,7 +194,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Ray Sampler shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Ray Sampler Shader" 
         -labelOffset 0
         -rotation 0
@@ -224,7 +224,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Occ Data shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Occ Data Shader" 
         -labelOffset 0
         -rotation 0
@@ -254,7 +254,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Surface Thickness shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Surface Thickness" 
         -labelOffset 0
         -rotation 0
@@ -284,7 +284,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Basic Photon shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Basic Photon Shader" 
         -labelOffset 0
         -rotation 0
@@ -314,7 +314,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Physic Photon shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Physic Photon Shader" 
         -labelOffset 0
         -rotation 0
@@ -344,7 +344,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Dielectric Photon shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Dielectric Photon Shader" 
         -labelOffset 0
         -rotation 0
@@ -374,7 +374,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Shadow Mask shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Shadow Mask Shader" 
         -labelOffset 0
         -rotation 0
@@ -404,7 +404,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a Poly Color Per Vertex shader" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Poly Color Per Vertex" 
         -labelOffset 0
         -rotation 0
@@ -434,7 +434,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new UV Mapping Visualizer node" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "UV Mapping Visualizer" 
         -labelOffset 0
         -rotation 0
@@ -464,7 +464,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a new Output Shader Backend node" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Output Shader Backend" 
         -labelOffset 0
         -rotation 0
@@ -494,7 +494,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Delete all Turtle nodes and clear all settings" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Clear Scene" 
         -labelOffset 0
         -rotation 0
@@ -524,7 +524,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Opens the Bake Layer Editor" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Bake Layer Editor" 
         -labelOffset 0
         -rotation 0
@@ -554,7 +554,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Create a point cloud shape" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Point Cloud" 
         -labelOffset 0
         -rotation 0
@@ -584,7 +584,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Opens the Point Cloud Bake Editor" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Point Cloud Bake Editor" 
         -labelOffset 0
         -rotation 0
@@ -614,7 +614,7 @@ global proc shelf_TURTLE () {
         -preventOverride 0
         -annotation "Opens any Hardware Shader connected to selection" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Edit Hardware Shader" 
         -labelOffset 0
         -rotation 0

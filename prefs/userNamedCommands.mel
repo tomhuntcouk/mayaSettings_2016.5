@@ -26,3 +26,63 @@ nameCommand
 	-command ("SelectToggleMode")
 	SelectToggleModeNameCommand;
 
+nameCommand
+	-annotation "HighQualityDisplayNameCommand"
+	-sourceType "mel"
+	-command ("HighQualityDisplay")
+	HighQualityDisplayNameCommand;
+
+nameCommand
+	-annotation "LowQualityDisplayNameCommand"
+	-sourceType "mel"
+	-command ("LowQualityDisplay")
+	LowQualityDisplayNameCommand;
+
+nameCommand
+	-annotation "FlatShadingNameCommand"
+	-sourceType "mel"
+	-command ("FlatShading")
+	FlatShadingNameCommand;
+
+nameCommand
+	-annotation "UngroupNameCommand"
+	-sourceType "mel"
+	-command ("Ungroup")
+	UngroupNameCommand;
+
+nameCommand
+	-annotation "SelectHierarchyNameCommand"
+	-sourceType "mel"
+	-command ("SelectHierarchy")
+	SelectHierarchyNameCommand;
+
+nameCommand
+	-annotation "ReloadAllPSDFileTexNameCommand"
+	-sourceType "mel"
+	-command ("ReloadAllPSDFileTex")
+	ReloadAllPSDFileTexNameCommand;
+
+nameCommand
+	-annotation "AlignUV_UMinNameCommand"
+	-sourceType "mel"
+	-command ("AlignUV_UMin")
+	AlignUV_UMinNameCommand;
+
+nameCommand
+	-annotation "AlignUV_UMaxNameCommand"
+	-sourceType "mel"
+	-command ("AlignUV_UMax")
+	AlignUV_UMaxNameCommand;
+
+nameCommand
+	-annotation "AlignUV_VMinNameCommand"
+	-sourceType "mel"
+	-command ("AlignUV_VMin")
+	AlignUV_VMinNameCommand;
+
+nameCommand
+	-annotation "AlignUV_VMaxNameCommand"
+	-sourceType "mel"
+	-command ("AlignUV_VMax")
+	AlignUV_VMaxNameCommand;
+

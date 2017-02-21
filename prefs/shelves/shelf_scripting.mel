@@ -14,7 +14,7 @@ global proc shelf_scripting () {
         -preventOverride 0
         -annotation "open command port (for textMate MEL bundle)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "openCommandPort" 
         -labelOffset 0
         -rotation 0
@@ -45,7 +45,7 @@ global proc shelf_scripting () {
         -preventOverride 0
         -annotation "userHotkeys" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "MEL Command" 
         -labelOffset 0
         -rotation 0

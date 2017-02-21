@@ -2,3 +2,51 @@
 //
 //
 
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("modelEditor -e -dl flat modelPanel4;")
+	FlatShading;
+
+runTimeCommand
+	-annotation "Reload all PSD File Texture nodes"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import pymel.all as pm\npsdFiles = pm.ls(type=pm.core.nodetypes.PsdFileTex)\nfor f in psdFiles :\n    fn = f.attr('fileTextureName').get()\n    f.setAttr('fileTextureName', '')\n    f.setAttr('fileTextureName', fn)")
+	ReloadAllPSDFileTex;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("AlignUV(1,0,0,0);")
+	AlignUV_UMin;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("AlignUV(0,1,0,0);")
+	AlignUV_UMax;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("alignUV(0,0,1,0);")
+	AlignUV_VMin;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("alignUV(0,0,0,1);")
+	AlignUV_VMax;
+

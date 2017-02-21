@@ -14,7 +14,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Click to place joint. Click on existing joint to add to skeleton. Click-Drag to position joint." 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Joint Tool" 
         -labelOffset 0
         -rotation 0
@@ -44,7 +44,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Create IK handle on joint chain" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "IK Handle Tool" 
         -labelOffset 0
         -rotation 0
@@ -74,7 +74,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Create IK spline handle on joint chain" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "IK Spline Handle Tool" 
         -labelOffset 0
         -rotation 0
@@ -104,7 +104,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Select object(s)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Cluster" 
         -labelOffset 0
         -rotation 0
@@ -134,7 +134,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Makes a circleX." 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "circleX" 
         -labelOffset 0
         -rotation 0
@@ -165,7 +165,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Makes a cube." 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "cube" 
         -labelOffset 0
         -rotation 0
@@ -196,7 +196,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Select an object(s)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Freeze Transformations" 
         -labelOffset 0
         -rotation 0
@@ -227,7 +227,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Select an object(s)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Center Pivot" 
         -labelOffset 0
         -rotation 0
@@ -258,7 +258,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Paint weights on smooth bound skins." 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Paint Skin Weights Tool" 
         -labelOffset 0
         -rotation 0
@@ -288,7 +288,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Select either a single skin or the source and the destination skin." 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Mirror Skin Weights" 
         -labelOffset 0
         -rotation 0
@@ -318,7 +318,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "CasMass copy weights" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "CasMass" 
         -labelOffset 0
         -rotation 0
@@ -349,7 +349,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "abWeightLifter" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "abWeightLifter" 
         -labelOffset 0
         -rotation 0
@@ -379,7 +379,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Set driven key options" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "SDK" 
         -labelOffset 0
         -rotation 0
@@ -410,7 +410,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Edit various component values for the selected object(s)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Component Editor" 
         -labelOffset 0
         -rotation 0
@@ -441,7 +441,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "BSpiritCorrectiveShape.mel" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "BSpiritCorrectiveShape" 
         -labelOffset 0
         -rotation 0
@@ -472,7 +472,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "blendShape_Manager" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "blendShape_Manager" 
         -labelOffset 0
         -rotation 0
@@ -503,7 +503,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "mp_mirrorBlendshapes" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "mp_mirrorBlendshapes" 
         -labelOffset 0
         -rotation 0
@@ -534,7 +534,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Adjust Blend Shape weights" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Blend Shape" 
         -labelOffset 0
         -rotation 0
@@ -565,7 +565,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "averageVertexWeights" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "averageVertexWeights" 
         -labelOffset 0
         -rotation 0
@@ -596,7 +596,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Weight hammer: fix vertices that have bad weights (select them and use the hammer)" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Weight Hammer" 
         -labelOffset 0
         -rotation 0
@@ -627,7 +627,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "AutoWeight: Select root joint, then mesh" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "AutoWeight: Select root joint, then mesh" 
         -labelOffset 0
         -rotation 0
@@ -657,7 +657,7 @@ global proc shelf_rigging () {
         -preventOverride 0
         -annotation "Move object 1 to object 2" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "moveToObject" 
         -labelOffset 0
         -rotation 0

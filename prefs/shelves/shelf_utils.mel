@@ -14,7 +14,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "merge skin clusters from new" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "skinClusterMerge_new" 
         -labelOffset 0
         -rotation 0
@@ -45,7 +45,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "merge skin clusters from file" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "skinClusterMerge_load" 
         -labelOffset 0
         -rotation 0
@@ -76,7 +76,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "import hfFixShading as hf\nhf.hfCheckShading()\nhf.hfFixBadShading()" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "hfFixBadShading" 
         -labelOffset 0
         -rotation 0
@@ -107,7 +107,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "create render passes" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "create render passes" 
         -labelOffset 0
         -rotation 0
@@ -138,7 +138,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "create project Folders" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "create PepperPanic Folders" 
         -labelOffset 0
         -rotation 0
@@ -169,7 +169,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "reduce_influences()" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "render" 
         -labelOffset 0
         -rotation 0
@@ -200,7 +200,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "Bake existing animation into keys" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Bake Simulation" 
         -labelOffset 0
         -rotation 0
@@ -231,7 +231,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "Preview animation by screen-capturing frames" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Playblast" 
         -labelOffset 0
         -rotation 0
@@ -262,7 +262,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "import ff_utils.export as export\nreload(export)\n\nexport.ui()" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "FF Scene Exporter" 
         -labelOffset 0
         -rotation 0
@@ -293,7 +293,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "import th_panel\nreload(th_panel)\nth_panel.ui.create()\n" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "th_panel" 
         -labelOffset 0
         -rotation 0
@@ -324,7 +324,7 @@ global proc shelf_utils () {
         -preventOverride 0
         -annotation "Preview animation by screen-capturing frames" 
         -enableBackground 0
-                -align "center" 
+        -align "center" 
         -label "Playblast" 
         -labelOffset 0
         -rotation 0
@@ -342,6 +342,37 @@ global proc shelf_utils () {
         -marginHeight 1
         -command "PlayblastWindow" 
         -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "reload files" 
+        -enableBackground 0
+        -align "center" 
+        -label "reloadFiles" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "RLF" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "file.png" 
+        -image1 "file.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\n\nfiles = pm.ls(type='file')\nfor f in files :\n    n = f.fileTextureName.get()\n    f.fileTextureName.set( '' )\n    f.fileTextureName.set( n )" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
