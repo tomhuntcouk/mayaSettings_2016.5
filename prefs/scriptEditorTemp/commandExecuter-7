@@ -1,0 +1,11 @@
+import pymel.all as pm
+
+otherFiles = pm.ls(type=pm.core.nodetypes.File)
+
+for f in otherFiles :
+    if( f.type() == 'file' ) :
+        pass
+    elif( f.type() == 'psdFileTex' ) :
+        fn = f.attr('fileTextureName').get()
+        f.setAttr('fileTextureName', '')
+        f.setAttr('fileTextureName', fn)

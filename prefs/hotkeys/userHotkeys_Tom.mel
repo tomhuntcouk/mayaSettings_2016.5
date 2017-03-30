@@ -10,6 +10,7 @@ hotkeySet -source "Maya_Default" -current Tom;
 // The hotkey contexts and hotkeys
 //
 hotkey -keyShortcut "k" -cmd -ctl -alt -name ("AlignUV_VMinNameCommand");
+hotkey -keyShortcut "w" -sht -name ("cycleMoveToolNameCommand");
 hotkey -keyShortcut "F11" -name ("");
 hotkey -keyShortcut "2" -name ("SelectEdgeMaskNameCommand");
 hotkey -keyShortcut "l" -cmd -ctl -alt -name ("AlignUV_VMaxNameCommand");
@@ -21,12 +22,15 @@ hotkey -keyShortcut "i" -cmd -ctl -alt -name ("AlignUV_UMinNameCommand");
 hotkey -keyShortcut "PgDown" -name ("");
 hotkey -keyShortcut "F9" -name ("");
 hotkey -keyShortcut "F1" -name ("");
+hotkey -keyShortcut "r" -cmd -name ("ReferenceEditorNameCommand");
+hotkey -keyShortcut "e" -sht -name ("cycleRotateToolNameCommand");
 hotkey -keyShortcut "8" -name ("FlatShadingNameCommand");
 hotkey -keyShortcut "4" -name ("SelectToggleModeNameCommand");
 hotkey -keyShortcut "r" -cmd -ctl -alt -name ("ReloadAllPSDFileTexNameCommand");
 hotkey -keyShortcut "0" -name ("HighQualityDisplayNameCommand");
 hotkey -keyShortcut "F10" -name ("");
 hotkey -keyShortcut "g" -cmd -sht -name ("UngroupNameCommand");
+hotkey -keyShortcut "r" -sht -name ("cycleScaleToolNameCommand");
 hotkey -keyShortcut "9" -name ("LowQualityDisplayNameCommand");
 hotkey -keyShortcut "1" -name ("SelectVertexMaskNameCommand");
 hotkey -keyShortcut "o" -cmd -ctl -alt -name ("AlignUV_UMaxNameCommand");

@@ -1,0 +1,9 @@
+import pymel.all as pm
+
+mesh = pm.ls(sl=True)[0].getShape()
+
+uvset = mesh.getCurrentUVSetName()
+uvShellIds = []
+nbUvShells = 0
+
+print mesh.getUvShellsIds()

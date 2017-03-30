@@ -1,0 +1,2 @@
+//clip  -pasteInstance -sc 1 -startTime 0 -mapMethod "byMapOrNodeName" cropsie_corn_rig:cropsie_corn;
+clip  -pasteInstance -sc 1 -startTime 0 -mapMethod "byMapOrNodeName" cropsie_corn_rig:cropsie_corn;

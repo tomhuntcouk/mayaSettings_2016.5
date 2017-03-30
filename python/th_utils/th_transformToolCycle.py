@@ -22,6 +22,7 @@ validIndexes = {
 }
 
 def cycle( tool ) :
+	tool = tool.capitalize()
 	getCmd = "pm.manip%sContext( '%s', q=True, mode=True )" % ( tool, tool )
 	currentIndex = eval(getCmd)
 	

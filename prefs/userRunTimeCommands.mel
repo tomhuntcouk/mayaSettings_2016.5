@@ -15,7 +15,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "python"
-	-command ("import pymel.all as pm\npsdFiles = pm.ls(type=pm.core.nodetypes.PsdFileTex)\nfor f in psdFiles :\n    fn = f.attr('fileTextureName').get()\n    f.setAttr('fileTextureName', '')\n    f.setAttr('fileTextureName', fn)")
+	-command ("import pymel.all as pm\npsdFiles = pm.ls(type=pm.core.nodetypes.File)\nfor f in psdFiles :\n    fn = f.attr('fileTextureName').get()\n    f.setAttr('fileTextureName', '')\n    f.setAttr('fileTextureName', fn)")
 	ReloadAllPSDFileTex;
 
 runTimeCommand
@@ -31,7 +31,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("AlignUV(0,1,0,0);")
+	-command ("AlignUV(1,1,0,0);")
 	AlignUV_UMax;
 
 runTimeCommand
@@ -47,6 +47,30 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("alignUV(0,0,0,1);")
+	-command ("alignUV(0,0,1,1);")
 	AlignUV_VMax;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts.ToolCycle"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import th_utils.th_transformToolCycle as ttc\nreload(ttc)\n\nttc.cycle('move')")
+	cycleMoveTool;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts.ToolCycle"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import th_utils.th_transformToolCycle as ttc\nreload(ttc)\n\nttc.cycle('rotate')")
+	cycleRotateTool;
+
+runTimeCommand
+	-annotation ""
+	-category "Custom Scripts.ToolCycle"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import th_utils.th_transformToolCycle as ttc\nreload(ttc)\n\nttc.cycle('scale')")
+	cycleScaleTool;
 

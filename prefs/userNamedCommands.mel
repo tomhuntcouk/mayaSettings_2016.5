@@ -86,3 +86,27 @@ nameCommand
 	-command ("AlignUV_VMax")
 	AlignUV_VMaxNameCommand;
 
+nameCommand
+	-annotation "cycleMoveToolNameCommand"
+	-sourceType "mel"
+	-command ("cycleMoveTool")
+	cycleMoveToolNameCommand;
+
+nameCommand
+	-annotation "cycleRotateToolNameCommand"
+	-sourceType "mel"
+	-command ("cycleRotateTool")
+	cycleRotateToolNameCommand;
+
+nameCommand
+	-annotation "cycleScaleToolNameCommand"
+	-sourceType "mel"
+	-command ("cycleScaleTool")
+	cycleScaleToolNameCommand;
+
+nameCommand
+	-annotation "ReferenceEditorNameCommand"
+	-sourceType "mel"
+	-command ("ReferenceEditor")
+	ReferenceEditorNameCommand;
+
