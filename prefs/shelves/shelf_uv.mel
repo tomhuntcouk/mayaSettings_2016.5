@@ -281,36 +281,6 @@ global proc shelf_uv () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 39
-        -height 39
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Pelting Tools 1.5.4 BETA: by sunit parekh" 
-        -enableBackground 0
-        -align "center" 
-        -label "Pelting Tools" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.25 
-        -image "peltingTools/pelt_shelf_icon.xpm" 
-        -image1 "peltingTools/pelt_shelf_icon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "source \"peltingTools/peltingTools.mel\";peltingTools;" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
         -width 35
         -height 35
         -manage 1
@@ -367,6 +337,37 @@ global proc shelf_uv () {
         -marginHeight 1
         -command "polyFlipUV -flipType 0 -local on" 
         -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "save UV snapshot next to file" 
+        -enableBackground 0
+        -align "center" 
+        -label "UV Snapshot" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "UVSS" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "UV_Optimize_BrushLarge.png" 
+        -image1 "UV_Optimize_BrushLarge.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\nimport os.path\n\n#uvSnapshot -aa -n \"/Volumes/SSD/Work/Bonsai/BonsaiArt/Production/Environment/Farm_Map/Buildings/CowPasture/Maya/CowPasture_outUV.png\" -xr 1024 -yr 1024 -r 255 -g 255 -b 255 -o -ff png;\n\nsceneName = pm.system.sceneName()\n\nif( sceneName == '' ) :\n    pm.error( 'Please save your scene first' )\n\nsceneName = os.path.splitext( sceneName )[0]\nsceneName += '_outUV.png'\n\n\npm.uvSnapshot( aa=True, n=sceneName, xr=1024, yr=1024, r=255, b=255, g=255, o=True, ff='png' )" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
