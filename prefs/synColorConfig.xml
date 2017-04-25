@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SynColorConfig version="1.0">
+<SynColorConfig version="2.0">
    <AutoConfigure graphicsMonitor="false" />
+   <TransformsHome dir="/Applications/Autodesk/maya2017/synColor" />
    <SharedHome dir="/Users/tom/Library/Preferences/Autodesk/maya/synColor/Shared/" />
    <ReferenceTable>
       <Ref alias="OutputToSceneBridge" path="misc/identity.ctf" basePath="Autodesk" />
