@@ -6,8 +6,14 @@ def __create_shelf_frame( shelf_file, shelf_name, layout ) :
 	shelf_function = os.path.basename( shelf_file ).replace( '.mel', '' )	
 	shelf_frame = pm.frameLayout( label=shelf_name, collapsable=True, p=layout )			
 	shelf_layout = pm.gridLayout( ag=True, nc=8 )
-	pm.mel.eval( 'source "%s"' % ( shelf_file ) )
-	pm.mel.eval( '%s()' % ( shelf_function ) )
+	if( 'Script found' in pm.mel.whatIs( shelf_file) ) :
+		pm.mel.eval( 'source "%s"' % ( shelf_file ) )
+		if( 'Mel procedure found' in pm.mel.whatIs( shelf_function ) ) :
+			pm.mel.eval( '%s()' % ( shelf_function ) )
+		else :
+			pm.warning('Could not find shelf function : %s' % (shelf_function))
+	else :
+			pm.warning('Could not find shelf file : %s' % (shelf_file))
 	
 	return shelf_frame
 
