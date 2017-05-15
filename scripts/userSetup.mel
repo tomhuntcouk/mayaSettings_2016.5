@@ -6,15 +6,16 @@ source "cometMenu.mel";
 // force load of userhotkeys
 // source userHotkeys;
 
-
+/*
 OutlinerWindow; dockControl -area "left" 
 -content outlinerPanel1Window 
 -label "Outliner" 
 -allowedArea "left" 
 -allowedArea "right" 
 -width 250;
+*/
 
-
+hotkeySet -e -current Tom;
 
 
 print "\n----userSetup loaded----\n";
