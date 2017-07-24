@@ -1,4 +1,4 @@
-global proc shelf_TURTLE () {
+global proc shelf_Arnold () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -12,11 +12,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Assign a new Bssrdf shader to the active objects" 
+        -annotation "Create Area Light" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Bssrdf Shader" 
+        -label "Create Area Light" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -25,13 +25,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrBssrdfShader.xpm" 
-        -image1 "render_ilrBssrdfShader.xpm" 
+        -image "AreaLightShelf.png" 
+        -image1 "AreaLightShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createAndAssignShader ilrBssrdfShader \"\"" 
-        -sourceType "mel" 
+        -command "import mtoa.utils as mutils;mutils.createLocator(\"aiAreaLight\", asLight=True)" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -43,11 +43,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Assign a new Occ Sampler shader to the active objects" 
+        -annotation "Create Mesh Light" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Occ Sampler Shader" 
+        -label "Create Mesh Light" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -56,13 +56,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrOccSampler.xpm" 
-        -image1 "render_ilrOccSampler.xpm" 
+        -image "MeshLightShelf.png" 
+        -image1 "MeshLightShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createAndAssignShader ilrOccSampler \"\"" 
-        -sourceType "mel" 
+        -command "import mtoa.utils as mutils; mutils.createMeshLight()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -74,11 +74,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Assign a new Oren Nayar shader to the active objects" 
+        -annotation "Create Photometric Light" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Oren Nayar Shader" 
+        -label "Create Photometric Light" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -87,13 +87,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrOrenNayarShader.xpm" 
-        -image1 "render_ilrOrenNayarShader.xpm" 
+        -image "PhotometricLightShelf.png" 
+        -image1 "PhotometricLightShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createAndAssignShader ilrOrenNayarShader \"\"" 
-        -sourceType "mel" 
+        -command "import mtoa.utils as mutils; mutils.createLocator(\"aiPhotometricLight\", asLight=True)" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -105,11 +105,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Assign a new Ashikhmin shader to the active objects" 
+        -annotation "Create SkyDome Light" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Ashikhmin Shader" 
+        -label "Create SkyDome Light" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -118,13 +118,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrAshikhminShader.xpm" 
-        -image1 "render_ilrAshikhminShader.xpm" 
+        -image "SkydomeLightShelf.png" 
+        -image1 "SkydomeLightShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createAndAssignShader ilrAshikhminShader \"\"" 
-        -sourceType "mel" 
+        -command "import mtoa.utils as mutils; mutils.createLocator(\"aiSkyDomeLight\", asLight=True)" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -136,11 +136,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Assign a new Dielectric shader to the active objects" 
+        -annotation "Create Light Portal" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Dielectric Shader" 
+        -label "Create Light Portal" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -149,13 +149,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrDielectricShader.xpm" 
-        -image1 "render_ilrDielectricShader.xpm" 
+        -image "LightPortalShelf.png" 
+        -image1 "LightPortalShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createAndAssignShader ilrDielectricShader \"\"" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.doCreateLightPortal()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -167,11 +167,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Normal Map shader" 
+        -annotation "Create Physical Sky" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Normal Map Shader" 
+        -label "Create Physical Sky" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -180,13 +180,56 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrNormalMap.xpm" 
-        -image1 "render_ilrNormalMap.xpm" 
+        -image "PhysicalSkyShelf.png" 
+        -image1 "PhysicalSkyShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrNormalMap" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.doCreatePhysicalSky()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 32
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create StandIn" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create StandIn" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "StandinShelf.png" 
+        -image1 "StandinShelf.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.createStandIn()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -198,11 +241,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Ray Sampler shader" 
+        -annotation "Export StandIn" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Ray Sampler Shader" 
+        -label "Export StandIn" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -211,13 +254,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrRaySampler.xpm" 
-        -image1 "render_ilrRaySampler.xpm" 
+        -image "ExportStandinShelf.png" 
+        -image1 "ExportStandinShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrRaySampler" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.doExportStandIn()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -229,11 +272,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Occ Data shader" 
+        -annotation "Create Curve Collector" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Occ Data Shader" 
+        -label "Create Curve Collector" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -242,13 +285,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrOccData.xpm" 
-        -image1 "render_ilrOccData.xpm" 
+        -image "CurveCollectorShelf.png" 
+        -image1 "CurveCollectorShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrOccData" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.doCreateCurveCollector()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -260,11 +303,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Surface Thickness shader" 
+        -annotation "Create Volume" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Surface Thickness" 
+        -label "Create Volume" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -273,13 +316,56 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrSurfaceThickness.xpm" 
-        -image1 "render_ilrSurfaceThickness.xpm" 
+        -image "VolumeShelf.png" 
+        -image1 "VolumeShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrSurfaceThickness" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.createVolume()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 32
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "TX Manager" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "TX Manager" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "TXManagerShelf.png" 
+        -image1 "TXManagerShelf.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldTxManager()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -291,11 +377,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Basic Photon shader" 
+        -annotation "Update TX files" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Basic Photon Shader" 
+        -label "Update TX files" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -304,13 +390,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrBasicPhotonShader.xpm" 
-        -image1 "render_ilrBasicPhotonShader.xpm" 
+        -image "UpdateTxShelf.png" 
+        -image1 "UpdateTxShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrBasicPhotonShader" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldUpdateTx()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -322,11 +408,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Physic Photon shader" 
+        -annotation "Flush Texture Cache" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Physic Photon Shader" 
+        -label "Flush Texture Cache" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -335,13 +421,56 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrPhysicPhotonShader.xpm" 
-        -image1 "render_ilrPhysicPhotonShader.xpm" 
+        -image "FlushTextureShelf.png" 
+        -image1 "FlushTextureShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrPhysicPhotonShader" 
-        -sourceType "mel" 
+        -command "import maya.cmds as cmds; cmds.arnoldFlushCache(textures=True)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 32
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Bake Selected Geometry" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Bake Selected Geometry" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "BakeGeometryShelf.png" 
+        -image1 "BakeGeometryShelf.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldBakeGeo()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -353,11 +482,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Dielectric Photon shader" 
+        -annotation "Render Selection to Texture" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Dielectric Photon Shader" 
+        -label "Render Selection to Texture" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -366,13 +495,56 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrDielectricPhotonShader.xpm" 
-        -image1 "render_ilrDielectricPhotonShader.xpm" 
+        -image "RenderToTextureShelf.png" 
+        -image1 "RenderToTextureShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "createNode ilrDielectricPhotonShader" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldLightManager()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 32
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Arnold RenderView" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Arnold RenderView" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "RenderViewShelf.png" 
+        -image1 "RenderViewShelf.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldOpenMtoARenderView()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -384,11 +556,11 @@ global proc shelf_TURTLE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create a new Shadow Mask shader" 
+        -annotation "Render" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Shadow Mask Shader" 
+        -label "Render" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -397,261 +569,13 @@ global proc shelf_TURTLE () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrShadowMask.xpm" 
-        -image1 "render_ilrShadowMask.xpm" 
+        -image "RenderShelf.png" 
+        -image1 "RenderShelf.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "shadingNode -asUtility ilrShadowMask" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Create a Poly Color Per Vertex shader" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Poly Color Per Vertex" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrPolyColorPerVertex.xpm" 
-        -image1 "render_ilrPolyColorPerVertex.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "shadingNode -asUtility ilrPolyColorPerVertex" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Create a new UV Mapping Visualizer node" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "UV Mapping Visualizer" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrUVMappingVisualizer.xpm" 
-        -image1 "render_ilrUVMappingVisualizer.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "shadingNode -asUtility ilrUVMappingVisualizer" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Create a new Output Shader Backend node" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Output Shader Backend" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "render_ilrOutputShaderBackendNode.xpm" 
-        -image1 "render_ilrOutputShaderBackendNode.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "shadingNode -asUtility ilrOutputShaderBackendNode" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Delete all Turtle nodes and clear all settings" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Clear Scene" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "turtleClearIcon.xpm" 
-        -image1 "turtleClearIcon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "if (!exists(\"ilrClearScene\")) { eval(\"source ilrStartup.mel; ilrLoadScripts();\"); } ilrClearScene();" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Opens the Bake Layer Editor" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Bake Layer Editor" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "turtleBakeLayerEditorIcon.xpm" 
-        -image1 "turtleBakeLayerEditorIcon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "ilrBakeLayerEditor" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Create a point cloud shape" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Point Cloud" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "turtlePCShapeIcon.xpm" 
-        -image1 "turtlePCShapeIcon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "createNode ilrPointCloudShape" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Opens the Point Cloud Bake Editor" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Point Cloud Bake Editor" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "turtlePCBakeIcon.xpm" 
-        -image1 "turtlePCBakeIcon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "ilrPointCloudBakeEditor" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Opens any Hardware Shader connected to selection" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Edit Hardware Shader" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "turtleInspectHwShaderIcon.xpm" 
-        -image1 "turtleInspectHwShaderIcon.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "ilrInspectHwShader" 
-        -sourceType "mel" 
+        -command "import mtoa.ui.arnoldmenu as arnoldmenu; arnoldmenu.arnoldMtoARenderView()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;

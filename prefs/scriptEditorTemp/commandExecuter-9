@@ -1,0 +1,4 @@
+import MergeCopyMesh as mcm
+reload(mcm)
+#mcm.mergeCopyUnderSelection()
+mcm.mergeCopy( pm.ls(sl=True)[0] )

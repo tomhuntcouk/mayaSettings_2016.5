@@ -14,6 +14,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Extrude the selected component" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Extrude" 
         -labelOffset 0
@@ -45,6 +46,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Select border edges to append a face to the selected shell" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Append to Polygon Tool" 
         -labelOffset 0
@@ -76,6 +78,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Split selected edge ring" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Insert Edge Loop Tool" 
         -labelOffset 0
@@ -106,6 +109,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Select a point on an edge to start cutting the face" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Split Polygon Tool" 
         -labelOffset 0
@@ -137,6 +141,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Merge selected components to their center point" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Merge To Center" 
         -labelOffset 0
@@ -167,6 +172,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Create a bevel along the selected edges" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Bevel" 
         -labelOffset 0
@@ -198,6 +204,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Sculpt a geometry object" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Sculpt Geometry Tool" 
         -labelOffset 0
@@ -229,6 +236,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Edit crease value of selected components" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Crease Tool" 
         -labelOffset 0
@@ -259,6 +267,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Duplicate special in X" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Duplicate special X" 
         -labelOffset 0
@@ -290,6 +299,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Duplicate special in Z" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Duplicate special Z" 
         -labelOffset 0
@@ -321,6 +331,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Combine the selected polygon objects into one single object to allow operations such as merges or face trims" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Combine" 
         -labelOffset 0
@@ -351,6 +362,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Set the soft/hard threshold angles for edge normals" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Soften Edge" 
         -labelOffset 0
@@ -381,6 +393,7 @@ global proc shelf_modelling () {
         -preventOverride 0
         -annotation "Set the soft/hard threshold angles for edge normals" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Harden Edge" 
         -labelOffset 0
@@ -398,6 +411,133 @@ global proc shelf_modelling () {
         -marginHeight 1
         -command "SoftPolyEdgeElements 0" 
         -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Tools to cut, slice and insert edges on polygons" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Multi-Cut" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "multiCut_NEX32.png" 
+        -image1 "multiCut_NEX32.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "dR_multiCutTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "dR_multiCutTool; toolPropertyWindow;" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Paint a specified color value and alpha on polygon vertices" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Paint Vertex Color Tool" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "paintVertexColour.png" 
+        -image1 "paintVertexColour.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "PaintVertexColorTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "PaintVertexColorToolOptions" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle Display Colors attribute of the selected objects" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Toggle Display Colors Attribute" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyToggleDisplayColor.png" 
+        -image1 "polyToggleDisplayColor.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "toggleShadeMode" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Transform (Scale, Rotate, Translate...) the selected components (Vertices, Edges or Faces). UVs are moved in the UV Editor" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Transform" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyMoveVertex.png" 
+        -image1 "polyMoveVertex.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "performPolyMove \"\" 0" 
+        -sourceType "mel" 
+        -doubleClickCommand "MovePolygonComponentOptions" 
         -commandRepeatable 1
         -flat 1
     ;

@@ -1,9 +1,17 @@
 import pymel.all as pm
+import os
 
-mesh = pm.ls(sl=True)[0].getShape()
+export_opts = "model=1;animation=0;joints=0;skipunskinnedjoints=0;material=0;optimisegeometry=0;ignorenormals=0;ignoretangents=0;bindpose=0;flipx=0;flipy=0;flipz=0;debug=1;writelogtextfile=0;exportanimationrange=1;animationstart=0;animationend=0;animationframerate=1;flipreversewindingtest=0;colorformat=2;skipErrorDialog=False;" 
+export_path = "/Volumes/SSD/Work/Bonsai/FarmBonsai_new/mobile/res/common/models/Map/Terrain/static_props/"
 
-uvset = mesh.getCurrentUVSetName()
-uvShellIds = []
-nbUvShells = 0
+sel = pm.ls(sl=True)
+for obj in sel :
+    path = os.path.join( export_path, obj.name() + ".ffm" )
+    pm.select(obj)
+    cs = 'colorsets=$colorSet1;'
+    uv = 'uvsets=$map1;'
+    opts = export_opts + uv
 
-print mesh.getUvShellsIds()
+    pm.cmds.file( path, options=opts, typ="KAT FF Exporter", pr=True, es=True, force=True )
+    
+pm.select(sel)

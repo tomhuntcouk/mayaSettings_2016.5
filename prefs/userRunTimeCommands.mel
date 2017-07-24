@@ -23,7 +23,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("AlignUV(1,0,0,0);")
+	-command ("AlignUV(\"minU\");")
 	AlignUV_UMin;
 
 runTimeCommand
@@ -31,7 +31,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("AlignUV(1,1,0,0);")
+	-command ("AlignUV(\"maxU\");")
 	AlignUV_UMax;
 
 runTimeCommand
@@ -39,7 +39,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("alignUV(0,0,1,0);")
+	-command ("alignUV(\"minV\");")
 	AlignUV_VMin;
 
 runTimeCommand
@@ -47,7 +47,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "mel"
-	-command ("alignUV(0,0,1,1);")
+	-command ("alignUV(\"maxV\");")
 	AlignUV_VMax;
 
 runTimeCommand
