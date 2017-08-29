@@ -1,260 +1,349 @@
 global proc shelf_KingArtTools () {
-	global string $gBuffStr;
-	global string $gBuffStr0;
-	global string $gBuffStr1;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "SyncKAT"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "Sync_disconnect.png"
-		-image1 "Sync_disconnect.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Core.UpdateTools as ut\rreload(ut)\rut.update()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "ExportManager"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "FFexport.png"
-		-image1 "FFexport.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Exporters.ExportManager as eMan\rreload(eMan)\reMan.ExportManagerClass()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "XML Animation Exporter"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "FF_XML_export.png"
-		-image1 "FF_XML_export.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import pymel.core as pm\rpm.FFAnimationExport()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Validator"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "validator.png"
-		-image1 "validator.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Validator.Validator as valid\rreload(valid)\rvalid.ValidatorClass(type_list=['geometry','textures','scene','animation','skeleton'])"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
 
 
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "PlacementManager"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "pMan.png"
-		-image1 "pMan.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import PropManager.PropManager as pMan\rreload(pMan)\rpMan.PropManagerClass()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "SyncKAT" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SyncKAT" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "Sync_In.png" 
+        -image1 "Sync_In.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Core.UpdateTools as ut\rreload(ut)\rut.update()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "ExportManager" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ExportManager" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "FFexport_disconnect.png" 
+        -image1 "FFexport_disconnect.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Exporters.ExportManager as eMan\rreload(eMan)\reMan.ExportManagerClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "XML Animation Exporter" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "XML Animation Exporter" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "FF_XML_export.png" 
+        -image1 "FF_XML_export.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.core as pm\rpm.FFAnimationExport()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Validator" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Validator" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "validator.png" 
+        -image1 "validator.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Validator.Validator as valid\rreload(valid)\rvalid.ValidatorClass(type_list=['geometry','textures','scene','animation','skeleton'])" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "PlacementManager" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "PlacementManager" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pMan.png" 
+        -image1 "pMan.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import PropManager.PropManager as pMan\rreload(pMan)\rpMan.PropManagerClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Camera Tools" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Camera Tools" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "CamBox.png" 
+        -image1 "CamBox.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import CameraTools.CameraBox as camBox\rreload(camBox)\rcamBox.CameraBoxClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Object name modifier" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Object name modifier" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "Renamer.png" 
+        -image1 "Renamer.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Renamer.Renamer as Renamer\rreload(Renamer)\rRenamer.RenamerClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "QuickSnap" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "QuickSnap" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "QuickSnap.png" 
+        -image1 "QuickSnap.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Snapper.QuickSnap as QS\rreload(QS)\rQS.quick_snap()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Project Settings" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Project Settings" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "projSettingsMan.png" 
+        -image1 "projSettingsMan.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import Core.ProjectSettingsManager as psMan\rreload(psMan)\rpsMan.ProjectSettingsManagerClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Vertex Balance Color Tool" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Vertex Balance Color Tool" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "VertexColorBalance.png" 
+        -image1 "VertexColorBalance.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import VertexColorBalance.vertexColorBalanceUI as vertexColorBalance\rreload(vertexColorBalance)\rui = vertexColorBalance.vertexColorBalanceUI()\rui.show()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Tile Manager" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Tile Manager" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "tileManager.png" 
+        -image1 "tileManager.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import TileManager.tileManager as tMan\rreload(tMan)\rui = tMan.show()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
 
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Camera Tools"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "CamBox.png"
-		-image1 "CamBox.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import CameraTools.CameraBox as camBox\rreload(camBox)\rcamBox.CameraBoxClass()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Object name modifier"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "Renamer.png"
-		-image1 "Renamer.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Renamer.Renamer as Renamer\rreload(Renamer)\rRenamer.RenamerClass()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "QuickSnap"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "QuickSnap.png"
-		-image1 "QuickSnap.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Snapper.QuickSnap as QS\rreload(QS)\rQS.quick_snap()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Project Settings"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "projSettingsMan.png"
-		-image1 "projSettingsMan.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import Core.ProjectSettingsManager as psMan\rreload(psMan)\rpsMan.ProjectSettingsManagerClass()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Vertex Balance Color Tool"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "VertexColorBalance.png"
-		-image1 "VertexColorBalance.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import VertexColorBalance.vertexColorBalanceUI as vertexColorBalance\rreload(vertexColorBalance)\rui = vertexColorBalance.vertexColorBalanceUI()\rui.show()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-	shelfButton
-		-enableCommandRepeat 1
-		-enable 1
-		-width 34
-		-height 34
-		-manage 1
-		-visible 1
-		-preventOverride 0
-		-align "center"
-		-label "Tile Manager"
-		-labelOffset 0
-		-font "tinyBoldLabelFont"
-		-image "tileManager.png"
-		-image1 "tileManager.png"
-		-style "iconOnly"
-		-marginWidth 1
-		-marginHeight 1
-		-command "import TileManager.tileManager as tMan\rreload(tMan)\rui = tMan.show()"
-		-sourceType "python"
-		-actionIsSubstitute 0
-		-commandRepeatable 1
-	;
-
-}
+} 

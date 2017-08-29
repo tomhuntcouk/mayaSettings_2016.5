@@ -1,6 +1,8 @@
 import SplitMeshesByMaterial as sbm
 reload(sbm)
 
+#print sbm.__file__
+
 #sbm.assignVertexColorIfMissing(pm.ls(sl=True)[0])
 sbm.splitSelection()
 
