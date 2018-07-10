@@ -1,4 +1,3 @@
-
 """
 tom.hunt@king.com
 
@@ -102,9 +101,11 @@ def main( new=False ) :
 
 					meshvertex = mesh.vtx[ idx ]
 
+
 					if( not meshvertex in vertexweights.keys() ) :
 						vertexweights[ meshvertex ] = []
 
+					# print joint, weights[i]
 					vertexweights[ meshvertex ].append( [ joint, weights[i] ] )
 
 
@@ -120,7 +121,7 @@ def main( new=False ) :
 		pickle.dump( skinjoints, skinjointsfile )
 		skinjointsfile.close()
 
-
+		
 	# now we'll rebind the mesh and apply the weights saved from earlier
 
 	if( not new ) :
@@ -138,8 +139,11 @@ def main( new=False ) :
 	pm.select( mesh, add=True )
 	newskin = pm.animation.skinCluster( toSelectedBones=True )
 	
-	for i, vertex in enumerate( vertexweights ) :
+	for i, vertex in enumerate( vertexweights ) :		
 		jointweights = vertexweights.get( vertex )
+		if(not jointweights ) :
+			print vertexweights.get(vertex)
+			continue
 		for jointweight in jointweights :
 			pm.animation.skinPercent( newskin, vertex, tv=( str(jointweight[0]), float(jointweight[1]) ) )
 

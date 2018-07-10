@@ -1,4 +1,4 @@
-global proc shelf_Bifrost () {
+global proc shelf_KAT_SUITE () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -7,248 +7,217 @@ global proc shelf_Bifrost () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Liquid: Create an empty bifrost liquid container or, select one or more polygon mesh objects to act as liquid emitters." 
+        -annotation "Refreshes all of MKAT + Registered Extensions by closing running tools & reloading the code avoiding the need to close & open Maya" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Liquid" 
+        -label "kat_sBtn_Reload KAT framework and extended tools" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "createLiquid.png" 
-        -image1 "createLiquid.png" 
+        -image "Sync_In.png" 
+        -image1 "Sync_In.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "CreateBifrostLiquid" 
-        -sourceType "mel" 
+        -command "import maya.cmds as cmds\rcmds.evalDeferred('import mkatframework.mkatUpdate as mkatUpdate;mkatUpdate.reload_everything()')" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Aero: Select one or more polygon mesh objects to act as aero emitters." 
+        -annotation "ExportManager - A unified Maya to Game exporter - supporting both Fiction and Unity" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Aero" 
+        -label "kat_sBtn_export manager" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "createAero.png" 
-        -image1 "createAero.png" 
+        -image "FFexport.png" 
+        -image1 "FFexport.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "CreateBifrostAero" 
-        -sourceType "mel" 
+        -command "import mkatframework.exportmanager.mkatExportManagerController as eMan\reMan.run()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Emitter: Multi-select one or more polygon meshes to act as emitters and the bifrostLiquid or bifrostAero object." 
+        -annotation "Validator - Checks your scene for common problems, provides you quick access to problem areas and some autofixes for predictable issues" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Emitter" 
+        -label "kat_sBtn_validator" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "addEmitter.png" 
-        -image1 "addEmitter.png" 
+        -image "Validator.png" 
+        -image1 "Validator.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "AddBifrostEmitter" 
-        -sourceType "mel" 
+        -command "import mkatframework.validator.mkatValidator as valid\rvalid.SceneValidator(type_list=['geometry','textures','scene','animation','skeleton'])" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Collider: Multi-select one or more polygon meshes to act as colliders and the bifrostLiquid or bifrostAero object." 
+        -annotation "A Utility tool for many camera related functions" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Collider" 
+        -label "kat_sBtn_CameraBox" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "addCollider.png" 
-        -image1 "addCollider.png" 
+        -image "CamBox.png" 
+        -image1 "CamBox.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "AddBifrostCollider" 
-        -sourceType "mel" 
+        -command "import mkatframework.CameraTools.CameraBox as camBox\rcamBox.CameraBoxClass()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Foam: Select the bifrostLiquid object to add foam to your simulation." 
+        -annotation "A renamer tool, handles most types of Nodes in Maya" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Foam" 
+        -label "kat_sBtn_Renamer" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "addFoam.png" 
-        -image1 "addFoam.png" 
+        -image "Renamer.png" 
+        -image1 "Renamer.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "AddBifrostFoam" 
-        -sourceType "mel" 
+        -command "import mkatframework.renamer.Renamer as Renamer\rRenamer.RenamerClass()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Guide: Multi-select one or more polygon meshes to use as a guide mesh and the bifrostLiquid object." 
+        -annotation "A Utility tool for working with VertexColors" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Guide" 
+        -label "kat_sBtn_Vertex Balance Color Tool" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "addGuide.png" 
-        -image1 "addGuide.png" 
+        -image "VertexColorBalance.png" 
+        -image1 "VertexColorBalance.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "AddBifrostGuide" 
-        -sourceType "mel" 
+        -command "import mkatframework.VertexColorBalance.vertexColorBalanceUI as vColorBalance\rvColorBalance.run()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Emission Region: Multi-select one or more polygon meshes to use as emission regions and the bifrostLiquid object. Emission Regions work only for guided simulations." 
+        -annotation "Kings Auto Rigging ToolSuite" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Emission Region" 
+        -label "kat_sBtn_King Rigging Tools" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont" 
+        -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "addEmissionRegion.png" 
-        -image1 "addEmissionRegion.png" 
+        -image "kat_rig.png" 
+        -image1 "kat_rig.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "AddBifrostEmissionRegion" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Field: Multi-select one or more Liquid or Aero containers and (optionally) fields for assignment." 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Field" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "addField.png" 
-        -image1 "addField.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "AddBifrostMotionField" 
-        -sourceType "mel" 
+        -command "import mkatframework.krt.krtController as krt\rkrt.run()" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;

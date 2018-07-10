@@ -110,3 +110,15 @@ nameCommand
 	-command ("ReferenceEditor")
 	ReferenceEditorNameCommand;
 
+nameCommand
+	-annotation "SetKeyAnimatedNameCommand"
+	-sourceType "mel"
+	-command ("SetKeyAnimated")
+	SetKeyAnimatedNameCommand;
+
+nameCommand
+	-annotation "SetKeyNameCommand"
+	-sourceType "mel"
+	-command ("SetKey")
+	SetKeyNameCommand;
+

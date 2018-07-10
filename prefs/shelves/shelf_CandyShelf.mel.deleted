@@ -1,4 +1,4 @@
-global proc shelf_XGen () {
+global proc shelf_CandyShelf () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -7,16 +7,15 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 39
+        -height 39
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Open the XGen Window" 
+        -annotation "Reload Shelf" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Open Description Editor" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -25,478 +24,764 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgDEditor.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgDEditor.png" 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/reload_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/reload_icon.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2015" 
-        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescriptionEditor" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Update the XGen Preview" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Update Preview" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreview.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreview.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "XgPreview" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Clear the XGen Preview" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Clear Preview" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreviewClear.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreviewClear.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgui.createDescriptionEditor(False).preview(True)\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Create a new XGen Description" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Create Description" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCreateDescription.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCreateDescription.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescription" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Patches bindings menu." 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Bind Patches" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgBindFaces.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgBindFaces.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"try:\\n\tfrom PySide import QtGui, QtCore\\n\tfrom PySide.QtGui import *\\n\tfrom PySide.QtCore import *\\nexcept:\\n\tfrom PySide2 import QtGui, QtCore, QtWidgets\\n\tfrom PySide2.QtGui import *\\n\tfrom PySide2.QtCore import *\\n\tfrom PySide2.QtWidgets import *\\nm = QMenu()\\nm.addAction(u\\\"Add Selected Faces\\\",  lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Append\\\") )\\nm.addAction(u\\\"Replace with Selected Faces\\\", lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Replace\\\") )\\nm.addAction(u\\\"Remove Selected Faces\\\",  lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Remove\\\") )\\nm.addAction(u\\\"Bind Faces Based on Map...\\\",     lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Map\\\") )\\nm.addSeparator()\\nm.addAction(u\\\"Select Bound Faces\\\",  lambda: xgui.createDescriptionEditor(False).selectBinding() )\\nm.popup(QCursor.pos())\\n\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Add or Move Guides" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Add/Move Guides" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideContext.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideContext.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "XgGuideTool" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Hide/Show the Guides of the current XGen Description" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Toggle Guides Visibility" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuide.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuide.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgen.toggleGuideDisplay(xgui.createDescriptionEditor(False).currentDescription())\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Turn the Selectability of Guides on and off" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Toggle Guides Selectability" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuideReference.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuideReference.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgen.toggleGuideReference(xgui.createDescriptionEditor(False).currentDescription())\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Mirror selected Guides across the X-axis" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Mirror Guides X-axis" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgFlipGuides.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgFlipGuides.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "xgmFlipGuides( python(\"xgui.createDescriptionEditor(False).currentDescription()\") )" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Match XGen patch visibility to geometry visibility." 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Sync Patch Visibility" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "xgmSyncPatchVisibility" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Flip selected between patches and their associated geometry" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Flip Selected" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSelectionToggle.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSelectionToggle.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgen.selectionToggle(xgui.createDescriptionEditor(False).currentDescription())\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Select Primitives\nMMB to Isolate Primitves" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Select Primitives" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPrimSelection.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPrimSelection.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgui.createDescriptionEditor(False).primSelectionContext()\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Cull selected Primitves\nMore culling options can be found in the Generator Tab" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Cull Primitives" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2015" 
-        -command "python(\"xgui.createDescriptionEditor(False).cullSelectedPrimitives()\")" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Sculpt guides" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Sculpt Guides" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideSculptTool.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideSculptTool.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2016" 
-        -command "python(\"xgui.createDescriptionEditor(False).guideSculptContext(False)\")" 
-        -sourceType "mel" 
-        -doubleClickCommand "python(\"xgui.createDescriptionEditor(False).guideSculptContext(True)\")" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Convert primitives to polygons" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Convert Primitives to Polygons" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgConvertToPoly.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgConvertToPoly.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(False)\")" 
-        -sourceType "mel" 
-        -doubleClickCommand "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(True)\")" 
+        -command "execfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/userSetup.py\")" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
     separator
         -enable 1
-        -width 12
+        -width 33
         -height 35
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "XGenSeparator" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
-        -style "shelf" 
+        -style "single" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Soda episode exporter" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/batch_export_ffm_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/batch_export_ffm_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"batchexporter/soda_episode_exporter.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/batchexporter/soda_episode_exporter.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Generate episode hierarchy" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/node_generator_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/node_generator_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"generate_episode_hierarchy.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/generate_episode_hierarchy.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Export XML animation" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/xml_animation_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/xml_animation_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"export_xml_animation.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/export_xml_animation.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Export Soda levelpins" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/soda_lvl_pin_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/soda_lvl_pin_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"export_xml_tool.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/export_xml_tool.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Peek: Preview Soda diorama" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/peek_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/peek_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"peek.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/peek.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Expresso" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/expresso_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/expresso_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"expresso.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/expresso.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Legends exporter" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/legends_exporter_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/legends_exporter_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"legends_exporter.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/legends_exporter.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 33
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "single" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Graph editor" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/graph_editor_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/graph_editor_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('GraphEditor;')\");\nGraphEditor;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Hypershade" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/hypershade.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/hypershade.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('HypershadeWindow;')\");\nHypershadeWindow;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Nightshade UV Editor" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "vacantCell.png" 
+        -image1 "vacantCell.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.core as pm\ntry:\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/thirdparty/NSUV_start.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 33
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "single" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Reload scene textures" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_reloader_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_reloader_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('reload_textures.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/reload_textures.mel\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Texture linker" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_linker_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_linker_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"fix_texture_paths.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/fix_texture_paths.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Prefix remover" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/prefix_remover_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/prefix_remover_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('prefix_remover.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/prefix_remover.mel\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Delete history" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/delete_history_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/delete_history_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('delete -ch;')\");\ndelete -ch;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Box trick" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/box_trick_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/box_trick_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"box_trick.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/box_trick.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Freeze" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/freeze_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/freeze_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;')\");\nmakeIdentity -apply true -t 1 -r 1 -s 1 -n 0;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "UNFREEZE translation" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/unfreeze_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/unfreeze_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import logutil\ntry:\n\tlogutil.commit(\"unfreeze_translation.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/unfreeze_translation.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 33
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "single" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle default material" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/default_material_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/default_material_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('default_material_toggle.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/default_material_toggle.mel\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle backface culling" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/backface_culling_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/backface_culling_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('backface_culling_toggle.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/backface_culling_toggle.mel\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle edge borders" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/border_edges_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/border_edges_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('toggle -bn `ls -sl`; polyOptions -sb 4;')\");\ntoggle -bn `ls -sl`; polyOptions -sb 4;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle face centers" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_centers_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_centers_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('face_centers_toggle.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/face_centers_toggle.mel\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle texture borders" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_borders_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/texture_borders_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('polyOptions -db 0 -sb 2; polyOptions -r -dmb 1 -sb 2;')\");\npolyOptions -db 0 -sb 2; polyOptions -r -dmb 1 -sb 2;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 39
+        -height 39
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle face normals" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_normals_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_normals_icon.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "python(\"import logutil\");\npython(\"logutil.commit('toggle -nr `ls -sl`; polyOptions -sb 4;')\");\ntoggle -nr `ls -sl`; polyOptions -sb 4;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 33
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "single" 
         -horizontal 0
     ;
     shelfButton
@@ -507,11 +792,10 @@ global proc shelf_XGen () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Interactive Groom Editor" 
+        -annotation "Mirror geometry" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Interactive Groom Editor" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -520,13 +804,12 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_editor.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_editor.png" 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/polyMirrorGeometry.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/polyMirrorGeometry.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2017" 
-        -command "XgCreateIgSplineEditor" 
+        -command "python(\"import logutil\");\npython(\"logutil.commit('DuplicateSpecialOptions;')\");\nDuplicateSpecialOptions;" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -534,16 +817,15 @@ global proc shelf_XGen () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 39
+        -height 39
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create Interactive Groom Splines" 
+        -annotation "Fix broken face normals" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Create Interactive Groom Splines" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -552,31 +834,28 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_creation.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_creation.png" 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_normals_fixer_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/face_normals_fixer_icon.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2017" 
-        -command "XgmCreateInteractiveGroomSplinesOption" 
+        -command "python(\"import logutil\");\npython(\"logutil.commit('face_normals_fixer.mel')\");\nsource \"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/face_normals_fixer.mel\"" 
         -sourceType "mel" 
-        -doubleClickCommand "XgmCreateInteractiveGroomSplinesOption" 
         -commandRepeatable 1
         -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 39
+        -height 39
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Density Brush" 
+        -annotation "Select vertices with more than two influences" 
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Density Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -585,444 +864,13 @@ global proc shelf_XGen () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_density.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_density.png" 
+        -image "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/select_verts_icon.png" 
+        -image1 "/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/icons/select_verts_icon.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2017" 
-        -command "XgmSetDensityBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetDensityBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Place Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Place Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_place.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_place.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetPlaceBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetPlaceBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Length Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Length Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_length.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_length.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetLengthBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetLengthBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Cut Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Cut Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_cut.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_cut.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetCutBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetCutBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Width Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Width Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_width.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_width.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetWidthBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetWidthBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Twist Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Twist Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_twist.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_twist.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetDirectionBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetDirectionBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Comb Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Comb Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_comb.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_comb.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetCombBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetCombBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Grab Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Grab Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_grab.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_grab.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetGrabBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetGrabBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Smooth Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Smooth Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_smooth.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_smooth.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetSmoothBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetSmoothBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Noise Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Noise Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_noise.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_noise.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetNoiseBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetNoiseBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Clump Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Clump Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_clump.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_clump.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetClumpBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetClumpBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Part Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Part Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_part.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_part.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetPartBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetPartBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Freeze Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Freeze Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_freeze.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_freeze.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetFreezeBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetFreezeBrushToolOption" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Select Brush" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Select Brush" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_select.png" 
-        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_select.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2017" 
-        -command "XgmSetSelectBrushTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "XgmSetSelectBrushToolOption" 
+        -command "import logutil\ntry:\n\tlogutil.commit(\"select_verts_over_two_inluences.py\")\n\texecfile(\"/Volumes/SSD/Work/SthlmTechArt/maya/candy_shelf/scripts/shelfs/select_verts_over_two_inluences.py\")\nexcept Exception as e:\n\tpm.windows.confirmDialog(t='Error', m=str(e), b='Ok')" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;

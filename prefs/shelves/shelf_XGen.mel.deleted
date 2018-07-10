@@ -1,4 +1,4 @@
-global proc shelf_Polygons () {
+global proc shelf_XGen () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -12,10 +12,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Polygon Sphere: Create a polygonal sphere on the grid" 
+        -annotation "Open the XGen Window" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Polygon Sphere" 
+        -label "Open Description Editor" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -24,643 +25,13 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polySphere.png" 
-        -image1 "polySphere.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonSphere" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonSphereOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Cube: Create a polygonal cube on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Cube" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyCube.png" 
-        -image1 "polyCube.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonCube" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonCubeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Cylinder: Create a polygonal cylinder on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Cylinder" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyCylinder.png" 
-        -image1 "polyCylinder.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonCylinder" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonCylinderOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Cone: Create a polygonal cone on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Cone" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyCone.png" 
-        -image1 "polyCone.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonCone" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonConeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Plane: Create a polygonal plane on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Plane" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyMesh.png" 
-        -image1 "polyMesh.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonPlane" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonPlaneOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Torus: Create a polygonal torus on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Torus" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyTorus.png" 
-        -image1 "polyTorus.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonTorus" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonTorusOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Pyramid: Create a polygonal pyramid on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Pyramid" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyPyramid.png" 
-        -image1 "polyPyramid.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonPyramid" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonPyramidOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Polygon Pipe: Create a polygonal pipe on the grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "Polygon Pipe" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyPipe.png" 
-        -image1 "polyPipe.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CreatePolygonPipe" 
-        -sourceType "mel" 
-        -doubleClickCommand "CreatePolygonPipeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    separator
-        -enable 1
-        -width 36
-        -height 36
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -enableBackground 0
-        -style "shelf" 
-        -horizontal 0
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Combine: Combine the selected polygon objects into one single object to allow operations such as merges or face trims" 
-        -enableBackground 0
-        -align "center" 
-        -label "Combine" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyUnite.png" 
-        -image1 "polyUnite.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "CombinePolygons" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Separate: Separate the selected polygon object shells or the shells of any selected faces from the object into distinct objects" 
-        -enableBackground 0
-        -align "center" 
-        -label "Separate" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polySeparate.png" 
-        -image1 "polySeparate.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "SeparatePolygon" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Mirror Geometry: Mirror geometry across an axis" 
-        -enableBackground 0
-        -align "center" 
-        -label "Mirror Geometry" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyMirrorGeometry.png" 
-        -image1 "polyMirrorGeometry.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "MirrorPolygonGeometry" 
-        -sourceType "mel" 
-        -doubleClickCommand "MirrorPolygonGeometryOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Smooth: Add polygons to the selected polygon objects to smooth them" 
-        -enableBackground 0
-        -align "center" 
-        -label "Smooth" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polySmooth.png" 
-        -image1 "polySmooth.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "SmoothPolygon" 
-        -sourceType "mel" 
-        -doubleClickCommand "SmoothPolygonOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Subdiv Proxy: Add polygons to the selected proxy objects" 
-        -enableBackground 0
-        -align "center" 
-        -label "Subdiv Proxy" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polySmoothProxy.png" 
-        -image1 "polySmoothProxy.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "SmoothProxy" 
-        -sourceType "mel" 
-        -doubleClickCommand "SmoothProxyOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Reduce: Reduce number of polygonal components for selected objects" 
-        -enableBackground 0
-        -align "center" 
-        -label "Reduce" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyReduce.png" 
-        -image1 "polyReduce.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -version "2014" 
-        -command "ReducePolygon" 
-        -sourceType "mel" 
-        -doubleClickCommand "ReducePolygonOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Multi-Cut Tool: Tools to cut, slice and insert edges on polygons" 
-        -enableBackground 0
-        -align "center" 
-        -label "Multi-Cut Tool" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "multiCut_NEX32.png" 
-        -image1 "multiCut_NEX32.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgDEditor.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgDEditor.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -version "2015" 
-        -command "dR_multiCutTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "dR_multiCutTool; toolPropertyWindow;" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Extrude: Extrude the selected component" 
-        -enableBackground 0
-        -align "center" 
-        -label "Extrude" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyExtrudeFacet.png" 
-        -image1 "polyExtrudeFacet.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "PolyExtrude" 
-        -sourceType "mel" 
-        -doubleClickCommand "PolyExtrudeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Bridge: Create a bridge between two sets of edges or faces " 
-        -enableBackground 0
-        -align "center" 
-        -label "Bridge" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyBridge.png" 
-        -image1 "polyBridge.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "performBridgeOrFill" 
-        -sourceType "mel" 
-        -doubleClickCommand "BridgeEdgeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Bevel Components: Create a bevel along the selected edges or faces" 
-        -enableBackground 0
-        -align "center" 
-        -label "Bevel Components" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyBevel.png" 
-        -image1 "polyBevel.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "performBevelOrChamfer" 
-        -sourceType "mel" 
-        -doubleClickCommand "BevelOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Merge: Merge vertices / border edges based on selection" 
-        -enableBackground 0
-        -align "center" 
-        -label "Merge" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyMergeVertex.png" 
-        -image1 "polyMergeVertex.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "PolyMerge" 
-        -sourceType "mel" 
-        -doubleClickCommand "PolyMergeOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Target Weld Tool: Merges two edges or vertices into a single component" 
-        -enableBackground 0
-        -align "center" 
-        -label "Target Weld Tool" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "weld_NEX32.png" 
-        -image1 "weld_NEX32.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "MergeVertexTool" 
-        -sourceType "mel" 
-        -doubleClickCommand "MergeVertexToolOptions" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Flip Triangle Edge: Flip the edge between two triangles" 
-        -enableBackground 0
-        -align "center" 
-        -label "Flip Triangle Edge" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyFlipEdge.png" 
-        -image1 "polyFlipEdge.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "FlipTriangleEdge" 
+        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescriptionEditor" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -673,10 +44,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Collapse: Collapse the selected edges or faces" 
+        -annotation "Update the XGen Preview" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Collapse" 
+        -label "Update Preview" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -685,12 +57,13 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyCollapseEdge.png" 
-        -image1 "polyCollapseEdge.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreview.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreview.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "PolygonCollapse" 
+        -version "2015" 
+        -command "XgPreview" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -703,10 +76,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Extract: Extract the currently selected faces from their shell and shows a manipulator to adjust their offset" 
+        -annotation "Clear the XGen Preview" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Extract" 
+        -label "Clear Preview" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -715,25 +89,413 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyChipOff.png" 
-        -image1 "polyChipOff.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreviewClear.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPreviewClear.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "ExtractFace" 
+        -version "2015" 
+        -command "python(\"xgui.createDescriptionEditor(False).preview(True)\")" 
         -sourceType "mel" 
-        -doubleClickCommand "ExtractFaceOptions" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create a new XGen Description" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Description" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCreateDescription.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCreateDescription.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "if (!`pluginInfo -q -loaded xgenToolkit`) loadPlugin xgenToolkit.mll;XgCreateDescription" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Patches bindings menu." 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Bind Patches" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgBindFaces.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgBindFaces.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"try:\\n\tfrom PySide import QtGui, QtCore\\n\tfrom PySide.QtGui import *\\n\tfrom PySide.QtCore import *\\nexcept:\\n\tfrom PySide2 import QtGui, QtCore, QtWidgets\\n\tfrom PySide2.QtGui import *\\n\tfrom PySide2.QtCore import *\\n\tfrom PySide2.QtWidgets import *\\nm = QMenu()\\nm.addAction(u\\\"Add Selected Faces\\\",  lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Append\\\") )\\nm.addAction(u\\\"Replace with Selected Faces\\\", lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Replace\\\") )\\nm.addAction(u\\\"Remove Selected Faces\\\",  lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Remove\\\") )\\nm.addAction(u\\\"Bind Faces Based on Map...\\\",     lambda: xgui.createDescriptionEditor(False).modifyBinding(\\\"Map\\\") )\\nm.addSeparator()\\nm.addAction(u\\\"Select Bound Faces\\\",  lambda: xgui.createDescriptionEditor(False).selectBinding() )\\nm.popup(QCursor.pos())\\n\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Add or Move Guides" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Add/Move Guides" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideContext.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideContext.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "XgGuideTool" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Hide/Show the Guides of the current XGen Description" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Toggle Guides Visibility" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuide.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuide.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"xgen.toggleGuideDisplay(xgui.createDescriptionEditor(False).currentDescription())\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Turn the Selectability of Guides on and off" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Toggle Guides Selectability" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuideReference.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgToggleGuideReference.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"xgen.toggleGuideReference(xgui.createDescriptionEditor(False).currentDescription())\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Mirror selected Guides across the X-axis" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Mirror Guides X-axis" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgFlipGuides.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgFlipGuides.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "xgmFlipGuides( python(\"xgui.createDescriptionEditor(False).currentDescription()\") )" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Match XGen patch visibility to geometry visibility." 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Sync Patch Visibility" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSyncPatchVisibility.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "xgmSyncPatchVisibility" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Flip selected between patches and their associated geometry" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Flip Selected" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSelectionToggle.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgSelectionToggle.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"xgen.selectionToggle(xgui.createDescriptionEditor(False).currentDescription())\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Select Primitives\nMMB to Isolate Primitves" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Select Primitives" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPrimSelection.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgPrimSelection.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"xgui.createDescriptionEditor(False).primSelectionContext()\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Cull selected Primitves\nMore culling options can be found in the Generator Tab" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Cull Primitives" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgCullPrimContextSelect.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2015" 
+        -command "python(\"xgui.createDescriptionEditor(False).cullSelectedPrimitives()\")" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Sculpt guides" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Sculpt Guides" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideSculptTool.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgGuideSculptTool.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2016" 
+        -command "python(\"xgui.createDescriptionEditor(False).guideSculptContext(False)\")" 
+        -sourceType "mel" 
+        -doubleClickCommand "python(\"xgui.createDescriptionEditor(False).guideSculptContext(True)\")" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Convert primitives to polygons" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Convert Primitives to Polygons" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgConvertToPoly.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgConvertToPoly.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(False)\")" 
+        -sourceType "mel" 
+        -doubleClickCommand "python(\"import xgenm.xmaya.xgmConvertPrimToPolygon as cpp;cpp.convertPrimToPolygon(True)\")" 
         -commandRepeatable 1
         -flat 1
     ;
     separator
         -enable 1
-        -width 36
-        -height 36
+        -width 34
+        -height 35
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "XGenSeparator" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -style "shelf" 
         -horizontal 0
     ;
@@ -745,10 +507,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Planar Mapping: Create a projection planar to the selected faces" 
+        -annotation "Interactive Groom Editor" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Planar Mapping" 
+        -label "Interactive Groom Editor" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -757,12 +520,13 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyPlanProj.png" 
-        -image1 "polyPlanProj.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_editor.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_editor.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "performPolyProjection Planar 0" 
+        -version "2017" 
+        -command "XgCreateIgSplineEditor" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -775,10 +539,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Cylindrical Mapping: Create a cylindrical projection on the selected faces" 
+        -annotation "Create Interactive Groom Splines" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Cylindrical Mapping" 
+        -label "Create Interactive Groom Splines" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -787,13 +552,15 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyCylProj.png" 
-        -image1 "polyCylProj.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_creation.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_creation.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "performPolyProjection Cylindrical 0" 
+        -version "2017" 
+        -command "XgmCreateInteractiveGroomSplinesOption" 
         -sourceType "mel" 
+        -doubleClickCommand "XgmCreateInteractiveGroomSplinesOption" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -805,10 +572,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Spherical Mapping: Create a spheric projection on the selected faces" 
+        -annotation "Density Brush" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Spherical Mapping" 
+        -label "Density Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -817,13 +585,15 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polySphereProj.png" 
-        -image1 "polySphereProj.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_density.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_density.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "performPolyProjection Spherical 0" 
+        -version "2017" 
+        -command "XgmSetDensityBrushTool" 
         -sourceType "mel" 
+        -doubleClickCommand "XgmSetDensityBrushToolOption" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -835,10 +605,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Automatic Projection: Select faces to be mapped automatically" 
+        -annotation "Place Brush" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Automatic Mapping" 
+        -label "Place Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -847,13 +618,15 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyAutoProj.png" 
-        -image1 "polyAutoProj.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_place.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_place.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "performPolyAutoProj 0" 
+        -version "2017" 
+        -command "XgmSetPlaceBrushTool" 
         -sourceType "mel" 
+        -doubleClickCommand "XgmSetPlaceBrushToolOption" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -865,10 +638,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create Contour Stretch Mapping" 
+        -annotation "Length Brush" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "Contour Stretch" 
+        -label "Length Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -877,14 +651,15 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "polyContourProj.png" 
-        -image1 "polyContourProj.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_length.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_length.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2016" 
-        -command "ContourProjection" 
+        -version "2017" 
+        -command "XgmSetLengthBrushTool" 
         -sourceType "mel" 
+        -doubleClickCommand "XgmSetLengthBrushToolOption" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -896,10 +671,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "UV Editor...: Texture coordinate mapping view" 
+        -annotation "Cut Brush" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "UV Editor..." 
+        -label "Cut Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -908,13 +684,15 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "textureEditor.png" 
-        -image1 "textureEditor.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_cut.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_cut.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "TextureViewWindow" 
+        -version "2017" 
+        -command "XgmSetCutBrushTool" 
         -sourceType "mel" 
+        -doubleClickCommand "XgmSetCutBrushToolOption" 
         -commandRepeatable 1
         -flat 1
     ;
@@ -926,10 +704,11 @@ global proc shelf_Polygons () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "3D UV Grab Tool: Grab UVs in 3D viewport" 
+        -annotation "Width Brush" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "3D UV Grab Tool" 
+        -label "Width Brush" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -938,15 +717,312 @@ global proc shelf_Polygons () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "UV_3D_Grab_Brush.png" 
-        -image1 "UV_3D_Grab_Brush.png" 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_width.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_width.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -version "2016" 
-        -command "SetMeshGrabUVTool" 
+        -version "2017" 
+        -command "XgmSetWidthBrushTool" 
         -sourceType "mel" 
-        -doubleClickCommand "ShowMeshGrabUVToolOptions" 
+        -doubleClickCommand "XgmSetWidthBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Twist Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Twist Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_twist.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_twist.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetDirectionBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetDirectionBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Comb Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Comb Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_comb.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_comb.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetCombBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetCombBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Grab Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Grab Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_grab.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_grab.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetGrabBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetGrabBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Smooth Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Smooth Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_smooth.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_smooth.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetSmoothBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetSmoothBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Noise Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Noise Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_noise.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_noise.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetNoiseBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetNoiseBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Clump Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Clump Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_clump.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_clump.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetClumpBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetClumpBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Part Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Part Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_part.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_part.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetPartBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetPartBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Freeze Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Freeze Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_freeze.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_freeze.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetFreezeBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetFreezeBrushToolOption" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Select Brush" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Select Brush" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_select.png" 
+        -image1 "/Applications/Autodesk/maya2017/plug-ins/xgen//icons/xgIG_select.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -version "2017" 
+        -command "XgmSetSelectBrushTool" 
+        -sourceType "mel" 
+        -doubleClickCommand "XgmSetSelectBrushToolOption" 
         -commandRepeatable 1
         -flat 1
     ;

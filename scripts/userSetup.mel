@@ -18,4 +18,9 @@ OutlinerWindow; dockControl -area "left"
 hotkeySet -e -current Tom;
 
 
+global proc onModelChange3dc(string $arg){
+}
+print "overwriting function onModelChange3dc\n";
+onModelChange3dc("Nothing");
+
 print "\n----userSetup loaded----\n";

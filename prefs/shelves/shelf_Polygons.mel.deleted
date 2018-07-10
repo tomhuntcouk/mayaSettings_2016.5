@@ -14,6 +14,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Sphere: Create a polygonal sphere on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Sphere" 
         -labelOffset 0
@@ -45,6 +46,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Cube: Create a polygonal cube on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Cube" 
         -labelOffset 0
@@ -76,6 +78,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Cylinder: Create a polygonal cylinder on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Cylinder" 
         -labelOffset 0
@@ -107,6 +110,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Cone: Create a polygonal cone on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Cone" 
         -labelOffset 0
@@ -138,6 +142,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Plane: Create a polygonal plane on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Plane" 
         -labelOffset 0
@@ -169,6 +174,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Torus: Create a polygonal torus on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Torus" 
         -labelOffset 0
@@ -200,6 +206,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Pyramid: Create a polygonal pyramid on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Pyramid" 
         -labelOffset 0
@@ -231,6 +238,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Polygon Pipe: Create a polygonal pipe on the grid" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Polygon Pipe" 
         -labelOffset 0
@@ -260,6 +268,7 @@ global proc shelf_Polygons () {
         -visible 1
         -preventOverride 0
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -style "shelf" 
         -horizontal 0
     ;
@@ -273,6 +282,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Combine: Combine the selected polygon objects into one single object to allow operations such as merges or face trims" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Combine" 
         -labelOffset 0
@@ -303,6 +313,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Separate: Separate the selected polygon object shells or the shells of any selected faces from the object into distinct objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Separate" 
         -labelOffset 0
@@ -333,6 +344,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Mirror Geometry: Mirror geometry across an axis" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Mirror Geometry" 
         -labelOffset 0
@@ -364,6 +376,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Smooth: Add polygons to the selected polygon objects to smooth them" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Smooth" 
         -labelOffset 0
@@ -395,6 +408,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Subdiv Proxy: Add polygons to the selected proxy objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Subdiv Proxy" 
         -labelOffset 0
@@ -426,6 +440,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Reduce: Reduce number of polygonal components for selected objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Reduce" 
         -labelOffset 0
@@ -458,6 +473,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Multi-Cut Tool: Tools to cut, slice and insert edges on polygons" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Multi-Cut Tool" 
         -labelOffset 0
@@ -490,6 +506,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Extrude: Extrude the selected component" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Extrude" 
         -labelOffset 0
@@ -521,6 +538,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Bridge: Create a bridge between two sets of edges or faces " 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Bridge" 
         -labelOffset 0
@@ -552,6 +570,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Bevel Components: Create a bevel along the selected edges or faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Bevel Components" 
         -labelOffset 0
@@ -583,6 +602,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Merge: Merge vertices / border edges based on selection" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Merge" 
         -labelOffset 0
@@ -614,6 +634,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Target Weld Tool: Merges two edges or vertices into a single component" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Target Weld Tool" 
         -labelOffset 0
@@ -645,6 +666,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Flip Triangle Edge: Flip the edge between two triangles" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Flip Triangle Edge" 
         -labelOffset 0
@@ -675,6 +697,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Collapse: Collapse the selected edges or faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Collapse" 
         -labelOffset 0
@@ -705,6 +728,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "Extract: Extract the currently selected faces from their shell and shows a manipulator to adjust their offset" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Extract" 
         -labelOffset 0
@@ -734,19 +758,21 @@ global proc shelf_Polygons () {
         -visible 1
         -preventOverride 0
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -style "shelf" 
         -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Planar Mapping: Create a projection planar to the selected faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Planar Mapping" 
         -labelOffset 0
@@ -770,13 +796,14 @@ global proc shelf_Polygons () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Cylindrical Mapping: Create a cylindrical projection on the selected faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Cylindrical Mapping" 
         -labelOffset 0
@@ -800,13 +827,14 @@ global proc shelf_Polygons () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Spherical Mapping: Create a spheric projection on the selected faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Spherical Mapping" 
         -labelOffset 0
@@ -830,13 +858,14 @@ global proc shelf_Polygons () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Automatic Projection: Select faces to be mapped automatically" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Automatic Mapping" 
         -labelOffset 0
@@ -860,13 +889,14 @@ global proc shelf_Polygons () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Create Contour Stretch Mapping" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Contour Stretch" 
         -labelOffset 0
@@ -898,6 +928,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "UV Editor...: Texture coordinate mapping view" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "UV Editor..." 
         -labelOffset 0
@@ -928,6 +959,7 @@ global proc shelf_Polygons () {
         -preventOverride 0
         -annotation "3D UV Grab Tool: Grab UVs in 3D viewport" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "3D UV Grab Tool" 
         -labelOffset 0

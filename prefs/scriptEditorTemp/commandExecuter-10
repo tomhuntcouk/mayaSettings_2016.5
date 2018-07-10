@@ -1,4 +1,787 @@
-import MergeCopyMesh as mcm
-reload(mcm)
-mcm.mergeCopyUnderSelection()
-#mcm.mergeCopy( pm.ls(sl=True)[0] )
+# TODO: Remove OpenMaya. We can do animation stuff with pymel.core.animation.playbackOptions
+
+import functools
+import pymel.core as pm
+import maya.OpenMaya as OpenMaya
+import maya.OpenMayaAnim as OpenMayaAnim
+from xmlutil import Element, SubElement
+import xmlutil
+
+mayaVer = pm.about(api=True) # Because of PySide vs PySide2 (Maya 2016/2017)
+if mayaVer >= 201700:
+    import PySide2.QtWidgets as QtWidgets # Qt5
+else:
+    import PySide.QtGui as QtGui
+
+reload(xmlutil)
+
+
+class ExportXMLAnimationWindow:
+    def __init__(self):
+
+        # Forward declarations
+        self.tfAnimationName, self.tfAnimationName, self.tfbgAnimationFile, self.animationName, self.savePath, \
+        self.tfAnimationName, self.tfbgAnimationFile, self.translateZCheckBox, self.scaleZCheckBox, self.flipYCheckBox, \
+        self.copyToClipboardCheckBox, self.oldFormatCheckBox, self.allFramesCheckBox = (None,)*13  # Nice hack rite? :)
+
+        # UI variables
+        self.animationNameLabel = 'Animation Name: '
+        self.animationFileLabel = 'Animation file: '
+        self.buttonDefaultsLabel = 'Reset to defaults'
+        self.cBox1Label = 'Animate Translate Z'
+        self.cBox2Label = 'Animate Scale Z'
+        self.cBox3Label = 'Flip Y (Engine expects flipped output!)'
+        self.cBox4Label = 'Copy to clipboard'
+        self.cBox5Label = 'Export Animation as old format ( Speed : 1 )'
+        self.cBox6Label = 'Export all frames (not justthe keys)'
+        self.exportButtonLabel = 'Export Animation'
+        self.closeButtonLabel = 'Close'
+        self.summaryLabel = '(Will export animation from frame %s to frame %s)'
+
+        # UI dimensions
+        self.buttonLargeWidth = 376
+        self.buttonSmallWidth = 100
+        self.separatorHeight = 5
+        self.windowWidth = 400
+
+        # Class variables
+        self.time = 0
+        self.speed = 0
+        self.elemT = []
+        self.elemR = []
+        self.elemS = []
+
+        # Create option variables if they do not exist yet
+        if "EXMLA_field_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_field_KING"] = ""
+        if "EXMLA_fieldGrp_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_fieldGrp_KING"] = ""
+        if "EXMLA_animTZ_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_animTZ_KING"] = False
+        if "EXMLA_animSZ_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_animSZ_KING"] = True
+        if "EXMLA_flipY_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_flipY_KING"] = True
+        if "EXMLA_clipboard_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_clipboard_KING"] = False
+        if "EXMLA_exportAnim_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_exportAnim_KING"] = False
+        if "EXMLA_exportAll_KING" not in pm.env.optionVars: pm.optionVar["EXMLA_exportAll_KING"] = False
+
+    def clear(self):
+        self.animationName = None
+        self.savePath = None
+        self.time = 0
+        self.speed = 0
+        self.elemT = []
+        self.elemR = []
+        self.elemS = []
+
+    def buildXML(self):
+        foundElem = None
+        xml = xmlutil.XML(self.savePath)
+        root = xml.getroot()
+        for child in root:
+            if child.tag == 'Animation':
+                if child.attrib['name'] == self.animationName:
+                    foundElem = child
+                    break
+
+        # Check if there already is an animation
+        if foundElem is not None:  # using instead of foundElem because of a FutureWarning in Maya
+            title = 'Animation Found'
+            msg = 'Overwrite Animation? Are you sure?'
+            res = pm.confirmDialog(
+                button=['Yes', 'No'],
+                cancelButton='No',
+                defaultButton='Yes',
+                dismissString='No',
+                message=msg,
+                title=title,
+            )
+            if res == 'Yes':
+                root.remove(foundElem)
+            else:
+                return False
+
+        # Create XML animation element
+        animElem = SubElement(root, 'Animation')
+        animElem.set('name', str(self.animationName))
+        animElem.set('speed', str(self.speed))
+        for t in self.elemT:
+            translationElem = SubElement(animElem, 'Translation')
+            translationElem.set('time', str('%.3f' % t[0]))
+            translationElem.set('x', str('%.3f' % t[1]))
+            translationElem.set('y', str('%.3f' % t[2]))
+            translationElem.set('z', str('%.3f' % t[3]))
+        for r in self.elemR:
+            rotationElem = SubElement(animElem, 'Rotation')
+            rotationElem.set('time', str('%.3f' % r[0]))
+            rotationElem.set('x', str('%.3f' % r[1]))
+            rotationElem.set('y', str('%.3f' % r[2]))
+            rotationElem.set('z', str('%.3f' % r[3]))
+        for s in self.elemS:
+            scaleElem = SubElement(animElem, 'Scale')
+            scaleElem.set('time', str('%.3f' % s[0]))
+            scaleElem.set('x', str('%.3f' % s[1]))
+            scaleElem.set('y', str('%.3f' % s[2]))
+            scaleElem.set('z', str('%.3f' % s[3]))
+
+        # Write to selected XML file
+        xml.save()
+        return True
+
+    def copyToClipboard(self):
+        clipboardString = ''
+        clipboardString += '\t<Animation name="%s" speed="%s">\n' % (self.animationName, self.speed)
+        for t in self.elemT:
+            clipboardString += '\t\t<Translation time="%.3f" x="%.3f" y="%.3f" z="%.3f"/>\n' % (t[0], t[1], t[2], t[3])
+        for r in self.elemR:
+            clipboardString += '\t\t<Rotation time="%.3f" x="%.3f" y="%.3f" z="%.3f"/>\n' % (r[0], r[1], r[2], r[3])
+        for s in self.elemS:
+            clipboardString += '\t\t<Scale time="%.3f" x="%.3f" y="%.3f" z="%.3f"/>\n' % (s[0], s[1], s[2], s[3])
+        clipboardString += '\t</Animation>\n'
+        if mayaVer >= 201700:
+            cb = QtWidgets.QApplication.clipboard()
+        else:
+            cb = QtGui.QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(('%s')%clipboardString, mode=cb.Clipboard)
+        pm.headsUpMessage(
+            "Animation data copied to clipboard and written to """+self.savePath+"'",
+            time=3.0,
+            verticalOffset=-100,
+        )
+
+    def btnSetFilePath(self, *args):
+        outputFileName = pm.fileDialog2(
+            caption='Output to animation outputFile',
+            fileFilter="XML file (*.xml);;All outputFiles (*.*)",
+            fileMode=1,
+        )
+        if outputFileName:
+            outputFileName = outputFileName[0]
+            self.tfbgAnimationFile.setText(outputFileName)
+
+        # Update option variable
+        self.updateOptionVar(1, self.tfbgAnimationFile)
+
+
+    # startDirectory = pm.workspace( query=True, rootDirectory=True )
+    def main(self, alLFramesCheckBox,translateZCheckBox,scaleZCheckBox,flipYCheckBox,oldFormatCheckBox,copyToClipboardCheckBox, *pArgs):
+        # Selected objects
+        selected = pm.ls(selection=True)
+        error = 0
+
+        # Check for first selected object
+        try:
+            s = selected[0]
+        except IndexError:
+            print "ERROR: No object selected for animation data export"
+            pm.headsUpMessage(
+                'ERROR: No object selected for animation data export',
+                verticalOffset=-100,
+            )
+            error = 1
+
+        # Check if we inputed a name
+        if self.tfAnimationName:
+            if not pm.textField(self.tfAnimationName, q=True, text=True):
+                error_msg = 'ERROR: No name'
+                print(error_msg)
+                pm.headsUpMessage(error_msg, verticalOffset=-100)
+                error = 1
+
+        # Get XML file path
+        if error == 0:
+            outputFileName = self.tfbgAnimationFile.getText()
+            if outputFileName:
+                outputFileName = [outputFileName]
+            else:
+                outputFileName = pm.fileDialog2(
+                    caption='Output to animation outputFile',
+                    fileFilter="XML file (*.xml);;All outputFiles (*.*)",
+                    fileMode=1,
+                )
+            if not outputFileName:
+                error_msg = "ERROR: No outputFile chosen, aborting"
+                print error_msg
+                pm.headsUpMessage(error_msg, verticalOffset=-100)
+                error = 1
+
+        # Check that XML is animation definition file
+        if error == 0:
+            xml = xmlutil.XML(outputFileName[0])
+            root = xml.getroot()
+            if root.tag == 'Animations':
+                pass
+            else:
+                error_msg = "ERROR: Selected outputFile is not an animation file, aborting"
+                print error_msg
+                pm.headsUpMessage(error_msg, verticalOffset=-100)
+                error = 1
+
+        if error == 0:
+            # Let's get some animation data!
+            endTime = OpenMayaAnim.MAnimControl.maxTime()
+            startTime = OpenMayaAnim.MAnimControl.minTime()
+
+            translateZCheckBoxValue =  pm.checkBox(translateZCheckBox, query=True, value=True)
+            scaleZCheckBoxValue = pm.checkBox(scaleZCheckBox, query=True, value=True)
+            flipYCheckBoxValue = pm.checkBox(flipYCheckBox, query=True, value=True)
+            oldFormatCheckBoxValue = pm.checkBox(oldFormatCheckBox, query=True, value=True)
+            copyToClipboardCheckBoxValue = pm.checkBox(copyToClipboardCheckBox, query=True, value=True)
+            Method = pm.checkBox(alLFramesCheckBox, query=True, value=True)
+            print "Collecting animation data from frames "+str(startTime.value())+" to "+str(endTime.value())+" ..."
+            print 'Export Method is %s '%Method
+            if Method == True :
+                if oldFormatCheckBoxValue :
+                    #  outputFile.write( '\t<Animation name="MyAnimation" speed="1">\n')
+                    self.speed = 1
+                    #  1 - 1 " Export All Frames Animation OLD format " time is calculated frames / 60 thus frame 1 is time = 0.017 etc and requires a speed of 1
+                    self.exportAllFramesOldFormat(translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue)
+                else :
+                    #  outputFile.write( '\t<Animation name="MyAnimation" speed="60">\n')
+                    self.speed = 60
+                    #  1 - 2 " Export All Frames Animation 60 FPS " - Is based on the previous version but works with a speed of 60 and the time are int values and are in fact the frames in Maya
+                    self.exportAllFrames60FPS(translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue)
+
+            if Method == False :
+                if oldFormatCheckBoxValue :
+                    #  outputFile.write( '\t<Animation name="MyAnimation" speed="1">\n')
+                    self.speed = 1
+                    #  2 - 1 " Export Only Keyed Frames Animation OLD Format " - Searches the keyframes even if the keyframes are float ( this happens when the artist scales the animation ) and writes only keyframes + start and end frames.
+                    self.exportKeyedFramesOldFormat(translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue)
+                else :
+                    #  outputFile.write( '\t<Animation name="MyAnimation" speed="60">\n')
+                    self.speed = 60
+                    #  2 - 2 " Export Only Keyed Frames Animation 60 FPS " - Searches the keyframes even if the keyframes are float ( this happens when the artist scales the animation )and writes only keyframes + start and end frames.
+                    self.exportKeyedFrames60FPS(translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue)
+
+            # /////
+            self.animationName = pm.textField(self.tfAnimationName, q=True, text=True)
+            self.savePath = outputFileName[0]
+            res = self.buildXML()
+            if res and copyToClipboardCheckBoxValue:
+                self.copyToClipboard()
+            self.clear()
+    # Exporter End
+
+    def exportKeyedFrames60FPS(self, translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue):
+        endTime = OpenMayaAnim.MAnimControl.maxTime()
+        startTime = OpenMayaAnim.MAnimControl.minTime()
+        selected = pm.ls(selection=True)
+        s = selected[0]
+        for k in range(1, 4):
+            curFrame = startTime.value()
+            lastKeyframe = pm.findKeyframe(timeSlider=True, which="last")
+            print lastKeyframe
+            OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( curFrame, OpenMaya.MTime.uiUnit() ) )
+            pm.progressWindow(edit=True, step=1)
+            print k
+            while curFrame < lastKeyframe:
+                OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( curFrame, OpenMaya.MTime.uiUnit() ) )
+                print curFrame
+                if k == 1 :
+                    curTx = s.tx.get()
+                    if flipYCheckBoxValue == True :
+                        curTy = -s.ty.get()
+                    else :
+                        curTy = s.ty.get()
+                    if translateZCheckBoxValue == True :
+                        curTz = s.tz.get()
+                    else :
+                        curTz = 0
+                    self.elemT.append((curFrame-startTime.value(), curTx, curTy, curTz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+                if k == 2 :
+                    curRx = s.rx.get()
+                    curRy = s.ry.get()
+                    curRz = s.rz.get()
+                    self.elemR.append((curFrame-startTime.value(), curRx, curRy, curRz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+                if k == 3 :
+                    curSx = s.sx.get()
+                    curSy = s.sy.get()
+                    if scaleZCheckBoxValue == True :
+                        curSz = s.sz.get()
+                    else :
+                        curSz = 1
+                    self.elemS.append((curFrame-startTime.value(), curSx, curSy, curSz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+            else :
+                if k == 1 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe, OpenMaya.MTime.uiUnit() ) )
+                    curTx = s.tx.get()
+                    if flipYCheckBoxValue == True :
+                        curTy = -s.ty.get()
+                    else :
+                        curTy = s.ty.get()
+                    if translateZCheckBoxValue == True :
+                        curTz = s.tz.get()
+                    else :
+                        curTz = 0
+                    if lastKeyframe == endTime.value():
+                        self.elemT.append((endTime.value()-startTime.value(), curTx, curTy, curTz))
+                    else :
+                        self.elemT.append((lastKeyframe-startTime.value(), curTx, curTy, curTz))
+                        self.elemT.append((endTime.value()-startTime.value(), curTx, curTy, curTz))
+                if k == 2 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe, OpenMaya.MTime.uiUnit() ) )
+                    curRx = s.rx.get()
+                    curRy = s.ry.get()
+                    curRz = s.rz.get()
+                    if lastKeyframe == endTime.value():
+                        self.elemR.append((endTime.value()-startTime.value(), curRx, curRy, curRz))
+                    else :
+                        self.elemR.append((lastKeyframe-startTime.value(), curRx, curRy, curRz))
+                        self.elemR.append((endTime.value()-startTime.value(), curRx, curRy, curRz))
+                if k == 3 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe, OpenMaya.MTime.uiUnit() ) )
+                    curSx = s.sx.get()
+                    curSy = s.sy.get()
+                    if scaleZCheckBoxValue:
+                        curSz = s.sz.get()
+                    else:
+                        curSz = 1
+                    if lastKeyframe == endTime.value():
+                        self.elemS.append((endTime.value()-startTime.value(), curSx, curSy, curSz))
+                    else :
+                        self.elemS.append((lastKeyframe-startTime.value(), curSx, curSy, curSz))
+                        self.elemS.append((endTime.value()-startTime.value(), curSx, curSy, curSz))
+
+    def exportAllFrames60FPS(self, translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue):
+        endTime = OpenMayaAnim.MAnimControl.maxTime()
+        startTime = OpenMayaAnim.MAnimControl.minTime()
+        selected = pm.ls(selection=True)
+        s    = selected[0]
+        lastTx = lastTy = lastTz = lastRx = lastRy = lastRz = lastSx = lastSy = lastSz = 0
+        write = 0
+        for k in range(1, 4):
+            for j in range( int(startTime.value()), int(endTime.value()) + 1 ):
+
+                pm.progressWindow(edit=True, step=1)
+
+                # Set current frame
+                OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( j, OpenMaya.MTime.uiUnit() ) )
+
+                    ###############
+                    ## Translate ##
+                    ###############
+
+                if k == 1:
+
+                    curTx = s.tx.get()
+                    if flipYCheckBoxValue:
+                        curTy = -s.ty.get()
+                    else :
+                        curTy = s.ty.get()
+                    if translateZCheckBoxValue:
+                        curTz = s.tz.get()
+                    else :
+                        curTz = 0
+                    if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curTx != lastTx or curTy != lastTy or curTz != lastTz:
+                                write = 1
+                                lastTx = curTx
+                                lastTy = curTy
+                                lastTz = curTz
+                    else:
+                        write = 1
+                    if write == 1:
+                        self.elemT.append((j - int(startTime.value()), curTx, curTy, curTz))
+                write = 0
+
+                    ###############
+                    ##  Rotate   ##
+                    ###############
+
+                if k == 2:
+
+                    curRx = s.rx.get()
+                    curRy = s.ry.get()
+                    curRz = s.rz.get()
+                    if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curRx != lastRx or curRy != lastRy or curRz != lastRz:
+                                write = 1
+                                lastRx = curRx
+                                lastRy = curRy
+                                lastRz = curRz
+                    else:
+                        write = 1
+                    if write == 1:
+                        self.elemR.append((j - int(startTime.value()), curRx, curRy, curRz))
+                write = 0
+
+                    ###############
+                    ##   Scale   ##
+                    ###############
+
+
+                if k == 3:
+
+                    curSx = s.sx.get()
+                    curSy = s.sy.get()
+
+                    if scaleZCheckBoxValue:
+                        curSz = s.sz.get()
+                    else :
+                        curSz = 1
+                    if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curSx != lastSx or curSy != lastSy or curSz != lastSz:
+                                write = 1
+                                lastSx = curSx
+                                lastSy = curSy
+                                lastSz = curSz
+                    else:
+                        write = 1
+                    if write == 1:
+                        self.elemS.append((j - int(startTime.value()), curSx, curSy, curSz))
+                    write = 0
+
+    def exportAllFramesOldFormat(self, translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue):
+            selected = pm.ls(selection=True)
+            s = selected[0]
+            endTime = OpenMayaAnim.MAnimControl.maxTime()
+            startTime = OpenMayaAnim.MAnimControl.minTime()
+            animationFrameRate = 60
+            # Translations, x y z
+            lastTx = lastTy = lastTz = curTx = curTy = curTz = 0.0
+            # Rotation, x y z
+            lastRx = lastRy = lastRz = curRx = curRy = curRz = 0.0
+            # Scale, x y z
+            lastSx = lastSy = lastSz = curSx = curSy = curSz = 0.0
+
+            write = 0
+
+            for k in range(1, 4):
+                for j in range( int(startTime.value()), int(endTime.value()) + 1 ):
+                    pm.progressWindow(edit=True, step=1)
+
+                    # Set current frame
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( j, OpenMaya.MTime.uiUnit() ) )
+
+                    ###############
+                    ## Translate ##
+                    ###############
+
+                    if k == 1:
+                        curTx = s.tx.get()
+                        if flipYCheckBoxValue:
+                            curTy = -s.ty.get()
+                        else :
+                            curTy = s.ty.get()
+                        if translateZCheckBoxValue:
+                            curTz = s.tz.get()
+                        else :
+                            curTz = 0
+                        if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curTx != lastTx or curTy != lastTy or curTz != lastTz:
+                                write = 1
+                                lastTx = curTx
+                                lastTy = curTy
+                                lastTz = curTz
+                        else:
+                            write = 1
+                        if write == 1:
+                            self.elemT.append((float(j-int(startTime.value()))/animationFrameRate, curTx, curTy, curTz))
+                    write = 0
+
+                    ###############
+                    ##  Rotate   ##
+                    ###############
+
+                    if k == 2:
+                        curRx = s.rx.get()
+                        curRy = s.ry.get()
+                        curRz = s.rz.get()
+                        if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curRx != lastRx or curRy != lastRy or curRz != lastRz:
+                                write = 1
+                                lastRx = curRx
+                                lastRy = curRy
+                                lastRz = curRz
+                        else:
+                            write = 1
+                        if write == 1:
+                            self.elemR.append((float(j-int(startTime.value()))/animationFrameRate, curRx, curRy, curRz))
+                    write = 0
+
+                    ###############
+                    ##   Scale   ##
+                    ###############
+
+                    if k == 3:
+                        curSx = s.sx.get()
+                        curSy = s.sy.get()
+                        if scaleZCheckBoxValue == True :
+                            curSz = s.sz.get()
+                        else :
+                            curSz = 1
+                        if j != int(startTime.value()) and j != int(endTime.value()): # time is first or last, always set keyframe
+                            if curSx != lastSx or curSy != lastSy or curSz != lastSz:
+                                write = 1
+                                lastSx = curSx
+                                lastSy = curSy
+                                lastSz = curSz
+                        else:
+                            write = 1
+                        if write == 1:
+                            self.elemS.append((float(j-int(startTime.value()))/animationFrameRate, curSx, curSy, curSz))
+                    write = 0
+
+    def exportKeyedFramesOldFormat(self, translateZCheckBoxValue,scaleZCheckBoxValue,flipYCheckBoxValue):
+        endTime = OpenMayaAnim.MAnimControl.maxTime()
+        startTime = OpenMayaAnim.MAnimControl.minTime()
+        selected = ls(selection=True)
+        s = selected[0]
+        animationFrameRate = 60
+
+        for k in range(1, 4):
+            curFrame = startTime.value()
+            lastKeyframe = pm.findKeyframe( timeSlider = True, which="last")
+            print lastKeyframe
+            OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( curFrame, OpenMaya.MTime.uiUnit() ) )
+            pm.progressWindow(edit=True, step=1)
+            print k
+            while curFrame < lastKeyframe:
+                OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( curFrame, OpenMaya.MTime.uiUnit() ) )
+                print curFrame
+                if k == 1:
+                    curTx = s.tx.get()
+                    if flipYCheckBoxValue:
+                        curTy = -s.ty.get()
+                    else:
+                        curTy = s.ty.get()
+                    if translateZCheckBoxValue:
+                        curTz = s.tz.get()
+                    else:
+                        curTz = 0
+                    self.elemT.append((float(curFrame-startTime.value())/animationFrameRate, curTx, curTy, curTz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+                if k == 2:
+                    curRx = s.rx.get()
+                    curRy = s.ry.get()
+                    curRz = s.rz.get()
+                    self.elemR.append((float(curFrame-startTime.value())/animationFrameRate, curRx, curRy, curRz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+                if k == 3:
+                    curSx = s.sx.get()
+                    curSy = s.sy.get()
+                    if scaleZCheckBoxValue:
+                        curSz = s.sz.get()
+                    else:
+                        curSz = 1
+                    self.elemS.append((float(curFrame-startTime.value())/animationFrameRate, curSx, curSy, curSz))
+                    curFrame = pm.findKeyframe(timeSlider=True)
+            else :
+                if k == 1 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe/animationFrameRate, OpenMaya.MTime.uiUnit() ) )
+                    curTx = s.tx.get()
+                    if flipYCheckBoxValue:
+                        curTy = -s.ty.get()
+                    else :
+                        curTy = s.ty.get()
+                    if translateZCheckBoxValue:
+                        curTz = s.tz.get()
+                    else :
+                        curTz = 0
+                    if lastKeyframe == endTime.value():
+                        self.elemT.append((float(endTime.value()-startTime.value())/animationFrameRate, curTx, curTy, curTz))
+                    else :
+                        self.elemT.append((float(lastKeyframe-startTime.value())/animationFrameRate, curTx, curTy, curTz))
+                        self.elemT.append((float(endTime.value()-startTime.value())/animationFrameRate, curTx, curTy, curTz))
+                if k == 2 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe, OpenMaya.MTime.uiUnit() ) )
+                    curRx = s.rx.get()
+                    curRy = s.ry.get()
+                    curRz = s.rz.get()
+                    if lastKeyframe == endTime.value():
+                        self.elemR.append((float(endTime.value()-startTime.value())/animationFrameRate, curRx, curRy, curRz))
+                    else :
+                        self.elemR.append((float(lastKeyframe-startTime.value())/animationFrameRate, curRx, curRy, curRz))
+                        self.elemR.append((float(endTime.value()-startTime.value())/animationFrameRate, curRx, curRy, curRz))
+                if k == 3 :
+                    OpenMayaAnim.MAnimControl.setCurrentTime( OpenMaya.MTime( lastKeyframe/animationFrameRate, OpenMaya.MTime.uiUnit() ) )
+                    curSx = s.sx.get()
+                    curSy = s.sy.get()
+                    if scaleZCheckBoxValue:
+                        curSz = s.sz.get()
+                    else :
+                     curSz = 1
+                    if lastKeyframe == endTime.value():
+                        self.elemS.append((float(endTime.value()-startTime.value())/animationFrameRate, curSx, curSy, curSz))
+                    else :
+                        self.elemS.append((float(lastKeyframe-startTime.value())/animationFrameRate, curSx, curSy, curSz))
+                        self.elemS.append((float(endTime.value()-startTime.value())/animationFrameRate, curSx, curSy, curSz))
+
+    def resetSettings(self):
+        """ Description: Resets all option variables and UI controls. """
+
+        pm.optionVar["EXMLA_field_KING"] = ""
+        self.tfAnimationName.setText("")
+
+        pm.optionVar["EXMLA_fieldGrp_KING"] = ""
+        self.tfbgAnimationFile.setText("")
+
+        pm.optionVar["EXMLA_animTZ_KING"] = False
+        self.translateZCheckBox.setValue(False)
+
+        pm.optionVar["EXMLA_animSZ_KING"] = True
+        self.scaleZCheckBox.setValue(True)
+
+        pm.optionVar["EXMLA_flipY_KING"] = True
+        self.flipYCheckBox.setValue(True)
+
+        pm.optionVar["EXMLA_clipboard_KING"] = False
+        self.copyToClipboardCheckBox.setValue(False)
+
+        pm.optionVar["EXMLA_exportAnim_KING"] = False
+        self.oldFormatCheckBox.setValue(False)
+
+        pm.optionVar["EXMLA_exportAll_KING"] = False
+        self.allFramesCheckBox.setValue(False)
+
+
+    def updateOptionVar(self, variable, control):
+        """ Description: Updates an option variable used by the UI controls to 'remember' their status/values """
+
+        if (variable == 0):
+            pm.optionVar["EXMLA_field_KING"] = control.getText()
+        elif (variable == 1):
+            pm.optionVar["EXMLA_fieldGrp_KING"] = control.getText()
+        elif (variable == 2):
+            pm.optionVar["EXMLA_animTZ_KING"] = control.getValue()
+        elif (variable == 3):
+            pm.optionVar["EXMLA_animSZ_KING"] = control.getValue()
+        elif (variable == 4):
+            pm.optionVar["EXMLA_flipY_KING"] = control.getValue()
+        elif (variable == 5):
+            pm.optionVar["EXMLA_clipboard_KING"] = control.getValue()
+        elif (variable == 6):
+            pm.optionVar["EXMLA_exportAnim_KING"] = control.getValue()
+        elif (variable == 7):
+            pm.optionVar["EXMLA_exportAll_KING"] = control.getValue()
+
+
+    def show(self):
+        endTime = OpenMayaAnim.MAnimControl.maxTime()
+        startTime = OpenMayaAnim.MAnimControl.minTime()
+        zDepth = 0.0
+        windowID = 'myWindowID'
+        if pm.window(windowID, exists=True):
+            pm.deleteUI(windowID)
+
+        with pm.window(
+            windowID,
+            resizeToFitChildren=True,
+            sizeable=True,
+            title="Fiction Factory Animation Exporter",
+            widthHeight=(self.windowWidth, 100),
+        ) as w:
+            w.setSizeable(False)
+            pm.windowPref(windowID, remove=True)
+            with pm.columnLayout(
+                columnAttach=('both', 5),
+                columnWidth=self.windowWidth-6,
+                rowSpacing=5,
+            ):
+
+                with pm.rowLayout(
+                    numberOfColumns=3,
+                    columnWidth3=(90, 75, 150),
+                    adjustableColumn=2,
+                    columnAlign=(1, 'right'),
+                    columnAttach=[(1, 'both', 0),
+                                  (2, 'both', 0),
+                                  (3, 'both', 0)],
+                ):
+                    animationNameText = pm.text(self.animationNameLabel)
+                    self.tfAnimationName = pm.textField(
+                        changeCommand=lambda *args: self.updateOptionVar(0, self.tfAnimationName),
+                        text=pm.optionVar["EXMLA_field_KING"],
+                    )
+                self.tfbgAnimationFile = pm.textFieldButtonGrp(
+                    buttonCommand=self.btnSetFilePath,
+                    buttonLabel='Browse...',
+                    changeCommand=lambda *args: self.updateOptionVar(2, self.tfbgAnimationFile),
+                    columnAlign3=('left', 'left', 'left'),
+                    columnWidth3=(90, 235, 0),
+                    editable=False,
+                    label=self.animationFileLabel,
+                    text=pm.optionVar["EXMLA_fieldGrp_KING"],
+                )
+
+            with pm.columnLayout(
+                columnAttach=('both', 5),
+                columnWidth=self.windowWidth-6,
+                rowSpacing=5,
+            ):
+                pm.separator(height=self.separatorHeight)
+                self.translateZCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(2, self.translateZCheckBox),
+                    label=self.cBox1Label,
+                    value=pm.optionVar["EXMLA_animTZ_KING"],
+                )
+                self.scaleZCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(3, self.scaleZCheckBox),
+                    label=self.cBox2Label,
+                    value=pm.optionVar["EXMLA_animSZ_KING"],
+                )
+                self.flipYCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(4, self.flipYCheckBox),
+                    label=self.cBox3Label,
+                    value=pm.optionVar["EXMLA_flipY_KING"],
+                )
+                self.copyToClipboardCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(5, self.copyToClipboardCheckBox),
+                    label=self.cBox4Label,
+                    value=pm.optionVar["EXMLA_clipboard_KING"],
+                )
+                self.oldFormatCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(6, self.oldFormatCheckBox),
+                    label=self.cBox5Label,
+                    value=pm.optionVar["EXMLA_exportAnim_KING"],
+                )
+                self.allFramesCheckBox = pm.checkBox(
+                    changeCommand=lambda *args: self.updateOptionVar(7, self.allFramesCheckBox),
+                    label=self.cBox6Label,
+                    value=pm.optionVar["EXMLA_exportAll_KING"],
+                )
+
+                with pm.rowLayout(
+                    columnAttach=[1, "right", 0],
+                    columnWidth2=[self.buttonLargeWidth-self.buttonSmallWidth, self.buttonSmallWidth],
+                    numberOfColumns=2,
+                ):
+                    pm.separator()  # spacer
+                    pm.button(
+                        command=lambda *args: self.resetSettings(),
+                        label=self.buttonDefaultsLabel,
+                        width=self.buttonSmallWidth,
+                    )
+
+                with pm.rowLayout(
+                    columnAttach2=["left", "left"],
+                    #columnWidth2=[self.windowWidth/2, self.windowWidth/2],
+                    numberOfColumns=2,
+                ):
+                    pm.button(
+                        command=functools.partial(
+                            self.main,
+                            self.allFramesCheckBox,
+                            self.translateZCheckBox,
+                            self.scaleZCheckBox,
+                            self.flipYCheckBox,
+                            self.oldFormatCheckBox,
+                            self.copyToClipboardCheckBox
+                        ),
+                        label=self.exportButtonLabel,
+                        width=(self.windowWidth/2) - 12,
+                    )
+                    pm.button(
+                        label=self.closeButtonLabel,
+                        command=lambda *args: pm.deleteUI(w),
+                        width=(self.windowWidth/2) - 12,
+                    )
+                pm.separator(height=self.separatorHeight)
+                pm.text(label=self.summaryLabel % (str(startTime.value()), str(endTime.value())))
+                pm.setParent('..')
+                pm.showWindow(w)
+
+
+if __name__ == '__main__':
+    ExportXMLAnimationWindow().show()
