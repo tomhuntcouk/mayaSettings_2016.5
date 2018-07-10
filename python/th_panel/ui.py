@@ -41,7 +41,7 @@ def create() :
 	TH_P_WIDGETS[ 'column2' ] = pm.verticalLayout( p=TH_P_WIDGETS[ 'main' ] )	
 	
 	# tabs ##########################################################################################
-
+	
 	# shelves
 	TH_P_WIDGETS[ 'tab_shelves' ] = pm.verticalLayout( p=TH_P_WIDGETS['tabs'] )	
 	TH_P_WIDGETS[ 'tabs' ].setTabLabel( ( TH_P_WIDGETS[ 'tab_shelves' ], 'Shelves' ) )
@@ -60,7 +60,7 @@ def create() :
 	scripteditor.create( TH_P_WIDGETS[ 'tab_scripteditor' ] )
 	TH_P_WIDGETS[ 'tab_scripteditor' ].redistribute()
 
-
+	"""
 
 	# column1 ##########################################################################################
 
@@ -80,7 +80,7 @@ def create() :
 	TH_P_WIDGETS[ 'tabs' ].setSelectTabIndex( 1 )
 	TH_P_WIDGETS[ 'column1' ].redistribute()
 	TH_P_WIDGETS[ 'column2' ].redistribute()	
-
+	"""
 
 	TH_P_WIDGETS[ 'dock_panel' ] = pm.dockControl(
 		TH_P_DOCK, label='th_panel', 

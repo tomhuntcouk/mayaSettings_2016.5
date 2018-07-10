@@ -6,15 +6,21 @@ source "cometMenu.mel";
 // force load of userhotkeys
 // source userHotkeys;
 
-
+/*
 OutlinerWindow; dockControl -area "left" 
 -content outlinerPanel1Window 
 -label "Outliner" 
 -allowedArea "left" 
 -allowedArea "right" 
 -width 250;
+*/
+
+hotkeySet -e -current Tom;
 
 
-
+global proc onModelChange3dc(string $arg){
+}
+print "overwriting function onModelChange3dc\n";
+onModelChange3dc("Nothing");
 
 print "\n----userSetup loaded----\n";

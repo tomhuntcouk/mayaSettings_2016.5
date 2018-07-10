@@ -14,6 +14,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Attach multiple objects to geometry along Y" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Attach to geometry X" 
         -labelOffset 0
@@ -45,6 +46,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Attach multiple objects to geometry along Y" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Attach to geometry Y" 
         -labelOffset 0
@@ -76,6 +78,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Attach multiple objects to geometry along Z" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Attach to geometry Z" 
         -labelOffset 0
@@ -107,6 +110,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Delete all constraints on selected objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Delete constraints" 
         -labelOffset 0
@@ -138,6 +142,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Retarget constraints" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Retarget Constraints" 
         -labelOffset 0
@@ -169,6 +174,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Convert selected to instancesof first selected" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Convert to instance" 
         -labelOffset 0
@@ -200,6 +206,7 @@ global proc shelf_batch () {
         -preventOverride 0
         -annotation "Convert selected instances to objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Convert to object" 
         -labelOffset 0

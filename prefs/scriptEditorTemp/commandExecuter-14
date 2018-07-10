@@ -1,0 +1,3 @@
+import th_utils.th_skinClusterMerge as scm
+reload(scm)
+scm.main(new=True)

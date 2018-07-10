@@ -1,0 +1,553 @@
+{
+    "linkedMenu": "modelingMenuSet",
+    "autoSave": true,
+    "selectedShelf": "KingArtTools",
+    "panels": [
+        {
+            "mainWindowPanel": true,
+            "splitter": {
+                "orientation": "vertical",
+                "children": [
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 23,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "StatusLine",
+                                    "title": "Status Line",
+                                    "uiScript": "global string $gStatusLineForm; formLayout $gStatusLineForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 64,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "Shelf",
+                                    "title": "Shelf",
+                                    "uiScript": "global string $gShelfForm; formLayout $gShelfForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "splitter": {
+                            "orientation": "horizontal",
+                            "children": [
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 481,
+                                        "controlHeight": 783,
+                                        "controls": [
+                                            {
+                                                "objectName": "outlinerPanel27Window",
+                                                "title": "Outliner",
+                                                "uiScript": "if(!`panel -q -exists outlinerPanel27`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"outlinerPanel27\";\n\toutlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  outlinerPanel27;\n\t$editorName = $panelName;\n    outlinerEditor -e \n        -showShapes 0\n        -showAssignedMaterials 0\n        -showTimeEditor 1\n        -showReferenceNodes 0\n        -showReferenceMembers 0\n        -showAttributes 0\n        -showConnected 0\n        -showAnimCurvesOnly 0\n        -showMuteInfo 0\n        -organizeByLayer 1\n        -showAnimLayerWeight 1\n        -autoExpandLayers 1\n        -autoExpand 0\n        -showDagOnly 1\n        -showAssets 1\n        -showContainedOnly 1\n        -showPublishedAsConnected 0\n        -showContainerContents 1\n        -ignoreDagHierarchy 0\n        -expandConnections 0\n        -showUpstreamCurves 1\n        -showUnitlessCurves 1\n        -showCompounds 1\n        -showLeafs 1\n        -showNumericAttrsOnly 0\n        -highlightActive 1\n        -autoSelectNewObjects 0\n        -doNotSelectNewObjects 0\n        -dropIsParent 1\n        -transmitFilters 0\n        -setFilter \"0\" \n        -showSetMembers 1\n        -allowMultiSelection 1\n        -alwaysToggleSelect 0\n        -directSelect 0\n        -displayMode \"DAG\" \n        -expandObjects 0\n        -setsIgnoreFilters 1\n        -containersIgnoreFilters 0\n        -editAttrName 0\n        -showAttrValues 0\n        -highlightSecondary 0\n        -showUVAttrsOnly 0\n        -showTextureNodesOnly 0\n        -attrAlphaOrder \"default\" \n        -animLayerFilterOptions \"allAffecting\" \n        -sortOrder \"none\" \n        -longNames 0\n        -niceNames 1\n        -showNamespace 1\n        -showPinIcons 0\n        -mapMotionTrails 0\n        -ignoreHiddenAttribute 0\n        -ignoreOutlinerColor 0\n        -renderFilterVisible 0\n        $editorName;\n} else {\n\toutlinerPanel -e -unParent outlinerPanel27;\n}\noutlinerPanel -e -parent outlinerPanel27Window outlinerPanel27;\n",
+                                                "retain": false,
+                                                "loadImmediately": false,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": true,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 381,
+                                        "controlHeight": 783,
+                                        "controls": [
+                                            {
+                                                "objectName": "outlinerPanel8Window",
+                                                "title": "Outliner",
+                                                "uiScript": "if(!`panel -q -exists outlinerPanel8`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"outlinerPanel8\";\n\toutlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  outlinerPanel8;\n\t$editorName = $panelName;\n    outlinerEditor -e \n        -docTag \"isolOutln_fromSeln\" \n        -showShapes 0\n        -showAssignedMaterials 0\n        -showTimeEditor 1\n        -showReferenceNodes 0\n        -showReferenceMembers 1\n        -showAttributes 0\n        -showConnected 0\n        -showAnimCurvesOnly 0\n        -showMuteInfo 0\n        -organizeByLayer 1\n        -showAnimLayerWeight 1\n        -autoExpandLayers 1\n        -autoExpand 0\n        -showDagOnly 1\n        -showAssets 1\n        -showContainedOnly 1\n        -showPublishedAsConnected 0\n        -showContainerContents 1\n        -ignoreDagHierarchy 0\n        -expandConnections 0\n        -showUpstreamCurves 1\n        -showUnitlessCurves 1\n        -showCompounds 1\n        -showLeafs 1\n        -showNumericAttrsOnly 0\n        -highlightActive 1\n        -autoSelectNewObjects 0\n        -doNotSelectNewObjects 0\n        -dropIsParent 1\n        -transmitFilters 0\n        -setFilter \"defaultSetFilter\" \n        -showSetMembers 1\n        -allowMultiSelection 1\n        -alwaysToggleSelect 0\n        -directSelect 0\n        -isSet 0\n        -isSetMember 0\n        -displayMode \"DAG\" \n        -expandObjects 0\n        -setsIgnoreFilters 1\n        -containersIgnoreFilters 0\n        -editAttrName 0\n        -showAttrValues 0\n        -highlightSecondary 0\n        -showUVAttrsOnly 0\n        -showTextureNodesOnly 0\n        -attrAlphaOrder \"default\" \n        -animLayerFilterOptions \"allAffecting\" \n        -sortOrder \"none\" \n        -longNames 1\n        -niceNames 1\n        -showNamespace 1\n        -showPinIcons 0\n        -mapMotionTrails 0\n        -ignoreHiddenAttribute 0\n        -ignoreOutlinerColor 0\n        -renderFilterVisible 0\n        -renderFilterIndex 0\n        -selectionOrder \"chronological\" \n        -expandAttribute 0\n        $editorName;\n} else {\n\toutlinerPanel -e -unParent outlinerPanel8;\n}\noutlinerPanel -e -parent outlinerPanel8Window outlinerPanel8;\n",
+                                                "retain": false,
+                                                "loadImmediately": false,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": true,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 301,
+                                        "controlHeight": 685,
+                                        "collapsed": false,
+                                        "controls": [
+                                            {
+                                                "objectName": "Outliner",
+                                                "title": "Outliner",
+                                                "uiScript": "outlinerPanel -menuBarVisible true -label panelLabel Outliner",
+                                                "retain": true,
+                                                "loadImmediately": true,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": false,
+                                                "widthProperty": "preferred",
+                                                "heightProperty": "free",
+                                                "initCallback": "outlinerStateCallback",
+                                                "stateString": "outlinerEditor -e -docTag \"isolOutln_fromSeln\" -showShapes 0 -showAssignedMaterials 0 -showTimeEditor 1 -showReferenceNodes 0 -showReferenceMembers 0 -showAttributes 0 -showConnected 0 -showAnimCurvesOnly 0 -showMuteInfo 0 -organizeByLayer 1 -showAnimLayerWeight 1 -autoExpandLayers 1 -autoExpand 0 -showDagOnly 1 -showAssets 1 -showContainedOnly 1 -showPublishedAsConnected 0 -showContainerContents 1 -ignoreDagHierarchy 0 -expandConnections 0 -showUpstreamCurves 1 -showUnitlessCurves 1 -showCompounds 1 -showLeafs 1 -showNumericAttrsOnly 0 -highlightActive 1 -autoSelectNewObjects 0 -doNotSelectNewObjects 0 -dropIsParent 1 -transmitFilters 0 -setFilter \"defaultSetFilter\" -showSetMembers 1 -allowMultiSelection 1 -alwaysToggleSelect 0 -directSelect 0 -isSet 0 -isSetMember 0 -displayMode \"DAG\" -expandObjects 0 -setsIgnoreFilters 1 -containersIgnoreFilters 0 -editAttrName 0 -showAttrValues 0 -highlightSecondary 0 -showUVAttrsOnly 0 -showTextureNodesOnly 0 -attrAlphaOrder \"default\" -animLayerFilterOptions \"allAffecting\" -sortOrder \"none\" -longNames 0 -niceNames 1 -showNamespace 1 -showPinIcons 0 -mapMotionTrails 0 -ignoreHiddenAttribute 0 -ignoreOutlinerColor 0 -renderFilterVisible 0 -renderFilterIndex 0 -selectionOrder \"chronological\" -expandAttribute 0 $editorName"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 777,
+                                        "controlHeight": 702,
+                                        "collapsed": false,
+                                        "controls": [
+                                            {
+                                                "objectName": "MainPane",
+                                                "title": "viewPanes",
+                                                "uiScript": "global string $gMainPane; paneLayout -nbg 0 $gMainPane;",
+                                                "retain": true,
+                                                "loadImmediately": true,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": false,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 316,
+                                        "controlHeight": 783,
+                                        "controls": [
+                                            {
+                                                "objectName": "outlinerPanel80Window",
+                                                "title": "Outliner",
+                                                "uiScript": "if(!`panel -q -exists outlinerPanel80`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"outlinerPanel80\";\n\toutlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  outlinerPanel80;\n\t$editorName = $panelName;\n    outlinerEditor -e \n        -showShapes 0\n        -showAssignedMaterials 0\n        -showTimeEditor 1\n        -showReferenceNodes 0\n        -showReferenceMembers 0\n        -showAttributes 0\n        -showConnected 0\n        -showAnimCurvesOnly 0\n        -showMuteInfo 0\n        -organizeByLayer 1\n        -showAnimLayerWeight 1\n        -autoExpandLayers 1\n        -autoExpand 0\n        -showDagOnly 1\n        -showAssets 1\n        -showContainedOnly 1\n        -showPublishedAsConnected 0\n        -showContainerContents 1\n        -ignoreDagHierarchy 0\n        -expandConnections 0\n        -showUpstreamCurves 1\n        -showUnitlessCurves 1\n        -showCompounds 1\n        -showLeafs 1\n        -showNumericAttrsOnly 0\n        -highlightActive 1\n        -autoSelectNewObjects 0\n        -doNotSelectNewObjects 0\n        -dropIsParent 1\n        -transmitFilters 0\n        -setFilter \"0\" \n        -showSetMembers 1\n        -allowMultiSelection 1\n        -alwaysToggleSelect 0\n        -directSelect 0\n        -displayMode \"DAG\" \n        -expandObjects 0\n        -setsIgnoreFilters 1\n        -containersIgnoreFilters 0\n        -editAttrName 0\n        -showAttrValues 0\n        -highlightSecondary 0\n        -showUVAttrsOnly 0\n        -showTextureNodesOnly 0\n        -attrAlphaOrder \"default\" \n        -animLayerFilterOptions \"allAffecting\" \n        -sortOrder \"none\" \n        -longNames 0\n        -niceNames 1\n        -showNamespace 1\n        -showPinIcons 0\n        -mapMotionTrails 0\n        -ignoreHiddenAttribute 0\n        -ignoreOutlinerColor 0\n        -renderFilterVisible 0\n        $editorName;\n} else {\n\toutlinerPanel -e -unParent outlinerPanel80;\n}\noutlinerPanel -e -parent outlinerPanel80Window outlinerPanel80;\n",
+                                                "retain": false,
+                                                "loadImmediately": false,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": true,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "splitter": {
+                                        "orientation": "vertical",
+                                        "children": [
+                                            {
+                                                "tabWidget": {
+                                                    "selectedIndex": 0,
+                                                    "controlWidth": 460,
+                                                    "controlHeight": 666,
+                                                    "collapsed": false,
+                                                    "controls": [
+                                                        {
+                                                            "objectName": "ToolSettings",
+                                                            "title": "Tool Settings",
+                                                            "uiScript": "global string $gToolSettingsForm; formLayout $gToolSettingsForm;",
+                                                            "retain": true,
+                                                            "loadImmediately": true,
+                                                            "checkPlugins": false,
+                                                            "tabDirection": 0,
+                                                            "closed": false,
+                                                            "widthProperty": "preferred",
+                                                            "heightProperty": "free"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {},
+                                            {
+                                                "tabWidget": {
+                                                    "selectedIndex": 1,
+                                                    "controlWidth": 526,
+                                                    "controlHeight": 665,
+                                                    "collapsed": true,
+                                                    "controls": [
+                                                        {
+                                                            "objectName": "AttributeEditor",
+                                                            "title": "Attribute Editor",
+                                                            "uiScript": "global string $gAttributeEditorForm; formLayout $gAttributeEditorForm;",
+                                                            "retain": true,
+                                                            "loadImmediately": true,
+                                                            "checkPlugins": false,
+                                                            "tabDirection": 0,
+                                                            "closed": false,
+                                                            "widthProperty": "preferred",
+                                                            "heightProperty": "free"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 234,
+                                        "controlHeight": 783,
+                                        "controls": [
+                                            {
+                                                "objectName": "outlinerPanel26Window",
+                                                "title": "Outliner",
+                                                "uiScript": "if(!`panel -q -exists outlinerPanel26`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"outlinerPanel26\";\n\toutlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  outlinerPanel26;\n\t$editorName = $panelName;\n    outlinerEditor -e \n        -showShapes 0\n        -showAssignedMaterials 0\n        -showTimeEditor 1\n        -showReferenceNodes 0\n        -showReferenceMembers 0\n        -showAttributes 0\n        -showConnected 0\n        -showAnimCurvesOnly 0\n        -showMuteInfo 0\n        -organizeByLayer 1\n        -showAnimLayerWeight 1\n        -autoExpandLayers 1\n        -autoExpand 0\n        -showDagOnly 1\n        -showAssets 1\n        -showContainedOnly 1\n        -showPublishedAsConnected 0\n        -showContainerContents 1\n        -ignoreDagHierarchy 0\n        -expandConnections 0\n        -showUpstreamCurves 1\n        -showUnitlessCurves 1\n        -showCompounds 1\n        -showLeafs 1\n        -showNumericAttrsOnly 0\n        -highlightActive 1\n        -autoSelectNewObjects 0\n        -doNotSelectNewObjects 0\n        -dropIsParent 1\n        -transmitFilters 0\n        -setFilter \"0\" \n        -showSetMembers 1\n        -allowMultiSelection 1\n        -alwaysToggleSelect 0\n        -directSelect 0\n        -displayMode \"DAG\" \n        -expandObjects 0\n        -setsIgnoreFilters 1\n        -containersIgnoreFilters 0\n        -editAttrName 0\n        -showAttrValues 0\n        -highlightSecondary 0\n        -showUVAttrsOnly 0\n        -showTextureNodesOnly 0\n        -attrAlphaOrder \"default\" \n        -animLayerFilterOptions \"allAffecting\" \n        -sortOrder \"none\" \n        -longNames 0\n        -niceNames 1\n        -showNamespace 1\n        -showPinIcons 0\n        -mapMotionTrails 0\n        -ignoreHiddenAttribute 0\n        -ignoreOutlinerColor 0\n        -renderFilterVisible 0\n        $editorName;\n} else {\n\toutlinerPanel -e -unParent outlinerPanel26;\n}\noutlinerPanel -e -parent outlinerPanel26Window outlinerPanel26;\n",
+                                                "retain": false,
+                                                "loadImmediately": false,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": true,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 270,
+                                        "controlHeight": 783,
+                                        "controls": [
+                                            {
+                                                "objectName": "outlinerPanel68Window",
+                                                "title": "Outliner",
+                                                "uiScript": "if(!`panel -q -exists outlinerPanel68`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"outlinerPanel68\";\n\toutlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  outlinerPanel68;\n\t$editorName = $panelName;\n    outlinerEditor -e \n        -showShapes 0\n        -showAssignedMaterials 0\n        -showTimeEditor 1\n        -showReferenceNodes 0\n        -showReferenceMembers 0\n        -showAttributes 0\n        -showConnected 0\n        -showAnimCurvesOnly 0\n        -showMuteInfo 0\n        -organizeByLayer 1\n        -showAnimLayerWeight 1\n        -autoExpandLayers 1\n        -autoExpand 0\n        -showDagOnly 1\n        -showAssets 1\n        -showContainedOnly 1\n        -showPublishedAsConnected 0\n        -showContainerContents 1\n        -ignoreDagHierarchy 0\n        -expandConnections 0\n        -showUpstreamCurves 1\n        -showUnitlessCurves 1\n        -showCompounds 1\n        -showLeafs 1\n        -showNumericAttrsOnly 0\n        -highlightActive 1\n        -autoSelectNewObjects 0\n        -doNotSelectNewObjects 0\n        -dropIsParent 1\n        -transmitFilters 0\n        -setFilter \"0\" \n        -showSetMembers 1\n        -allowMultiSelection 1\n        -alwaysToggleSelect 0\n        -directSelect 0\n        -displayMode \"DAG\" \n        -expandObjects 0\n        -setsIgnoreFilters 1\n        -containersIgnoreFilters 0\n        -editAttrName 0\n        -showAttrValues 0\n        -highlightSecondary 0\n        -showUVAttrsOnly 0\n        -showTextureNodesOnly 0\n        -attrAlphaOrder \"default\" \n        -animLayerFilterOptions \"allAffecting\" \n        -sortOrder \"none\" \n        -longNames 0\n        -niceNames 1\n        -showNamespace 1\n        -showPinIcons 0\n        -mapMotionTrails 0\n        -ignoreHiddenAttribute 0\n        -ignoreOutlinerColor 0\n        -renderFilterVisible 0\n        $editorName;\n} else {\n\toutlinerPanel -e -unParent outlinerPanel68;\n}\noutlinerPanel -e -parent outlinerPanel68Window outlinerPanel68;\n",
+                                                "retain": false,
+                                                "loadImmediately": false,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": true,
+                                                "widthProperty": "free",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {},
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 260,
+                                        "controlHeight": 685,
+                                        "collapsed": true,
+                                        "controls": [
+                                            {
+                                                "objectName": "ChannelBoxLayerEditor",
+                                                "title": "Channel Box / Layer Editor",
+                                                "uiScript": "global string $gChannelsLayersForm; formLayout $gChannelsLayersForm;",
+                                                "retain": true,
+                                                "loadImmediately": true,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": false,
+                                                "widthProperty": "preferred",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "tabWidget": {
+                                        "selectedIndex": 0,
+                                        "controlWidth": 40,
+                                        "controlHeight": 702,
+                                        "collapsed": false,
+                                        "controls": [
+                                            {
+                                                "objectName": "ToolBox",
+                                                "title": "Tool Box",
+                                                "uiScript": "global string $gToolboxForm; formLayout $gToolboxForm;",
+                                                "retain": true,
+                                                "loadImmediately": true,
+                                                "checkPlugins": false,
+                                                "tabDirection": 0,
+                                                "closed": false,
+                                                "widthProperty": "fixed",
+                                                "heightProperty": "free"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 102,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "TimeSlider",
+                                    "title": "Time Slider",
+                                    "uiScript": "global string $gTimeSliderForm; formLayout $gTimeSliderForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 29,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "RangeSlider",
+                                    "title": "Range Slider",
+                                    "uiScript": "global string $gPlaybackRangeForm; formLayout $gPlaybackRangeForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 28,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "CommandLine",
+                                    "title": "Command Line",
+                                    "uiScript": "global string $gCommandLineForm; formLayout $gCommandLineForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 1615,
+                            "controlHeight": 20,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "HelpLine",
+                                    "title": "Help Line",
+                                    "uiScript": "global string $gHelpLineForm; formLayout $gHelpLineForm;",
+                                    "retain": true,
+                                    "loadImmediately": true,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "fixed"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "mainWindowPanel": false,
+            "posX": 1081,
+            "posY": 739,
+            "splitter": {
+                "orientation": "horizontal",
+                "children": [
+                    {
+                        "tabWidget": {
+                            "selectedIndex": 0,
+                            "controlWidth": 668,
+                            "controlHeight": 408,
+                            "collapsed": false,
+                            "controls": [
+                                {
+                                    "objectName": "graphEditor1Window",
+                                    "title": "Graph Editor",
+                                    "uiScript": "if(!`panel -q -exists graphEditor1`) {\n\tint $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tstring $panelName = \"graphEditor1\";\n\tscriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  graphEditor1;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAssignedMaterials 0\n                -showTimeEditor 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                -ignoreHiddenAttribute 0\n                -ignoreOutlinerColor 0\n                -renderFilterVisible 0\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -displayValues 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -showCurveNames 0\n                -showActiveCurveNames 0\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                -valueLinesToggle 0\n                -outliner \"graphEditor1OutlineEd\" \n                $editorName;\n} else {\n\tscriptedPanel -e -unParent graphEditor1;\n}\nscriptedPanel -e -parent graphEditor1Window graphEditor1;\n",
+                                    "retain": false,
+                                    "loadImmediately": false,
+                                    "checkPlugins": false,
+                                    "tabDirection": 0,
+                                    "closed": false,
+                                    "widthProperty": "free",
+                                    "heightProperty": "free"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "closedControls": [
+        {
+            "objectName": "outlinerPanel17Window",
+            "posX": 345,
+            "posY": 222,
+            "controlHeight": 797,
+            "controlWidth": 264,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "unifiedRenderGlobalsWindow",
+            "posX": 2853,
+            "posY": 333,
+            "controlHeight": 686,
+            "controlWidth": 472,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "UVToolkitDockControl",
+            "posX": 1064,
+            "posY": 511,
+            "controlHeight": 612,
+            "controlWidth": 319,
+            "widthProperty": "preferred",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "renderViewWindow",
+            "posX": 911,
+            "posY": 554,
+            "controlHeight": 439,
+            "controlWidth": 439,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "NEXDockControl",
+            "posX": 721,
+            "posY": 356,
+            "controlHeight": 418,
+            "controlWidth": 488,
+            "widthProperty": "preferred",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "polyTexturePlacementPanel1Window",
+            "posX": 1066,
+            "posY": 530,
+            "controlHeight": 591,
+            "controlWidth": 478,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "MayaPropertyEditorWindowWorkspaceControl",
+            "posX": 1341,
+            "posY": 351,
+            "controlHeight": 597,
+            "controlWidth": 460,
+            "widthProperty": "preferred",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "MayaRenderSetupWindowWorkspaceControl",
+            "posX": 990,
+            "posY": 351,
+            "controlHeight": 597,
+            "controlWidth": 345,
+            "widthProperty": "preferred",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "referenceEditorPanel1Window",
+            "posX": 831,
+            "posY": 319,
+            "controlHeight": 761,
+            "controlWidth": 761,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "nodeEditorPanel1Window",
+            "posX": 2153,
+            "posY": 373,
+            "controlHeight": 616,
+            "controlWidth": 1056,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "timeEditorPanel1Window",
+            "posX": 200,
+            "posY": 250,
+            "controlHeight": 408,
+            "controlWidth": 1408,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "scriptEditorPanel1Window",
+            "posX": 2625,
+            "posY": 328,
+            "controlHeight": 970,
+            "controlWidth": 1382,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        },
+        {
+            "objectName": "hyperShadePanel1Window",
+            "posX": 2247,
+            "posY": 45,
+            "controlHeight": 1069,
+            "controlWidth": 1659,
+            "widthProperty": "free",
+            "heightProperty": "free"
+        }
+    ]
+}

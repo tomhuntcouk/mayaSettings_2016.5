@@ -7,13 +7,14 @@ global proc shelf_uv () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 248
-        -height 248
+        -width 35
+        -height 35
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Assign checker texture to selected objects" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Assign Checker Texture" 
         -labelOffset 0
@@ -25,8 +26,8 @@ global proc shelf_uv () {
         -imageOverlayLabel "ACT" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "checker.svg" 
-        -image1 "checker.svg" 
+        -image "textureEditor.png" 
+        -image1 "textureEditor.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -38,13 +39,14 @@ global proc shelf_uv () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 23
+        -height 23
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Create a projection planar to the selected faces" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Planar Mapping" 
         -labelOffset 0
@@ -75,6 +77,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Display Texture Border Edges" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Texture Border Edges" 
         -labelOffset 0
@@ -106,6 +109,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "User Script" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Select Shell" 
         -labelOffset 0
@@ -136,6 +140,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Separate the texture coordinates along the selected edges" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Cut UV Edges" 
         -labelOffset 0
@@ -166,6 +171,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Select edges to be merged" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Move and Sew UV Edges" 
         -labelOffset 0
@@ -196,6 +202,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Select a poly object or UV's to be unfolded" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Unfold" 
         -labelOffset 0
@@ -226,6 +233,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Automatically move UVs for better texture space distribution" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Relax" 
         -labelOffset 0
@@ -257,6 +265,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "Transfer UVs from one to many" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Multi-transfer UVs" 
         -labelOffset 0
@@ -288,6 +297,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "polyFlipUV -flipType 1 -local on" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "FlipUV_vertical" 
         -labelOffset 0
@@ -319,6 +329,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "polyFlipUV -flipType 0 -local on" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "FlipUV_horizontal" 
         -labelOffset 0
@@ -350,6 +361,7 @@ global proc shelf_uv () {
         -preventOverride 0
         -annotation "save UV snapshot next to file" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "UV Snapshot" 
         -labelOffset 0

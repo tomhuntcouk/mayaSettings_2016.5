@@ -1,0 +1,24 @@
+import pymel.all as pm
+
+sel = pm.ls(sl=True)
+for crv in sel :
+    n = crv.name()
+    n = n.split('IKCTRL')
+    newCntrlName = n[0] + 'IK_CTRL'
+    
+    attribute = n[1][1:]
+    attribute = attribute.replace( 'blend', '' )
+    attribute = attribute.replace( '1', '' )
+    attribute = attribute.replace( 'Point', 'Position' )
+    
+    try :
+        cntrl = pm.PyNode('Prop:'+newCntrlName)
+    except :
+        pm.warning('Cannot find a control called Prop:' + newCntrlName )
+        continue
+    
+    attr = getattr( cntrl, attribute )
+    crv.output >> attr
+    
+    crv.rename( '%s_%s' % ( newCntrlName, attribute ) )
+

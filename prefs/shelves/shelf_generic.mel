@@ -14,6 +14,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "GoZ" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "GoZ" 
         -labelOffset 0
@@ -44,6 +45,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "Freeze Transformations" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Freeze Transformations" 
         -labelOffset 0
@@ -75,6 +77,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "Center Pivot" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Center Pivot" 
         -labelOffset 0
@@ -106,6 +109,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "History" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "History" 
         -labelOffset 0
@@ -135,8 +139,41 @@ global proc shelf_generic () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Select the deformed object(s) to delete all the history except deformers" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Non-Deformer History" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "NH" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconEdit.png" 
+        -image1 "menuIconEdit.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "BakeNonDefHistory" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Hypershade" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Hypershade" 
         -labelOffset 0
@@ -168,6 +205,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "Node Editor" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Node Editor" 
         -labelOffset 0
@@ -199,6 +237,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "Hypergraph: Hierarchy" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Hypergraph: Hierarchy" 
         -labelOffset 0
@@ -230,6 +269,7 @@ global proc shelf_generic () {
         -preventOverride 0
         -annotation "Make connections between object attributes" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Connection Editor" 
         -labelOffset 0
@@ -247,6 +287,70 @@ global proc shelf_generic () {
         -marginWidth 1
         -marginHeight 1
         -command "ConnectionEditor" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render all frames in the current animation sequence" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Render Sequence" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "RS" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconRender.png" 
+        -image1 "menuIconRender.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "RenderSequence" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Export the current scene to a file and render that file in the background" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Batch Render" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "BR" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconRender.png" 
+        -image1 "menuIconRender.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "BatchRender" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1

@@ -1,0 +1,71 @@
+global proc shelf_Bonsai () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Leo's Tools" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "import sys, os\nimport imp\nimport importlib\nimport maya.cmds as c..." 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import sys, os\nimport imp\nimport importlib\nimport maya.cmds as cmds\n#import os\n\n\nDir \t\t\t= \"/Volumes/SSD/Work/Bonsai/BonsaiArt/bonsaiArt_p4v/Tech_Art/3DTools/\"\nSubFolders \t\t= [\"CharSetUp\",\"AnimTools\"]\nFileType \t\t= \".py\"\n\n\ndef psource(ModuleDir,FileName):\n    # Check if dirrectory is really a directory\n\n\n    if( os.path.exists( ModuleDir) ):\n        # Check if the file directory already exists in the sys.path array\n        paths = sys.path\n        pathfound = 0\n        for path in paths:\n            if(ModuleDir == path):\n                pathfound = 1\n    # If the dirrectory is not part of sys.path add it\n        if not pathfound:\n            sys.path.append( ModuleDir )\n            print \"Added Path to sys Path... \"\n            print ModuleDir\n\n\n    # exec works like MEL's eval but you need to add in globals()\n    # at the end to make sure the file is imported into the global\n    # namespace else it will only be in the scope of this function\n    \n    print FileName\n    exec ('import ' + FileName ) in globals()\n    exec ( 'imp.reload( ' + FileName + ' )' ) in globals()\n    #exec ('from ' + FileName + ' import *') in globals()\n    \n    \n    print \"imported/reloaded...\"\n    print \"---->>\" + FileName\n    # This returns the namespace of the file imported\n    return FileName\n\n\ndef LOADMY_PlugIns():\n\tbit\t\t\t\t= \"32\"\n\tVersion \t\t= cmds.about(version=True)\n\tmac\t\t\t\t= cmds.about(mac=True)\n\tMaya2016Ext \t= \"2016 Extension 2\"\n\n\n\tif (Maya2016Ext == Version):\n\t\tVersion \t= \"2016.5\"\n\tif (cmds.about(x64=True)):\n\t\tbit \t\t= \"64\"\n\tPluginDir \t= \"AnimSchoolPickerPC/\" + Version + \"_\" + bit + \"bit/\"\n\tif (mac):\n\t\tPluginDir \t= \"AnimSchoolPickerMac/maya\" + Version + \"/\"\t\t\n\tPluginName \t= \"AnimSchoolPicker.mll\"\n\tMyPlugin\t\t= Dir + PluginDir + PluginName\n\tcmds.loadPlugin( MyPlugin )\n\n\n\n\nfor Folder in SubFolders:\n\t# When you import a file you must give it the full path\n\tfor root, dirs, files in os.walk(Dir + Folder + \"/\"):\n\t    for file in files:\n\t        if file.endswith(FileType):\n\t            FileName = os.path.splitext(file)[0] \n\t            psource(root,FileName)\n\n\nsys.path.append(Dir)\nLOADMY_PlugIns()\nUI.CharSetUp_UI()\n\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "import pymel.all as pm\n\nsel = pm.ls(sl=True)\njnt = sel[0]\nsprt =..." 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "import pymel.all as pm\n\nsel = pm.ls(sl=True)\njnt = sel[0]\nsprt =..." 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "S2J" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\n\nsel = pm.ls(sl=True)\njnt = sel[0]\nsprt = sel[1]\n\n#reset sprite pivot\nt = sprt.getTranslation(space='world')\np = sprt.getRotatePivot(space='world')\nsprt.setTranslation( t-p, space='world' )\npm.makeIdentity(sprt, apply=True)\n\n\nsprt.setTranslation( jnt.getTranslation(space='world'), space='world' )\nn = jnt.name()\nsprt.rename( n.replace('JNT', 'GEO') )" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 

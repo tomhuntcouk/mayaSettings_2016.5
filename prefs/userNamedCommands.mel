@@ -1,4 +1,4 @@
-//Maya Preference 2016 (Release 1)
+//Maya Preference 2017 (Release 1)
 //
 //
 
@@ -109,4 +109,16 @@ nameCommand
 	-sourceType "mel"
 	-command ("ReferenceEditor")
 	ReferenceEditorNameCommand;
+
+nameCommand
+	-annotation "SetKeyAnimatedNameCommand"
+	-sourceType "mel"
+	-command ("SetKeyAnimated")
+	SetKeyAnimatedNameCommand;
+
+nameCommand
+	-annotation "SetKeyNameCommand"
+	-sourceType "mel"
+	-command ("SetKey")
+	SetKeyNameCommand;
 

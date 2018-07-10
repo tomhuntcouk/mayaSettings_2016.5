@@ -3,6 +3,8 @@ from collections import Counter
 
 # example
 # v.Create( sel[0], pm.datatypes.Color.red, sel[1],  'leftEye', 0.2 )
+# select mesh 1st then the control
+
 def Create( obj, targetColor, control, attr, offset ) :
 	shape = obj.getShape()
 	name = obj.name()
@@ -34,9 +36,6 @@ def Create( obj, targetColor, control, attr, offset ) :
 
 		# print outUvList
 
-
-		
-
 		# return
 
 		if( len(outVerts) > 0 ) :
@@ -58,6 +57,10 @@ def Create( obj, targetColor, control, attr, offset ) :
 	else :
 		pm.warning('The target must be a mesh')
 
+
+
+# use this to connect the PolyMoveUV to the joint attribute you want FF (shader) to read
+#  example : ConnectToAttr( sel[0], sel[1], 'translateX' ) - select mesh 1st then joint
 
 def ConnectToAttr( src, trgt, attr ) :
 	moveUVs = src.getShape().history(type='polyMoveUV')
