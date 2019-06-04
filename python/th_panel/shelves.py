@@ -18,21 +18,32 @@ def __create_shelf_frame( shelf_file, shelf_name, layout ) :
 	return shelf_frame
 
 def __load_shelves( layout ) :
+	print 'Loading shelves'
 	children = layout.getChildArray()
 	if children :
 		for child in children :
 			pm.deleteUI( child )
 
-	shelves_path = pm.internalVar( userShelfDir=True )
 	shelf_frames = []
-	shelves = glob( shelves_path + '/shelf*.mel' )
-	for i in range( 1, len( shelves ) + 1 ) :				
+	shelves_paths = pm.internalVar( userShelfDir=True )
+	shelves_paths = shelves_paths.split(':')
+	shelves = []
+	for shelves_path in shelves_paths :
+		shelves = glob( shelves_path + '/shelf*.mel' )
+		shelves.extend(shelves)
+
+	print shelves_path
+	print shelves
+	for i in range( 1, len( shelves ) + 1 ) :
 		# shelf_file = shelves[i-1]
-		# shelf_name = os.path.basename(shelves[i-1]).replace( 'shelf_', '' )
+		# shelf_name = os.path.basename(shelves[i-1]).replace( 'shelf_', '' )	
+
 		shelf_file = pm.Env.optionVars.get( 'shelfFile%s' % i )	
 		shelf_file = os.path.join( shelves_path, '%s.mel' % shelf_file )
-		shelf_name = pm.Env.optionVars.get( 'shelfName%s' % i )
-		shelf_frames.append( __create_shelf_frame( shelf_file, shelf_name, layout ) )
+		if( os.path.isfile( shelf_file ) ) :
+			shelf_name = pm.Env.optionVars.get( 'shelfName%s' % i )
+			shelf_frames.append( __create_shelf_frame( shelf_file, shelf_name, layout ) )
+		
 	layout.redistribute( *[0] * len( shelf_frames ) )
 	for shelf_frame in shelf_frames :
 		shelf_frame.setCollapse( True )

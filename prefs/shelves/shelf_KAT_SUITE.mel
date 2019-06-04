@@ -14,6 +14,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "Refreshes all of MKAT + Registered Extensions by closing running tools & reloading the code avoiding the need to close & open Maya" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_Reload KAT framework and extended tools" 
@@ -45,6 +46,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "ExportManager - A unified Maya to Game exporter - supporting both Fiction and Unity" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_export manager" 
@@ -76,6 +78,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "Validator - Checks your scene for common problems, provides you quick access to problem areas and some autofixes for predictable issues" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_validator" 
@@ -107,6 +110,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "A Utility tool for many camera related functions" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_CameraBox" 
@@ -138,6 +142,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "A renamer tool, handles most types of Nodes in Maya" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_Renamer" 
@@ -169,6 +174,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "A Utility tool for working with VertexColors" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_Vertex Balance Color Tool" 
@@ -200,6 +206,7 @@ global proc shelf_KAT_SUITE () {
         -preventOverride 0
         -annotation "Kings Auto Rigging ToolSuite" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "kat_sBtn_King Rigging Tools" 
@@ -217,6 +224,70 @@ global proc shelf_KAT_SUITE () {
         -marginWidth 1
         -marginHeight 1
         -command "import mkatframework.krt.krtController as krt\rkrt.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Kings Animation ToolSuite" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_King Animation Tools" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "anim_tools.png" 
+        -image1 "anim_tools.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkatframework.animationTools.atController as animTools\ranimTools.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "A Tool for Marking Events on a Timeline - Events will be taken by the FFA/FBX exporters" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_TimelineMarker" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "timelinemarker.png" 
+        -image1 "timelinemarker.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkatframework.timelinemarker.mkatMarkerController as mTM\rmTM.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

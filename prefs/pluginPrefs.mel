@@ -1,7 +1,8 @@
-//Maya Preference 2017 (Release 1)
+//Maya Preference 2018 (Release 1)
 //
 //
-evalDeferred("autoLoadPlugin(\"\", \"KAT_FFExporter.py\", \"KAT_FFExporter\")");
-evalDeferred("autoLoadPlugin(\"\", \"shaderFXPlugin\", \"shaderFXPlugin\")");
-evalDeferred("autoLoadPlugin(\"\", \"Unfold3D\", \"Unfold3D\")");
+evalDeferred("autoLoadPlugin(\"\", \"FHS_Tools_Node.py\", \"FHS_Tools_Node\")");
+evalDeferred("autoLoadPlugin(\"\", \"mtoa\", \"mtoa\")");
+evalDeferred("autoLoadPlugin(\"\", \"fbxmaya\", \"fbxmaya\")");
+evalDeferred("autoLoadPlugin(\"\", \"glslShader\", \"glslShader\")");
 evalDeferred("autoLoadPlugin(\"\", \"modelingToolkit\", \"modelingToolkit\")");

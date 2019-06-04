@@ -23,7 +23,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem75;
+        menuItem125;
 
     menuItem
         -label "Status Line" 
@@ -49,7 +49,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem76;
+        menuItem126;
 
     menuItem
         -label "Attributes" 
@@ -72,14 +72,14 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem77;
+        menuItem127;
 
         menuItem
             -label "Channel Box" 
             -divider 0
             -subMenu 0
             -tearOff 0
-            -command "if (`optionVar -q channelsLayersSeparate`) {\r\n\ttoggleUIComponentVisibility \"Channel Box\";\r\n} else {\r\n\ttoggleUIComponentVisibility \"Channel Box / Layer Editor\";\r\n}\r\n; updatePrefsMenu" 
+            -command "if (`optionVar -q channelsLayersSeparate`) {\r\n\ttoggleUIComponentVisibility \"Channel Box\";\r\n} else {\r\n\ttoggleUIComponentVisibility \"Channel Box / Layer Editor\";\r\n}\r\n; " 
             -altModifier 0
             -optionModifier 0
             -commandModifier 0
@@ -98,14 +98,14 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem78;
+            menuItem128;
 
         menuItem
             -label "Layer Editor" 
             -divider 0
             -subMenu 0
             -tearOff 0
-            -command "if (`optionVar -q channelsLayersSeparate`) {\r\n\ttoggleUIComponentVisibility \"Layer Editor\";\r\n} else {\r\n\ttoggleUIComponentVisibility \"Channel Box / Layer Editor\";\r\n}\r\n; updatePrefsMenu" 
+            -command "if (`optionVar -q channelsLayersSeparate`) {\r\n\ttoggleUIComponentVisibility \"Layer Editor\";\r\n} else {\r\n\ttoggleUIComponentVisibility \"Channel Box / Layer Editor\";\r\n}\r\n; " 
             -altModifier 0
             -optionModifier 0
             -commandModifier 0
@@ -124,14 +124,14 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem79;
+            menuItem129;
 
         menuItem
             -label "Attribute Editor" 
             -divider 0
             -subMenu 0
             -tearOff 0
-            -command "toggleUIComponentVisibility \"Attribute Editor\"; updatePrefsMenu" 
+            -command "toggleUIComponentVisibility \"Attribute Editor\" " 
             -altModifier 0
             -optionModifier 0
             -commandModifier 0
@@ -150,14 +150,14 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem80;
+            menuItem130;
 
         menuItem
             -label "Tool Settings" 
             -divider 0
             -subMenu 0
             -tearOff 0
-            -command "toggleUIComponentVisibility \"Tool Settings\"; updatePrefsMenu" 
+            -command "toggleUIComponentVisibility \"Tool Settings\" " 
             -altModifier 0
             -optionModifier 0
             -commandModifier 0
@@ -176,7 +176,7 @@
             -boldFont 0
             -sourceType "mel" 
             -longDivider 1
-            menuItem81;
+            menuItem131;
 
     setParent -m ..;
 
@@ -204,7 +204,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem82;
+        menuItem132;
 
     menuItem
         -label "Time Slider" 
@@ -230,7 +230,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem83;
+        menuItem133;
 
     menuItem
         -label "Range Slider" 
@@ -256,7 +256,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem84;
+        menuItem134;
 
     menuItem
         -label "Shelf" 
@@ -282,7 +282,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem85;
+        menuItem135;
 
     menuItem
         -label "Command Line" 
@@ -308,7 +308,7 @@
         -boldFont 0
         -sourceType "mel" 
         -longDivider 1
-        menuItem86;
+        menuItem136;
 
 setParent -m ..;
 

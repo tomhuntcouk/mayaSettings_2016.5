@@ -7,13 +7,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Click to place joint. Click on existing joint to add to skeleton. Click-Drag to position joint." 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Joint Tool" 
@@ -38,13 +39,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Create IK handle on joint chain" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "IK Handle Tool" 
@@ -69,13 +71,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Create IK spline handle on joint chain" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "IK Spline Handle Tool" 
@@ -100,13 +103,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Select object(s)" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Cluster" 
@@ -131,13 +135,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Makes a circleX." 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "circleX" 
@@ -163,13 +168,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Makes a cube." 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "cube" 
@@ -195,13 +201,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Select an object(s)" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Freeze Transformations" 
@@ -227,13 +234,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Select an object(s)" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Center Pivot" 
@@ -259,13 +267,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Paint weights on smooth bound skins." 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Paint Skin Weights Tool" 
@@ -290,13 +299,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Select either a single skin or the source and the destination skin." 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Mirror Skin Weights" 
@@ -321,13 +331,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "CasMass copy weights" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "CasMass" 
@@ -353,13 +364,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "abWeightLifter" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "abWeightLifter" 
@@ -384,13 +396,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Set driven key options" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "SDK" 
@@ -416,13 +429,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Edit various component values for the selected object(s)" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Component Editor" 
@@ -448,13 +462,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "BSpiritCorrectiveShape.mel" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "BSpiritCorrectiveShape" 
@@ -480,13 +495,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "blendShape_Manager" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "blendShape_Manager" 
@@ -512,13 +528,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "mp_mirrorBlendshapes" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "mp_mirrorBlendshapes" 
@@ -544,13 +561,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Adjust Blend Shape weights" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Blend Shape" 
@@ -576,16 +594,16 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "averageVertexWeights" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "averageVertexWeights" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -608,13 +626,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Weight hammer: fix vertices that have bad weights (select them and use the hammer)" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Weight Hammer" 
@@ -640,44 +659,14 @@ global proc shelf_rigging () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 39
-        -height 39
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "AutoWeight: Select root joint, then mesh" 
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "AutoWeight: Select root joint, then mesh" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.25 
-        -image "heatWeight.xpm" 
-        -image1 "heatWeight.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import PM_heatWeight\r\nPM_heatWeight.heatWeight()" 
-        -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
+        -width 34
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Move object 1 to object 2" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "moveToObject" 
@@ -696,6 +685,39 @@ global proc shelf_rigging () {
         -marginWidth 1
         -marginHeight 1
         -command "sel = pm.ls( sl=True )\nif( len(sel) == 2 ) :\n\tsel[1].setTranslation( sel[0].getTranslation(space='world'),space='world' )\n\tsel[1].setRotation( sel[0].getRotation(space='world'),space='world' )\n\tsel[1].setScale( sel[0].getScale() )\n\t\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Leo's Tools" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Leo's Tools" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "LT" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "\nimport sys, os\nimport imp\nimport importlib\nimport maya.cmds as cmds\n#import os\n\nDir \t\t\t= \"/Volumes/SSD/Work/Chimera/Chimera_art/Tech_Art/3DTools/\"\n\nSubFolders      = [\"CharSetUp\",\"AnimTools\"]\nFileType        = \".py\"\n\ndef psource(ModuleDir,FileName):\n    # Check if dirrectory is really a directory\n\n    if( os.path.exists( ModuleDir) ):\n        # Check if the file directory already exists in the sys.path array\n        paths = sys.path\n        pathfound = 0\n        for path in paths:\n            if(ModuleDir == path):\n                pathfound = 1\n    # If the dirrectory is not part of sys.path add it\n        if not pathfound:\n            sys.path.append( ModuleDir )\n            print \"Added Path to sys Path... \"\n            print ModuleDir\n\n    # exec works like MEL's eval but you need to add in globals()\n    # at the end to make sure the file is imported into the global\n    # namespace else it will only be in the scope of this function\n    \n    print FileName\n    exec ('import ' + FileName ) in globals()\n    exec ( 'imp.reload( ' + FileName + ' )' ) in globals()\n    #exec ('from ' + FileName + ' import *') in globals()\n    \n    \n    print \"imported/reloaded...\"\n    print \"---->>\" + FileName\n    # This returns the namespace of the file imported\n    return FileName\n\ndef LOADMY_PlugIns():\n\tbit\t\t\t\t= \"32\"\n\tVersion \t\t= cmds.about(version=True)\n\tmac\t\t\t\t= cmds.about(mac=True)\n\tMaya2016Ext \t= \"2016 Extension 2\"\n\tSuffix\t\t\t= \"mll\"\n\tif (Maya2016Ext == Version):\n\t\tVersion \t= \"2016.5\"\n\tif (cmds.about(x64=True)):\n\t\tbit \t\t= \"64\"\n\tDirSuffix       = \"_\" + bit + \"bit/\"\n\tif Version == \"2018\":\n\t    DirSuffix = \"/\"\n\tPluginDir \t    = \"AnimSchoolPickerPC/\" + Version + DirSuffix\n\t\t\n\tif (mac):\n\t\tPluginDir \t= \"AnimSchoolPickerMac/maya\" + Version + \"/\"\t\n\t\tSuffix\t\t= \"bundle\"\t\n\tPluginName \t= \"AnimSchoolPicker.\" + Suffix\n\tMyPlugin\t\t= Dir + PluginDir + PluginName\n\timport os.path\n\tif os.path.exists(MyPlugin):\n\t\tcmds.loadPlugin( MyPlugin )\n\telse:\n\t\tprint \" Anim School Picker not found, guessing that we don't have a current version for this maya \" + Version + \" \" + bit + \" Version\"\n\t\tprint \" We looked here : \", MyPlugin\n\n\nfor Folder in SubFolders:\n\t# When you import a file you must give it the full path\n\tfor root, dirs, files in os.walk(Dir + Folder + \"/\"):\n\t    for file in files:\n\t        if file.endswith(FileType):\n\t            FileName = os.path.splitext(file)[0] \n\t            psource(root,FileName)\n\nsys.path.append(Dir)\nLOADMY_PlugIns()\nUI.CharSetUp_UI()\n\n\n\n" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

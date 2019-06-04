@@ -1,9 +1,0 @@
-import pymel.all as pm
-sel = pm.ls(sl=True)
-
-min = [1.0, 1.0]
-max = [0.0, 0.0]
-
-for uv in sel :
-    print uv
-

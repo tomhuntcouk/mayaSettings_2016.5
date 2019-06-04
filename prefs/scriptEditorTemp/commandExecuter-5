@@ -1,18 +1,13 @@
 import pymel.all as pm
-import os
-
-export_opts = "model=1;animation=1;joints=1;skipunskinnedjoints=0;material=0;optimisegeometry=0;ignorenormals=0;ignoretangents=0;bindpose=1;flipx=0;flipy=0;flipz=0;debug=1;writelogtextfile=0;exportanimationrange=1;animationstart=110;animationend=200;animationframerate=6;flipreversewindingtest=0;colorformat=2;skipErrorDialog=False;" 
-export_path = "/Volumes/SSD/Work/Bonsai/FarmBonsai_3/mobile/res/common/models/Map/EffectsAndAnimation/upgradeSequenceExport"
 
 sel = pm.ls(sl=True)
-for obj in sel :
-    n = obj.name().replace(':', '_').replace('|','_')
-    path = os.path.join( export_path, 'buildingUpgrade_' + n + ".ffm" )
-    pm.select(obj)
-    cs = 'colorsets=$colorSet1;'
-    uv = 'uvsets=$map1;'
-    opts = export_opts + uv
+srcdir = sel[0]
+tgtdir = sel[1]
 
-    pm.cmds.file( path, options=opts, typ="KAT FF Exporter", pr=True, es=True, force=True )
+for c in srcdir.getChildren() :
+    n = c.name()
+    n = n.replace( srcdir.name(), '' )
+    tgt = tgtdir.name() + n
     
-pm.select(sel)
+    pm.select( c, tgt )
+    Cas_massCopyWeight_python.Cas_massCopyWeight_cmd( 0.001, False )
