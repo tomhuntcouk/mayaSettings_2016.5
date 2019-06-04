@@ -356,7 +356,7 @@ global proc shelf_rigging () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as cmds\nimport Cas_massCopyWeight_python\nCas_massCopyWeight_python.Cas_massCopyWeight_UI()" 
+        -command "import maya.cmds as cmds\nimport cas.Cas_massCopyWeight_python as Cas_massCopyWeight_python\nCas_massCopyWeight_python.Cas_massCopyWeight_UI()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
