@@ -122,3 +122,15 @@ nameCommand
 	-command ("SetKey")
 	SetKeyNameCommand;
 
+nameCommand
+	-annotation "sprite_zorder_plusNameCommand"
+	-sourceType "mel"
+	-command ("sprite_zorder_plus")
+	sprite_zorder_plusNameCommand;
+
+nameCommand
+	-annotation "sprite_zorder_minusNameCommand"
+	-sourceType "mel"
+	-command ("sprite_zorder_minus")
+	sprite_zorder_minusNameCommand;
+

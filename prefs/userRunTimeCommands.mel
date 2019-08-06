@@ -74,3 +74,19 @@ runTimeCommand
 	-command ("import th_utils.th_transformToolCycle as ttc\nreload(ttc)\n\nttc.cycle('scale')")
 	cycleScaleTool;
 
+runTimeCommand
+	-annotation "Increase the z-order"
+	-category "Custom Scripts.Sprites"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import pymel.all as pm\nfrom farm_map import importSprites\nsel = pm.ls(sl=True)\n\nfor obj in sel :\n\timportSprites.shift_depth( obj, 0.1 )")
+	sprite_zorder_plus;
+
+runTimeCommand
+	-annotation "Move the sprite own in z order"
+	-category "Custom Scripts.Sprites"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import pymel.all as pm\nfrom farm_map import importSprites\nsel = pm.ls(sl=True)\n\nfor obj in sel :\n\timportSprites.shift_depth( obj, -0.1 )")
+	sprite_zorder_minus;
+

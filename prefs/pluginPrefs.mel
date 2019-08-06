@@ -2,6 +2,8 @@
 //
 //
 evalDeferred("autoLoadPlugin(\"\", \"FHS_Tools_Node.py\", \"FHS_Tools_Node\")");
+evalDeferred("autoLoadPlugin(\"\", \"matrixNodes\", \"matrixNodes\")");
+evalDeferred("autoLoadPlugin(\"\", \"CharcoalEditor2\", \"CharcoalEditor2\")");
 evalDeferred("autoLoadPlugin(\"\", \"mtoa\", \"mtoa\")");
 evalDeferred("autoLoadPlugin(\"\", \"fbxmaya\", \"fbxmaya\")");
 evalDeferred("autoLoadPlugin(\"\", \"glslShader\", \"glslShader\")");

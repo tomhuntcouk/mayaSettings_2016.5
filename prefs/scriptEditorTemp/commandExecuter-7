@@ -1,0 +1,21 @@
+import pymel.all as pm
+
+sel = pm.ls( '*_JNT' )
+
+for obj in sel :
+    pm.select(None)
+    cname = obj.name()
+    cname = cname.replace('_JNT', '')
+    
+    
+    if( 'CLS' not in cname ) : 
+        continue
+    
+
+   
+    
+    lname = cname.replace('CLS', 'LOC')
+    l = pm.PyNode(lname)
+
+    
+    pm.parentConstraint( obj, l, mo=False )

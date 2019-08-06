@@ -14,7 +14,7 @@ global proc averageVertexWeights()
     clear( $selOrdered );    
     string $sl[] = `ls -sl -fl`;
 
-    if( size( $sl ) < 3 )
+    if( size( $sl ) != 3 )
     {
         warning( "Please select three vertices." );
         return;
@@ -58,4 +58,53 @@ global proc averageVertexWeights()
     select $selOrdered;
 
 	waitCursor -state off;
+}
+
+global proc copyVertexWeights()
+{
+    waitCursor -state on;
+    
+    string $selOrdered[];
+    clear( $selOrdered );    
+    string $sl[] = `ls -sl -fl`;
+
+    if( size( $sl ) != 2 )
+    {
+        warning( "Please select 2 vertices." );
+        return;
+    }
+
+    for( $i = 1; $i < size($sl); $i++ )
+    {
+        string $tmpSel[] = `ls -sl -fl`;
+        $selOrdered = stringArrayCatenate( $selOrdered, $tmpSel );
+        undo;
+    }
+
+    $selOrdered = zooUtilsReverseArray( $selOrdered );
+    $selOrdered = stringArrayRemoveDuplicates($selOrdered);
+
+    string $i1 = $selOrdered[0];    
+    string $o = $selOrdered[1];
+
+    select $o;
+
+    string $rels[] = `listRelatives -p $o`;
+    string $skin = `findRelatedSkinCluster $rels[0]`;
+
+    string $trans[] = `skinPercent -q -t $skin $i1`;
+    // $trans = stringArrayCatenate( $trans, `skinPercent -q -t $skin $i2` );
+    $trans = stringArrayRemoveDuplicates( $trans );
+    
+    for( $i = 0; $i < size($trans); $i++ )
+    {
+
+        float $w1 = `skinPercent -t $trans[$i] -q -v $skin $i1`;                
+   
+        skinPercent -tv $trans[$i] $w1 -r false $skin $o;
+    }
+
+    select $selOrdered;
+
+    waitCursor -state off;
 }

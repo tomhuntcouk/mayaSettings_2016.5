@@ -1,0 +1,107 @@
+global proc shelf_farmHeroes () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create meshes based on selected pngs" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "CreateMeshFromSprite" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SfPNG" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\nfrom farm_map import importSprites as importSprites\n\nSCALEFACTOR = 0.005\nselection = pm.ls(sl=True)\n\n\nfiletypes = \"PNG (*.png)\"\nfilepaths = pm.fileDialog2(ff=filetypes, ds=2, fm=4, okc=\"Import\")\n#filepaths = [u'/Volumes/GoogleDrive/My Drive/PNG/Assets/tree_stump.png']\n\n\nimportSprites.import_from_list( filepaths )\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Assigns the selected sprite to the selected mesh" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "AssignSpriteToMesh" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "StoM" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\nfrom farm_map import importSprites as importSprites\n\nSCALEFACTOR = 0.005\nselection = pm.ls(sl=True)\n\n\nfiletypes = \"PNG (*.png)\"\nfilepaths = pm.fileDialog2(ff=filetypes, ds=2, fm=4, okc=\"Import\")\n#filepaths = [u'/Volumes/GoogleDrive/My Drive/PNG/Assets/tree_stump.png']\n\nfor mesh in selection :\n\timportSprites.assign_sprite_to_mesh( filepaths, mesh )\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Flip the sprite in X" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "FlipSprite" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Flip" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.all as pm\nimport farm_map.importSprites as importSprites\nreload(importSprites)\n\nsel = pm.ls( sl=True )\nfor obj in sel :\n    importSprites.flip_spritemesh(obj)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 

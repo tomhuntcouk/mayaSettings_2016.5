@@ -12,7 +12,7 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Refreshes all of MKAT + Registered Extensions by closing running tools & reloading the code avoiding the need to close & open Maya" 
+        -annotation "Reloader:\nRefreshes all of MKAT + Registered Extensions,\nby closing running tools and reloading the code.\nAvoiding the need to close & open Maya" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -31,7 +31,7 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as cmds\rcmds.evalDeferred('import mkatframework.mkatUpdate as mkatUpdate;mkatUpdate.reload_everything()')" 
+        -command "import maya.cmds as cmds\rcmds.evalDeferred('import mkatframework.mkatModuleUpdate as mkatUpdate;mkatUpdate.reload_everything()')" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -44,39 +44,7 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "ExportManager - A unified Maya to Game exporter - supporting both Fiction and Unity" 
-        -enableBackground 0
-        -backgroundColor 0 0 0 
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "kat_sBtn_export manager" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "tinyBoldLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "FFexport.png" 
-        -image1 "FFexport.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import mkatframework.exportmanager.mkatExportManagerController as eMan\reMan.run()" 
-        -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 34
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Validator - Checks your scene for common problems, provides you quick access to problem areas and some autofixes for predictable issues" 
+        -annotation "Validator:\nChecks your scene for common problems,\nprovides you quick access to problem areas and some autofixes for predictable issues" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -95,7 +63,7 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.validator.mkatValidator as valid\rvalid.SceneValidator(type_list=['geometry','textures','scene','animation','skeleton'])" 
+        -command "import mkattools.validator.start_validator as validator_start\rvalidator_start.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -108,12 +76,12 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "A Utility tool for many camera related functions" 
+        -annotation "ExportManager:\nA unified Maya to Game exporter - supporting both Fiction and Unity" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "kat_sBtn_CameraBox" 
+        -label "kat_sBtn_export manager" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -122,12 +90,12 @@ global proc shelf_KAT_SUITE () {
         -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "CamBox.png" 
-        -image1 "CamBox.png" 
+        -image "engineexport.png" 
+        -image1 "engineexport.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.CameraTools.CameraBox as camBox\rcamBox.CameraBoxClass()" 
+        -command "import mkattools.exportmanager.mkatExportManagerController as eMan\reMan.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -140,12 +108,12 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "A renamer tool, handles most types of Nodes in Maya" 
+        -annotation "Create, visualise and edit references in a unified and safe way" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "kat_sBtn_Renamer" 
+        -label "kat_sBtn_Reference Manager" 
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -154,12 +122,12 @@ global proc shelf_KAT_SUITE () {
         -font "tinyBoldLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "Renamer.png" 
-        -image1 "Renamer.png" 
+        -image "reference_manager.png" 
+        -image1 "reference_manager.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.renamer.Renamer as Renamer\rRenamer.RenamerClass()" 
+        -command "import mkattools.referencemanager.rmController as rm_ctrl\rrm_ctrl.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -172,7 +140,103 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "A Utility tool for working with VertexColors" 
+        -annotation "kat_sBtn_separator_modelling" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_separator_modelling" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "separator.png" 
+        -image1 "separator.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "pass" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Modelling Toolbox:\nTools to assist modelling and manipulation of geometry for Games at King" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_ModellingToolbox" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "modelling_toolbox.png" 
+        -image1 "modelling_toolbox.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.polygontoolkit.polygonToolKitController as PolyToolBox\rPolyToolBox.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Scale Template:\nCreates simple scale wireframes to assist with modelling scales for Games at King" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_ScaleTemplates" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "scale_template.png" 
+        -image1 "scale_template.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.scaletemplates.ScaleTemplate as TemplateGenerator\rTemplateGenerator.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "VertexColorer:\nUtility tool for working with VertexColors" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -191,7 +255,7 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.VertexColorBalance.vertexColorBalanceUI as vColorBalance\rvColorBalance.run()" 
+        -command "import mkattools.vertexcolorbalance.vertexColorBalanceUI as vColorBalance\rvColorBalance.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -204,7 +268,71 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Kings Auto Rigging ToolSuite" 
+        -annotation "kat_sBtn_separator_modelling" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_separator_modelling" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "separator.png" 
+        -image1 "separator.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "pass" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Renamer:\nSimplifies the process of naming nodes in Maya" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_Renamer" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "Renamer.png" 
+        -image1 "Renamer.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.renamer.Renamer as Renamer\rRenamer.RenamerClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Rig Toolbox:\nKings Auto Rigging ToolSuite" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -223,7 +351,7 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.krt.krtController as krt\rkrt.run()" 
+        -command "import mkattools.krt.krtController as krt\rkrt.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -236,7 +364,103 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Kings Animation ToolSuite" 
+        -annotation "Attachment Manager:\nA way of visualizing and managing attachments/propers/handhelds for KRT rigs" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_attachment_manager" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "attachment_manager.png" 
+        -image1 "attachment_manager.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.attachmenttool.krtAttachmentToolController as am_ctrl\ram_ctrl.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "kat_sBtn_separator_anim" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_separator_anim" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "separator.png" 
+        -image1 "separator.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "pass" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Studio Library\nSave poses and animation, Insert, merge and replace the animation" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_Studio Library" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "studio_lib.png" 
+        -image1 "studio_lib.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import studiolibrary\rstudiolibrary.main()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Animation Toolbox:\nKings Animation ToolSuite" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -255,7 +479,7 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.animationTools.atController as animTools\ranimTools.run()" 
+        -command "import mkattools.animationtoolbox.atbController as atb_ctrl\ratb_ctrl.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -268,7 +492,39 @@ global proc shelf_KAT_SUITE () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "A Tool for Marking Events on a Timeline - Events will be taken by the FFA/FBX exporters" 
+        -annotation "Camera Toolbox:\nA Utility tool for many camera related functions" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_CameraBox" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "CamBox.png" 
+        -image1 "CamBox.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.cameratools.CameraBox as camBox\rcamBox.CameraBoxClass()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Animation Event Manager:\nUsed to set and manage Events on a Timeline\nEvents will be taken by the FFA/FBX exporters" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -287,7 +543,39 @@ global proc shelf_KAT_SUITE () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import mkatframework.timelinemarker.mkatMarkerController as mTM\rmTM.run()" 
+        -command "import mkattools.timelinemarker.mkatMarkerController as mTM\rmTM.run()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Retargeter:\nAllows animations to be reused between characters that do not share the same Rigs and/or Proportions" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "kat_sBtn_Retargeter" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "tinyBoldLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "retargeter.png" 
+        -image1 "retargeter.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import mkattools.retargeter.retargeterController as ret_ctrl\rret_ctrl.run()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

@@ -4,7 +4,7 @@ import pymel.all as pm
 
 
 #BASE_PATH = "/Volumes/SSD/Work/FarmHeroes/FarmHeroes_art/Game/core/models/farm_pet_export/pet_cropsie_strawberry-assets/"
-BASE_PATH = "/Volumes/SSD/Work/FarmHeroes/FarmHeroes_art/Game/live-ops/pet/pet_cropsie_carrot-assets"
+BASE_PATH = "/Volumes/SSD/Work/FarmHeroes/FarmHeroes_art/Game/live-ops/pet/pet_cropsie_onion-assets"
 
 sel = pm.ls(selection=True)
 
@@ -31,7 +31,7 @@ for mesh in sel :
         
         texpath = os.path.join(BASE_PATH, spritename)+ '.png'
         if( not os.path.isfile(texpath) ) :
-            print "COULD NOT FIND %s (or %s)" % ( name, spritename )
+            pm.warning( "COULD NOT FIND %s (or %s)" % ( name, spritename ) )
             continue
             
             

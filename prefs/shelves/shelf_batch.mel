@@ -230,7 +230,7 @@ global proc shelf_batch () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import pymel.all as pm\n\nsel = pm.ls(sl=True)\ntmp = pm.Transform()\nfor obj in sel :\n\tpm.delete( obj, ch=True )\n\ts = obj.getShape()\n    \n    obj2 = s.duplicate()[0]\n    s2 = obj2.getShape()\n            \n    s.setParent(tmp, shape=True)\n    try :\n        s2.setParent(obj, add=True, shape=True)\n    except : pass\n    pm.delete(obj2)\n\npm.delete(tmp)" 
+        -command "import pymel.all as pm\n\nsel = pm.ls(sl=True)\ntmp = pm.Transform()\nfor obj in sel :\n\tpm.delete( obj, ch=True )\n\ts = obj.getShape()\n\t\n\tobj2 = s.duplicate()[0]\n\ts2 = obj2.getShape()\n\t\t\t\n\ts.setParent(tmp, shape=True)\n\ttry :\n\t\ts2.setParent(obj, add=True, shape=True)\n\texcept : pass\n\tpm.delete(obj2)\n\npm.delete(tmp)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

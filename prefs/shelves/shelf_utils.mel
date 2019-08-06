@@ -408,18 +408,19 @@ global proc shelf_utils () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "import FHST.framework.fhsToolPanel as fhspanel\nfhspanel.run()\n" 
+        -annotation "Load the Farm Tools" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "import FHST.framework.fhsToolPanel as fhspanel\nfhspanel.run()\n" 
+        -label "FarmTools" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont" 
+        -imageOverlayLabel "FT" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
         -image "pythonFamily.png" 
