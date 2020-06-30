@@ -1,4 +1,4 @@
-//Maya Preference 2017 (Release 1)
+//Maya Preference 2020 (Release 1)
 //
 //
 windowPref -topLeftCorner 225 150 -widthHeight 250 400 -maximized false outlinerPanel1Window;
@@ -17,7 +17,7 @@ windowPref -topLeftCorner 250 200 -widthHeight 550 562 -maximized false blindDat
 windowPref -topLeftCorner 250 200 -widthHeight 1120 640 -maximized false polyTexturePlacementPanel1Window;
 windowPref -topLeftCorner 235 230 -widthHeight 1430 710 -maximized false contentBrowserPanel1Window;
 windowPref -topLeftCorner 263 850 -widthHeight 1070 588 -maximized false PreferencesWindow;
-windowPref -topLeftCorner 23 0 -widthHeight 1262 982 -maximized true MayaWindow;
+windowPref -topLeftCorner 23 0 -widthHeight 1920 1035 -maximized true MayaWindow;
 windowPref -topLeftCorner 375 642 -widthHeight 450 320 -maximized false NewFeatureHighlightWnd;
 windowPref -topLeftCorner 264 1022 -widthHeight 700 583 -maximized false OptionBoxWindow;
 windowPref -topLeftCorner 375 642 -widthHeight 460 170 -maximized false MtoARenderToTexture;

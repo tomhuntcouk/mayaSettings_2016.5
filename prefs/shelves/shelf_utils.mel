@@ -6,14 +6,17 @@ global proc shelf_utils () {
 
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "merge skin clusters from new" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "skinClusterMerge_new" 
@@ -38,14 +41,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "merge skin clusters from file" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "skinClusterMerge_load" 
@@ -70,14 +76,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "import hfFixShading as hf\nhf.hfCheckShading()\nhf.hfFixBadShading()" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "hfFixBadShading" 
@@ -102,14 +111,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "create render passes" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "create render passes" 
@@ -134,14 +146,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "create project Folders" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "create PepperPanic Folders" 
@@ -166,14 +181,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "reduce_influences()" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "render" 
@@ -198,14 +216,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Bake existing animation into keys" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Bake Simulation" 
@@ -230,14 +251,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Preview animation by screen-capturing frames" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Playblast" 
@@ -262,14 +286,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "import ff_utils.export as export\nreload(export)\n\nexport.ui()" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "FF Scene Exporter" 
@@ -294,14 +321,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "import th_panel\nreload(th_panel)\nth_panel.ui.create()\n" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "th_panel" 
@@ -326,14 +356,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "Preview animation by screen-capturing frames" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Playblast" 
@@ -358,14 +391,17 @@ global proc shelf_utils () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
         -enable 1
         -width 35
-        -height 35
+        -height 34
         -manage 1
         -visible 1
         -preventOverride 0
         -annotation "reload files" 
         -enableBackground 0
+        -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "reloadFiles" 

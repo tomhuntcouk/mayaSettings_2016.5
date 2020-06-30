@@ -1,7 +1,9 @@
-//Maya Preference 2017 (Release 1)
+//Maya Preference 2020 (Release 1)
 //
 //
-evalDeferred("autoLoadPlugin(\"\", \"KAT_FFExporter.py\", \"KAT_FFExporter\")");
 evalDeferred("autoLoadPlugin(\"\", \"shaderFXPlugin\", \"shaderFXPlugin\")");
+evalDeferred("autoLoadPlugin(\"\", \"mayaVnnPlugin\", \"mayaVnnPlugin\")");
 evalDeferred("autoLoadPlugin(\"\", \"Unfold3D\", \"Unfold3D\")");
+evalDeferred("autoLoadPlugin(\"\", \"Boss\", \"Boss\")");
+evalDeferred("autoLoadPlugin(\"\", \"bifrostGraph\", \"bifrostGraph\")");
 evalDeferred("autoLoadPlugin(\"\", \"modelingToolkit\", \"modelingToolkit\")");
