@@ -1,0 +1,139 @@
+string $SimTrans[] = {"ROOT_trans","R_armPole","L_armPole","L_handCtrl_Slot","R_handCtrl_Slot","R_legPole","L_legPole","L_footCtrl","R_footCtrl"};
+string $NewSimTrans[];
+clear  $NewSimTrans;
+string $Sel[] = `ls -sl`;
+//get prefix.
+
+if($Sel[0] == "")
+{
+	$Sel[0] = "x";
+};
+
+string $nameSpace[] = stringToStringArray($Sel[0], ":");
+
+//add prefix/namespace..
+
+for($i=0;$i<size($SimTrans);$i++)
+{
+	$NewSimTrans[$i] = $nameSpace[0] + ":" + $SimTrans[$i];
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//get Time range to key
+
+string $SelectedRange = `timeControl -q -rng $gPlayBackSlider`;
+string $Range1 = substituteAllString($SelectedRange, "\"", "");
+string $RangeArr[] = stringToStringArray($Range1, ":");
+
+
+int $MinTime = $RangeArr[0];
+int $MaxTime = $RangeArr[1];
+
+if($MaxTime-$MinTime == 1)
+{
+	$MinTime = `playbackOptions -q -min`;
+	$MaxTime = `playbackOptions -q -max`;
+}
+
+print $MinTime;
+print "\n";
+print $MaxTime;
+print "\n";
+string $TimeRange = ($MinTime + ":" + $MaxTime );
+
+select -r $NewSimTrans;
+float $FramesKeyedA[] = `keyframe -time $TimeRange -query -tc`;
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+string $Ctrls[]= `ls -sl`;
+string $MoveCtrl= $nameSpace[0] + ":" + "MovePoseCtrl";
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//Create WorldMove Ctrlr
+group -em -n $MoveCtrl;
+xform -os -piv 0 0 0;
+string $TempPoint[]  = `pointConstraint -offset 0 0 0 -weight 1 ($nameSpace[0] + ":" + $SimTrans[0]) $MoveCtrl`;
+delete $TempPoint;
+makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+
+
+//Create all locators and Constrain them to the selected Ctrls.
+string $TempOrientA[];
+string $TempPointA[];
+string $LocatorA[];
+clear $TempOrientA $TempPointA $LocatorA;
+
+
+for ($i=0;$i<size($Ctrls);$i++)
+{
+	string $Locator = ($Ctrls[$i] + "_" + "Locator");
+	spaceLocator -p 0 0 0 -n $Locator;
+
+	string $TempOrient[] = `orientConstraint -offset 0 0 0 -weight 1 $Ctrls[$i] $Locator`;
+	string $TempPoint[]  = `pointConstraint -offset 0 0 0 -weight 1 $Ctrls[$i] $Locator`;
+	$TempOrientA[$i]	= $TempOrient[0];
+	$TempPointA[$i]	= $TempPoint[0];
+	$LocatorA[$i]		= $Locator;
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//select all Locators and Key them to the on all keyed frames.
+
+parent $LocatorA $MoveCtrl ;
+setAttr ($MoveCtrl + "." + "v") 0;
+$LocatorA[size($LocatorA)] = $MoveCtrl;
+bakeResults -simulation true -t $TimeRange -sampleBy 1 -disableImplicitControl true -preserveOutsideKeys true -sparseAnimCurveBake false -removeBakedAttributeFromLayer false -bakeOnOverrideLayer false -controlPoints false -shape true $LocatorA;
+select -r $LocatorA;
+
+for($i=$MinTime;$i<=$MaxTime;$i++)
+{
+	int $Deletekey = 1;
+	for($K=0;$K<size($FramesKeyedA);$K++)
+	{
+		
+		if($i == $FramesKeyedA[$K])
+		{
+			$Deletekey = 0;
+		}
+	}
+	if($Deletekey)
+	{
+		cutKey -time $i;
+	}
+}
+
+//delete un needed keys on MoveCtrl
+cutKey -cl -t ":" -f ":" -at "tx" -at "ty" -at "tz" -at "rx" -at "ry" -at "rz" -at "sx" -at "sy" -at "sz" $MoveCtrl;
+setAttr ($MoveCtrl + ".scaleX") 1;
+setAttr ($MoveCtrl + ".scaleY") 1;
+setAttr ($MoveCtrl + ".scaleZ") 1;
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+print $FramesKeyedA;
+//delete Constrains on Locators...since they are keyed.
+delete $TempOrientA $TempPointA;
+
+//constrain Ctrls to locators.
+for ($i=0;$i<size($Ctrls);$i++)
+{
+	//check to see if Variable keyable...
+	string $Keyable[] = `listAttr -k $Ctrls[$i]`;
+	int $DoOrient = 0;
+	for ($k=0;$k<size($Keyable);$k++)
+	{
+		if (`gmatch $Keyable[$k] "rotate*" `)
+		{
+			$DoOrient = 1;
+		}
+	}
+	if($DoOrient)
+	{
+		string $TempOrient[] = `orientConstraint -offset 0 0 0 -weight 1 $LocatorA[$i] $Ctrls[$i]`;
+	}
+	string $TempPoint[]  = `pointConstraint -offset 0 0 0 -weight 1 $LocatorA[$i] $Ctrls[$i]`;
+}
+
+
+select -r $MoveCtrl;

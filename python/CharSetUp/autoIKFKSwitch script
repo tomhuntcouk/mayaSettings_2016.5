@@ -1,0 +1,2683 @@
+		"global string $scriptJob_cons_nodes[];	
+global string $namespace;	
+	
+$scriptJob_cons_nodes = `ls -r true \"*_scriptJob_cons\"`;	
+	
+global proc snap()	
+{    	
+	
+    string $selected[] = `ls -sl`;	
+	
+    if( `size $selected` == 1 )	
+    {         	
+	
+        int $choice = `getAttr ( $selected[0] + \".snap\" )`;	
+        	
+        if( $choice == 0 )	
+        {	
+            abRTInit(); abRTFkIkSwitch(0);	
+        }	
+        else if ( $choice == 1 )	
+        {	
+            abRTInit(); abRTFkIkSwitch(1);	
+        }	
+        	
+    }	
+            	
+}	
+	
+int $index;	
+for( $i = 0; $i < size($scriptJob_cons_nodes); $i++ )	
+{	
+	
+        string $all_Jobs[];	
+        string $current_job;	
+        string $look_for;	
+        	
+        int $found = 0;	
+        $all_jobs = `scriptJob -lj`;	
+	
+        // only_lf_hand	
+        $lf_hand_ctrl_nodes = `listConnections ( $scriptJob_cons_nodes[$i] + \".lfHandCtrl\" )`;	
+        	
+        for($j=0;$j<size($all_jobs);$j++)	
+        {               	
+            $current_job = $all_jobs[$j];	
+            $look_for = $lf_hand_ctrl_nodes[0];	
+"
+		+ "            $match_result = `match $look_for $current_job`;	
+            	
+            if( $match_result != \"\" )	
+            {	
+                $found = 1;	
+            }	
+        }       	
+	
+	
+        if( !$found )	
+        {	
+            // lf hand	
+            $index_lfHand = `scriptJob -kws -attributeChange ( $lf_hand_ctrl_nodes[0] + \".snap\") \"snap()\"`;	
+	
+            // rt hand	
+            $rt_hand_ctrl_nodes = `listConnections ( $scriptJob_cons_nodes[$i] + \".rtHandCtrl\" )`;	
+	
+            $index_rtHand = `scriptJob -kws -attributeChange ( $rt_hand_ctrl_nodes[0] + \".snap\") \"snap()\"`;	
+	
+            // lf foot	
+            $lf_foot_ctrl_nodes = `listConnections ( $scriptJob_cons_nodes[$i] + \".lfFootCtrl\" )`;	
+	
+            $index_lfFoot = `scriptJob -kws -attributeChange ( $lf_foot_ctrl_nodes[0] + \".snap\") \"snap()\"`;	
+	
+            // rt foot	
+            $rt_foot_ctrl_nodes = `listConnections ( $scriptJob_cons_nodes[$i] + \".rtFootCtrl\" )`;	
+	
+            $index_rtFoot = `scriptJob -kws -attributeChange ( $rt_foot_ctrl_nodes[0] + \".snap\") \"snap()\"`;	
+"
+		+ "            break;	
+        }	
+        	
+}	
+	
+	
+global proc abRTFkIkSwitch(int $toFk){	
+	
+// switches IK to FK if $toFk is true, else FK to IK	
+	
+// if $toFk == 2 then acts as a toggle	
+	
+	
+	
+string $aSel[], $ctrl, $snCtrl, $suf, $aLimbsToSnap[], $aLimbBlendObj[], $aCharName[], $aLimb[], $aPrefix[], $limbData, $cCharName, $cmd, $cLimb, $cPrefix, $blendObj, $blendAtt;	
+	
+int $match, $ctrlIsNewLimb;	
+	
+	
+	
+string $lf = abRTGetGlobal(\"leftPrefix\");	
+	
+string $rt = abRTGetGlobal(\"rightPrefix\");	
+	
+/* AM rename	
+	
+string $aArmSuf[] = {\"hand_ctrl\",\"arm_ik_ctrl\",\"elbow_pv_ctrl\",\"wrist_fk_ctrl\",\"wrist_sec_fk_ctrl\",\"elbow_fk_ctrl\",\"upArm_fk_ctrl\",\"upArm_sec_fk_ctrl\",\"clavicle_fk_ctrl\",\"shoulder_ctrl\",\"masterThumb_ctrl\",\"thumbBase_fk_ctrl\",\"thumbMid_fk_ctrl\",\"thumbTip_fk_ctrl\",\"masterIndex_ctrl\",\"indexBase_fk_ctrl\",\"indexMid_fk_ctrl\",\"indexTip_fk_ctrl\",\"masterMiddle_ctrl\",\"middleBase_fk_ctrl\",\"middleMid_fk_ctrl\",\"middleTip_fk_ctrl\",\"masterRing_ctrl\",\"ringBase_fk_ctrl\",\"ringMid_fk_ctrl\",\"ringTip_fk_ctrl\",\"masterPinky_ctrl\",\"pinkyBase_fk_ctrl\",\"pinkyMid_fk_ctrl\",\"pinkyTip_fk_ctrl\"};	
+"
+		+ "	
+string $aLegSuf[] = {\"foot_ctrl\",\"heel_ik_ctrl\",\"knee_pv_ctrl\",\"ball_fk_ctrl\",\"ankle_fk_ctrl\",\"ankle_sec_fk_ctrl\",\"knee_fk_ctrl\",\"upLeg_fk_ctrl\",\"upLeg_sec_fk_ctrl\",\"hip_ctrl\"};	
+*/	
+	
+	
+string $aArmSuf[] = {\"arm_ctrl\",\"arm_ik_ctrl\",\"elbow_pv_ctrl\",\"wrist_fk_ctrl\",\"wrist_sec_fk_ctrl\",\"elbow_fk_ctrl\",\"up_arm_fk_ctrl\",\"up_arm_fk_gimbal_ctrl\",\"clavicle_fk_ctrl\",\"shoulder_ctrl\",\"masterThumb_ctrl\",\"thumbBase_fk_ctrl\",\"thumbMid_fk_ctrl\",\"thumbTip_fk_ctrl\",\"masterIndex_ctrl\",\"indexBase_fk_ctrl\",\"indexMid_fk_ctrl\",\"indexTip_fk_ctrl\",\"masterMiddle_ctrl\",\"middleBase_fk_ctrl\",\"middleMid_fk_ctrl\",\"middleTip_fk_ctrl\",\"masterRing_ctrl\",\"ringBase_fk_ctrl\",\"ringMid_fk_ctrl\",\"ringTip_fk_ctrl\",\"masterPinky_ctrl\",\"pinkyBase_fk_ctrl\",\"pinkyMid_fk_ctrl\",\"pinkyTip_fk_ctrl\"};	
+	
+string $aLegSuf[] = {\"leg_ctrl\",\"foot_ik_ctrl\",\"knee_pv_ctrl\",\"ball_fk_ctrl\",\"ankle_fk_ctrl\",\"ankle_sec_fk_ctrl\",\"knee_fk_ctrl\",\"up_leg_fk_ctrl\",\"up_leg_fk_gimbal_ctrl\",\"hip_ctrl\"};	
+	
+	
+	
+float $cIkFkBlend, $aLimbIkFkBlend[];	
+	
+	
+	
+/* AM Rename	
+	
+$blendAtt = \"ikFkBlend\";	
+"
+		+ "	
+*/	
+	
+$blendAtt = \"fkIkBlend\";	
+	
+	
+	
+// get selection	
+	
+//$aSel = `ls -sl \"*_ctrl\"`;	
+	
+$aSel = abRTStringArrayMatch(`ls -sl`, \".+_ctrl$\");	
+	
+	
+	
+if (size($aSel) == 0){	
+	
+	
+warning \"Select one or more limb controls and try again.\";	
+	
+	
+return;	
+	
+}	
+	
+	
+	
+for ($ctrl in $aSel){	
+	
+	
+	
+	
+	
+$cIkFkBlend = -1.0;	
+	
+	
+$match = $ctrlIsNewLimb = false;	
+	
+	
+$snCtrl = shortNameOf($ctrl);	
+	
+	
+$cCharName = abRTGetCharNameFromCtrl($snCtrl, false);	
+	
+	
+	
+	
+	
+if ($cCharName == \"\")	
+	
+	
+	
+continue;	
+	
+	
+	
+	
+	
+// check arms	
+	
+	
+for ($suf in $aArmSuf){	
+	
+	
+	
+	
+	
+	
+	
+if (`match ($suf+\"$\") $snCtrl` == $suf){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// found an arm	
+	
+	
+	
+	
+if (`match ($lf+$suf+\"$\") $snCtrl` == ($lf+$suf)){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$limbData = $cCharName+\"|lfArm\";	
+	
+	
+	
+	
+	
+if (abRTGetPosInStrArray($limbData, $aLimbsToSnap) == -1){	
+	
+	
+	
+	
+	
+	
+$cPrefix = \"l\";	
+	
+	
+	
+	
+	
+	
+$aLimbsToSnap[size($aLimbsToSnap)] = $limbData;	
+	
+	
+	
+	
+	
+	
+$ctrlIsNewLimb = true;	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}else if (`match ($rt+$suf+\"$\") $snCtrl` == ($rt+$suf)){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$limbData = $cCharName+\"|rtArm\";	
+	
+	
+	
+	
+	
+if (abRTGetPosInStrArray($limbData, $aLimbsToSnap) == -1){	
+	
+	
+	
+	
+	
+	
+$cPrefix = \"r\";	
+"
+		+ "	
+	
+	
+	
+	
+	
+$aLimbsToSnap[size($aLimbsToSnap)] = $limbData;	
+	
+	
+	
+	
+	
+	
+$ctrlIsNewLimb = true;	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$cLimb = \"arm\";	
+	
+	
+	
+	
+$match = true;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// only add to our lookup array if this ctrl is on a limb that hasn't been specified yet	
+	
+	
+	
+	
+if ($ctrlIsNewLimb){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$aCharName[size($aCharName)] = $cCharName;	
+	
+	
+	
+	
+	
+$aLimb[size($aLimb)] = $cLimb;	
+	
+	
+	
+	
+	
+$aPrefix[size($aPrefix)] = $cPrefix;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// get blend value	
+	
+	
+	
+	
+	
+/* AM rename	
+	
+	
+	
+	
+	
+$blendObj = ($cPrefix == \"l\") ? $cCharName+\"_\"+$lf+\"hand_ctrl\" : $cCharName+\"_\"+$rt+\"hand_ctrl\";	
+	
+	
+	
+	
+	
+*/	
+	
+	
+	
+	
+	
+$blendObj = ($cPrefix == \"l\") ? $cCharName+\"_\"+$lf+\"arm_ctrl\" : $cCharName+\"_\"+$rt+\"arm_ctrl\";	
+	
+	
+	
+	
+	
+$aLimbBlendObj[size($aLimbBlendObj)] = $blendObj;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+if (attributeExists($blendAtt, $blendObj)){	
+	
+	
+	
+	
+	
+	
+$aLimbIkFkBlend[size($aLimbIkFkBlend)] = `getAttr ($blendObj+\".\"+$blendAtt)`;	
+	
+	
+	
+	
+	
+}else{	
+	
+	
+	
+	
+	
+	
+warning (\"Unable to find attribute: \"+$blendObj+\".\"+$blendAtt+\".  Moving on.\");	
+	
+	
+	
+	
+	
+	
+$aLimbIkFkBlend[size($aLimbIkFkBlend)] = 0.0;	
+	
+	
+	
+	
+	
+	
+$aCharName[size($aCharName)-1] = \"*\";	
+"
+		+ "	
+	
+	
+	
+	
+	
+continue;	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+}	
+	
+	
+	
+}	
+	
+	
+}	
+	
+	
+	
+	
+	
+if (!$match){	
+	
+	
+	
+for ($suf in $aLegSuf){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+if (`match ($suf+\"$\") $snCtrl` == $suf){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// found an leg	
+	
+	
+	
+	
+	
+if (`match ($lf+$suf+\"$\") $snCtrl` == ($lf+$suf)){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$limbData = $cCharName+\"|lfLeg\";	
+	
+	
+	
+	
+	
+	
+if (abRTGetPosInStrArray($limbData, $aLimbsToSnap) == -1){	
+	
+	
+	
+	
+	
+	
+	
+$cPrefix = \"l\";	
+	
+	
+	
+	
+	
+	
+	
+$aLimbsToSnap[size($aLimbsToSnap)] = $limbData;	
+	
+	
+	
+	
+	
+	
+	
+$ctrlIsNewLimb = true;	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}else if (`match ($rt+$suf+\"$\") $snCtrl` == ($rt+$suf)){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$limbData = $cCharName+\"|rtLeg\";	
+	
+	
+	
+	
+	
+	
+if (abRTGetPosInStrArray($limbData, $aLimbsToSnap) == -1){	
+	
+	
+	
+	
+	
+	
+	
+$cPrefix = \"r\";	
+	
+	
+	
+	
+	
+	
+	
+$aLimbsToSnap[size($aLimbsToSnap)] = $limbData;	
+	
+	
+	
+	
+	
+	
+	
+$ctrlIsNewLimb = true;	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// set some vars	
+	
+	
+	
+	
+	
+$cLimb = \"leg\";	
+	
+	
+	
+	
+	
+$match = true;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+if ($ctrlIsNewLimb){	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$aCharName[size($aCharName)] = $cCharName;	
+	
+	
+	
+	
+	
+	
+$aLimb[size($aLimb)] = $cLimb;	
+	
+	
+	
+	
+	
+	
+$aPrefix[size($aPrefix)] = $cPrefix;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// get blend value	
+	
+	
+	
+	
+	
+	
+/* AM Rename	
+"
+		+ "	
+	
+	
+	
+	
+	
+$blendObj = ($cPrefix == \"l\") ? $cCharName+\"_\"+$lf+\"foot_ctrl\" : $cCharName+\"_\"+$rt+\"foot_ctrl\";	
+	
+	
+	
+	
+	
+	
+*/	
+	
+	
+	
+	
+	
+	
+$blendObj = ($cPrefix == \"l\") ? $cCharName+\"_\"+$lf+\"leg_ctrl\" : $cCharName+\"_\"+$rt+\"leg_ctrl\";	
+	
+	
+	
+	
+	
+	
+$aLimbBlendObj[size($aLimbBlendObj)] = $blendObj;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+if (attributeExists($blendAtt, $blendObj)){	
+	
+	
+	
+	
+	
+	
+	
+$aLimbIkFkBlend[size($aLimbIkFkBlend)] = `getAttr ($blendObj+\".\"+$blendAtt)`;	
+	
+	
+	
+	
+	
+	
+}else{	
+	
+	
+	
+	
+	
+	
+	
+warning (\"Unable to find attribute: \"+$blendObj+\".\"+$blendAtt+\".  Moving on.\");	
+	
+	
+	
+	
+	
+	
+	
+$aLimbIkFkBlend[size($aLimbIkFkBlend)] = 0.0;	
+	
+	
+	
+	
+	
+	
+	
+$aCharName[size($aCharName)-1] = \"*\";	
+	
+	
+	
+	
+	
+	
+	
+continue;	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+}	
+	
+	
+	
+}	
+	
+	
+}	
+	
+}	
+	
+	
+	
+	
+	
+int $snapToFk, $setIkFkBlendVal;	
+	
+	
+	
+for ($i=0;$i<size($aLimbsToSnap);$i++){	
+	
+	
+	
+	
+	
+$cIkFkBlend = $aLimbIkFkBlend[$i];	
+	
+	
+$blendObj = $aLimbBlendObj[$i];	
+	
+	
+	
+	
+	
+$cCharName = $aCharName[$i];	
+	
+	
+$cLimb = $aLimb[$i];	
+	
+	
+$cPrefix = $aPrefix[$i];	
+	
+	
+	
+	
+	
+// make snap command	
+	
+	
+if ($cIkFkBlend < 0 || $cCharName == \"*\")	
+	
+	
+	
+continue;	
+	
+	
+	
+	
+	
+$snapToFk = $toFk;	
+	
+	
+	
+	
+	
+if ($toFk != 2){	
+"
+		+ "	
+	
+	
+$setIkFkBlendVal = 1 - $toFk;	
+	
+	
+}else{	
+	
+	
+	
+// toggle ikFk	
+	
+	
+	
+$setIkFkBlendVal = ($cIkFkBlend > .5) ? 0 : 1;	
+	
+	
+}	
+	
+	
+	
+	
+	
+if ($cIkFkBlend == 1){	
+	
+	
+	
+// if in IK and switching to FK, want FK to snap to IK to match position	
+	
+	
+	
+if ($toFk)	
+	
+	
+	
+	
+$snapToFk = false;	
+	
+	
+	
+	
+	
+	
+}else if ($cIkFkBlend == 0){	
+	
+	
+	
+// if in FK and switching to IK, want IK to snap to FK to match position	
+	
+	
+	
+if (!$toFk)	
+	
+	
+	
+	
+$snapToFk = true;	
+	
+	
+}	
+	
+	
+	
+	
+	
+$cmd = abRTMakeIKFKSnapCmd($cCharName, $cPrefix, $cLimb, $snapToFk);	
+	
+	
+$cmd += \"\	
+\";	
+	
+	
+$cmd += \"setAttr \\\"\"+$blendObj+\".\"+$blendAtt+\"\\\" \"+$setIkFkBlendVal+\";\	
+\";	
+	
+	
+	
+	
+	
+eval($cmd);	
+	
+}	
+	
+	
+}	
+	
+global proc string abRTGetGlobal(string $name){	
+	
+// return string value of value $name	
+	
+	
+	
+global string $abRTGlobalPrefs[];	
+	
+global string $abRTGlobalPrefNames[];	
+	
+	
+	
+string $ret;	
+	
+	
+	
+int $index = abRTGetPosInStrArray($name, $abRTGlobalPrefNames);	
+	
+if ($index != -1) $ret = $abRTGlobalPrefs[$index];	
+	
+	
+	
+return $ret;	
+	
+	
+}	
+	
+global proc int abRTGetPosInStrArray(string $str, string $aStr[]){	
+	
+// returns int (0 based) position of string in string array or -1 on fail.	
+"
+		+ "	
+	
+	
+int $i;	
+	
+int $ret = -1;	
+	
+for ($i=0;$i<size($aStr);$i++){	
+	
+	
+if ($aStr[$i] == $str){	
+	
+	
+	
+$ret = $i;	
+	
+	
+	
+break;	
+	
+	
+}	
+	
+}	
+	
+	
+	
+return $ret;	
+	
+	
+}	
+	
+global proc string[] abRTStringArrayMatch(string $aArray[], string $matchStr){	
+	
+// runs a match ($matchstr) on all of the items in $aArray and returns the items that matched the full string	
+	
+// using this method because `ls -sl \"*_ctrl\"` doesn't seem to work with multiple characters in a scene for some reason	
+	
+	
+	
+string $item, $aRet[], $matchResult;	
+	
+	
+	
+for ($item in $aArray){	
+	
+	
+	
+	
+	
+$matchResult = `match $matchStr $item`;	
+	
+	
+	
+	
+	
+if ($matchResult == $item)	
+	
+	
+	
+$aRet[size($aRet)] = $item;	
+	
+}	
+	
+	
+	
+return $aRet;	
+}	
+	
+	
+global proc string abRTGetCharNameFromCtrl(string $ctrl, int $stripRef){	
+	
+// returns charname from $ctrl (or nothing)	
+	
+// if $ctrl == \"\", it will use a single selected curve	
+	
+// $stripRef will strip the prefixed reference, if true	
+	
+	
+	
+string $aSel[], $charName, $aCharName[];	
+	
+string $rigGrpSuffix = \"_rig_grp\";	
+	
+	
+	
+string $rigGrp = abRTGetRigGrpFromSelCtrl($ctrl);	
+	
+	
+	
+if ($rigGrp == \"\") return $rigGrp;	
+"
+		+ "	
+	
+	
+$rigGrp = abRTStripPath($rigGrp);	
+	
+$charName = substring($rigGrp, 1, (size($rigGrp) - size($rigGrpSuffix)));	
+	
+	
+	
+if ($stripRef){	
+	
+	
+	
+	
+	
+$aCharName = stringToStringArray($charName, \":\");	
+	
+	
+	
+	
+	
+if (size($aCharName) > 1)	
+	
+	
+	
+$charName = $aCharName[size($aCharName)-1];	
+	
+}	
+	
+	
+	
+return $charName;	
+	
+	
+}	
+	
+global proc string abRTGetRigGrpFromSelCtrl(string $selCtrl){	
+	
+// attempts to return the rigGrp from a selected control curve on the rig or $selCtrl if not \"\"	
+	
+	
+	
+string $rigGrp, $ctrl, $aParents[], $aSel[];	
+	
+int $i;	
+	
+	
+	
+if ($selCtrl == \"\"){	
+	
+	
+	
+	
+	
+//$aSel = `ls -sl \"*_ctrl\"`;	
+	
+	
+$aSel = abRTStringArrayMatch(`ls -sl`, \".+_ctrl$\");	
+	
+	
+	
+	
+	
+if (size($aSel) == 0){	
+	
+	
+	
+warning \"Select at least one control on your character and try again.\";	
+	
+	
+	
+return \"\";	
+	
+	
+}	
+	
+	
+	
+	
+	
+$ctrl = $aSel[0];	
+	
+}else{	
+	
+	
+$ctrl = $selCtrl;	
+	
+}	
+	
+	
+	
+// find rigGrp	
+	
+while ($ctrl != \"\"){	
+	
+	
+$aParents[size($aParents)] = $ctrl;	
+	
+	
+$ctrl = firstParentOf($ctrl);	
+	
+}	
+	
+	
+	
+// now sort through aParents in reverse order to get master rig_grp	
+	
+for ($i=size($aParents)-1;$i>=0;$i--){	
+	
+	
+if (endsWith($aParents[$i], \"rig_grp\")){	
+"
+		+ "	
+	
+	
+$rigGrp = $aParents[$i];	
+	
+	
+	
+break;	
+	
+	
+}	
+	
+}	
+	
+	
+	
+if ($rigGrp == \"\") warning \"Unable to determine character rigGrp.\";	
+	
+	
+	
+return $rigGrp;	
+}	
+	
+global proc string abRTStripPath(string $obj){	
+	
+// returns basename of a transform without path	
+	
+	
+	
+string $aName[], $name;	
+	
+$aName = stringToStringArray($obj, \"|\");	
+	
+return ($aName[size($aName)-1]);	
+}	
+	
+global proc abRTGlobals(){	
+	
+// init global prefs string[]	
+	
+	
+	
+global string $abRTGlobalPrefs[];	
+	
+global string $abRTGlobalPrefNames[];	
+	
+	
+	
+clear($abRTGlobalPrefNames);	
+	
+clear($abRTGlobalPrefs);	
+	
+	
+	
+$abRTGlobalPrefNames[0] = \"leftPrefix\";$abRTGlobalPrefs[0] = \"lf_\"; 	
+	
+	
+// left prefix	
+	
+$abRTGlobalPrefNames[1] = \"rightPrefix\";$abRTGlobalPrefs[1] = \"rt_\"; 	
+	
+	
+// rt prefix	
+	
+	
+	
+// marking menu	
+	
+$abRTGlobalPrefNames[2] = \"bakeFingersToFkCtrls\";$abRTGlobalPrefs[2] = \"0\";	
+	
+// bake masterFinger control rotations to FK controls if true, otherwise move them to hand control finger atts	
+	
+$abRTGlobalPrefNames[3] = \"thumbCurlSpreadRoll\";$abRTGlobalPrefs[3] = \"zyx\"; 	
+	
+// axes for thumb curl, spread and roll	
+"
+		+ "	
+$abRTGlobalPrefNames[4] = \"fingerCurlSpreadRoll\";$abRTGlobalPrefs[4] = \"yzx\"; 	
+	
+// axes for finger curl, spread and roll	
+	
+$abRTGlobalPrefNames[5] = \"reverseFingerCurl\";$abRTGlobalPrefs[5] = \"0\"; 	
+	
+// true if handJoints have been mirrored without -mirrorBehavior (pre 2.0 skeletons), otherwise false 	
+	
+$abRTGlobalPrefNames[6] = \"fingerCupAxis\";$abRTGlobalPrefs[6] = \"y\"; 	
+	
+	
+// axis for finger cup joints	
+	
+	
+}	
+	
+global proc abRTInit(){	
+	
+// inits globals	
+	
+	
+	
+global int $abRTInit;	
+	
+	
+	
+if (!$abRTInit){	
+	
+	
+abRTGlobals();	
+	
+	
+$abRTInit = true;	
+	
+}	
+}	
+	
+global proc string abRTMakeIKFKSnapCmd(string $charName, string $prefix, string $limb, int $toFK){	
+	
+// returns string command with args filled in for abRTSnapFkToIk or abRTSnapIkToFk (based on $toFk)	
+	
+// prefix is \"l\" or \"r\", $limb is \"arm\" or \"leg\"	
+	
+	
+	
+string $retStr;	
+	
+	
+/* AM Rename	
+	
+	
+string $armFkToIkCmdStr = \"abRTSnapFkToIk({\\\"*_#upArm_fk_ctrl\\\",\\\"*_#elbow_fk_ctrl\\\",\\\"*_#wrist_fk_ctrl\\\"},{\\\"*_#upArm_fk_jnt\\\",\\\"*_#elbow_fk_jnt\\\",\\\"*_#wrist_fk_jnt\\\"},{\\\"*_#upArm_ik_jnt\\\",\\\"*_#elbow_ik_jnt\\\",\\\"*_#wrist_ik_jnt\\\"},\\\"*_#hand_ctrl\\\");\";	
+"
+		+ "	
+string $armIkToFkCmdStr = \"abRTSnapIkToFk({\\\"*_#upArm_fk_jnt\\\",\\\"*_#elbow_fk_jnt\\\",\\\"*_#wrist_fk_jnt\\\"},{\\\"*_#upArm_fk_ctrl\\\",\\\"*_#elbow_fk_ctrl\\\",\\\"*_#wrist_fk_ctrl\\\"},{\\\"*_#upArm_ik_jnt\\\",\\\"*_#elbow_ik_jnt\\\",\\\"*_#wrist_ik_jnt\\\"},\\\"*_#arm_ik_ctrl\\\",\\\"*_#hand_ctrl\\\",\\\"\\\",\\\"*_#elbow_pv_ctrl\\\");\";	
+	
+string $legFkToIkCmdStr = \"abRTSnapFkToIk({\\\"*_#upLeg_fk_ctrl\\\",\\\"*_#knee_fk_ctrl\\\",\\\"*_#ankle_fk_ctrl\\\",\\\"*_#ball_fk_ctrl\\\"},{\\\"*_#upLeg_fk_jnt\\\",\\\"*_#knee_fk_jnt\\\",\\\"*_#ankle_fk_jnt\\\",\\\"*_#ball_fk_jnt\\\"},{\\\"*_#upLeg_ik_jnt\\\",\\\"*_#knee_ik_jnt\\\",\\\"*_#ankleBallReader_Ankle_jnt\\\",\\\"*_#ankleBallReader_Ball_jnt\\\"},\\\"*_#foot_ctrl\\\");\";	
+	
+string $legIkToFkCmdStr = \"abRTSnapIkToFk({\\\"*_#upLeg_fk_jnt\\\",\\\"*_#knee_fk_jnt\\\",\\\"*_#ankle_fk_jnt\\\",\\\"*_#ball_fk_jnt\\\"},{\\\"*_#upLeg_fk_ctrl\\\",\\\"*_#knee_fk_ctrl\\\",\\\"*_#ankle_fk_ctrl\\\",\\\"*_#ball_fk_ctrl\\\"},{\\\"*_#upLeg_ik_jnt\\\",\\\"*_#knee_ik_jnt\\\",\\\"*_#ankleBallReader_Ankle_jnt\\\",\\\"*_#ankleBallReader_Ball_jnt\\\"},\\\"*_#heel_ik_ctrl\\\",\\\"*_#foot_ctrl\\\",\\\"*_#ankle_jnt\\\",\\\"*_#knee_pv_ctrl\\\");\";	
+*/	
+"
+		+ "	
+	
+	
+string $armFkToIkCmdStr = \"abRTSnapFkToIk({\\\"*_#up_arm_fk_ctrl\\\",\\\"*_#elbow_fk_ctrl\\\",\\\"*_#wrist_fk_ctrl\\\"},{\\\"*_#up_arm_fk_jnt\\\",\\\"*_#elbow_fk_jnt\\\",\\\"*_#wrist_fk_jnt\\\"},{\\\"*_#upArm_ik_jnt\\\",\\\"*_#elbow_ik_jnt\\\",\\\"*_#wrist_ik_jnt\\\"},\\\"*_#arm_ctrl\\\");\";	
+	
+string $armIkToFkCmdStr = \"abRTSnapIkToFk({\\\"*_#up_arm_fk_jnt\\\",\\\"*_#elbow_fk_jnt\\\",\\\"*_#wrist_fk_jnt\\\"},{\\\"*_#up_arm_fk_ctrl\\\",\\\"*_#elbow_fk_ctrl\\\",\\\"*_#wrist_fk_ctrl\\\"},{\\\"*_#upArm_ik_jnt\\\",\\\"*_#elbow_ik_jnt\\\",\\\"*_#wrist_ik_jnt\\\"},\\\"*_#arm_ik_ctrl\\\",\\\"*_#arm_ctrl\\\",\\\"\\\",\\\"*_#elbow_pv_ctrl\\\");\";	
+	
+string $legFkToIkCmdStr = \"abRTSnapFkToIk({\\\"*_#up_leg_fk_ctrl\\\",\\\"*_#knee_fk_ctrl\\\",\\\"*_#ankle_fk_ctrl\\\",\\\"*_#ball_fk_ctrl\\\"},{\\\"*_#up_leg_fk_jnt\\\",\\\"*_#knee_fk_jnt\\\",\\\"*_#ankle_fk_jnt\\\",\\\"*_#ball_fk_jnt\\\"},{\\\"*_#upLeg_ik_jnt\\\",\\\"*_#knee_ik_jnt\\\",\\\"*_#ankleBallReader_Ankle_jnt\\\",\\\"*_#ankleBallReader_Ball_jnt\\\"},\\\"*_#leg_ctrl\\\");\";	
+	
+string $legIkToFkCmdStr = \"abRTSnapIkToFk({\\\"*_#up_leg_fk_jnt\\\",\\\"*_#knee_fk_jnt\\\",\\\"*_#ankle_fk_jnt\\\",\\\"*_#ball_fk_jnt\\\"},{\\\"*_#up_leg_fk_ctrl\\\",\\\"*_#knee_fk_ctrl\\\",\\\"*_#ankle_fk_ctrl\\\",\\\"*_#ball_fk_ctrl\\\"},{\\\"*_#upLeg_ik_jnt\\\",\\\"*_#knee_ik_jnt\\\",\\\"*_#ankleBallReader_Ankle_jnt\\\",\\\"*_#ankleBallReader_Ball_jnt\\\"},\\\"*_#foot_ik_ctrl\\\",\\\"*_#leg_ctrl\\\",\\\"*_#ankle_jnt\\\",\\\"*_#knee_pv_ctrl\\\");\";	
+"
+		+ "	
+	
+	
+	
+	
+string $pref = ($prefix == \"l\") ? abRTGetGlobal(\"leftPrefix\") : abRTGetGlobal(\"rightPrefix\");	
+	
+	
+	
+//* = charName	
+	
+//# = prefix	
+	
+	
+	
+if ($toFK)	
+	
+	
+$retStr = ($limb == \"arm\") ? $armIkToFkCmdStr : $legIkToFkCmdStr;	
+	
+else	
+	
+	
+$retStr = ($limb == \"arm\") ? $armFkToIkCmdStr : $legFkToIkCmdStr;	
+	
+	
+	
+	
+$retStr = substituteAllString($retStr, \"*\", $charName);	
+	
+$retStr = substituteAllString($retStr, \"#\", $pref);	
+	
+	
+	
+return $retStr;	
+}	
+	
+	
+global proc abRTSnapIkToFk(string $aFkJnts[], string $aFkCtrls[], string $aIkJnts[], string $ikCtrl, string $ikAttCtrl, string $jnt, string $pvCtrl){	
+	
+// snaps Ik ctrls to FkJnts in a most hacky way	
+	
+// $ikCtrl is wrist or ankle ikCtrl	
+	
+// $ikAttCtrl is curve with ikFkBlend attribute	
+	
+// $jnt is ankleJnt	
+	
+// if $jnt is \"\" then this is an arm that's being snapped (where the wrist joint has the same translation as the control curve)	
+	
+	
+	
+string $jntLoc, $ctrlLoc, $fkCtrlLoc, $ikCtrlLoc;	
+	
+float $aTrans[], $aRot[];	
+	
+	
+	
+// save current selection for later reselection	
+	
+string $aSel[] = `ls -sl`;	
+	
+	
+	
+if (!objExists($aFkCtrls[0])){	
+"
+		+ "	
+	
+warning (\"Cannot find \"+abRTStripPath($aFkCtrls[0])+\" in the current scene.\");	
+	
+	
+return;	
+	
+}	
+	
+	
+	
+// if this is the old style of snap shelf button then user needs to rebuild the shelf button	
+	
+if (size($aFkCtrls) <= 2){	
+	
+	
+warning \"You need to rebuild the shelf button for this rig.  Look in the \\\"Tools\\\" menu.\";	
+	
+	
+return;	
+	
+}	
+	
+	
+	
+if ($jnt != \"\"){	
+	
+	
+// dealing with a foot	
+	
+	
+	
+	
+	
+// get blend att and set it to 1 if not already (otherwise match won't work)	
+	
+	
+/* AM Rename	
+	
+	
+float $ikFkBlend = `getAttr ($ikAttCtrl+\".ikFkBlend\")`;	
+	
+	
+*/	
+	
+	
+float $ikFkBlend = `getAttr ($ikAttCtrl+\".fkIkBlend\")`;	
+	
+	
+int $autoKey = `autoKeyframe -q -state`;	
+	
+	
+int $changedIkFkBlend = false;	
+	
+	
+	
+	
+	
+if ($ikFkBlend < 1.0){	
+	
+	
+	
+if ($autoKey) autoKeyframe -state off;	
+	
+	
+	
+/* AM Rename	
+	
+	
+	
+setAttr ($ikAttCtrl+\".ikFkBlend\") 1;	
+	
+	
+	
+*/	
+	
+	
+	
+setAttr ($ikAttCtrl+\".fkIkBlend\") 1;	
+	
+	
+	
+$changedIkFkBlend = true;	
+	
+	
+}	
+	
+	
+	
+	
+	
+// create loc for ankle joint and one for foot ctrl	
+	
+	
+$jntLoc = abRTMakeLocator(\"snapIkToFkJntTempLoc\");	
+	
+	
+$ctrlLoc = abRTMakeLocator(\"snapIkToFkCtrlTempLoc\");	
+"
+		+ "	
+	
+	
+	
+	
+// parent ctrlLoc to ankleLoc	
+	
+	
+$ctrlLoc = abRTParent($ctrlLoc, $jntLoc);	
+	
+	
+	
+	
+	
+// snap locs to ankle and footCtrl	
+	
+	
+abRTSnapToPosition($jnt, $jntLoc);	
+	
+	
+abRTSnapToPosition($ikCtrl, $ctrlLoc);	
+	
+	
+	
+	
+	
+// snap jntLoc to fkAnkleCtrl (same translation as the fkAnkle, and it's available) to find ctrl position	
+	
+	
+abRTSnapToPosition($aFkJnts[2], $jntLoc);	
+	
+	
+	
+	
+	
+// get trans and rot of ctrl loc	
+	
+	
+$aTrans = `xform -q -ws -rp $ctrlLoc`;	
+	
+	
+	
+	
+	
+// reset ikFkBlend and autoKey if necessary	
+	
+	
+if ($changedIkFkBlend){	
+	
+	
+	
+autoKeyframe -state $autoKey;	
+	
+	
+	
+/* AM Rename	
+	
+	
+	
+setAttr ($ikAttCtrl+\".ikFkBlend\") $ikFkBlend;	
+	
+	
+	
+*/	
+	
+	
+	
+setAttr ($ikAttCtrl+\".fkIkBlend\") $ikFkBlend;	
+	
+	
+}	
+	
+	
+	
+	
+	
+// hack attack	
+	
+	
+// make dup ikCtrl to snap to $ctrlLoc and copy rot values	
+	
+	
+string $aStr[] = `duplicate $ikCtrl`;	
+	
+	
+string $dupIkCtrl = $aStr[0];	
+	
+	
+	
+	
+	
+abRTShowAttr($dupIkCtrl, {\"tx\",\"ty\",\"tz\",\"rx\",\"ry\",\"rz\"});	
+	
+	
+	
+	
+	
+abRTSnapToPosition($ctrlLoc, $dupIkCtrl);	
+	
+	
+	
+	
+	
+// position ikCtrl	
+	
+	
+move -a -ws -rpr $aTrans[0] $aTrans[1] $aTrans[2] $ikCtrl;	
+	
+	
+	
+	
+	
+$aRot = `getAttr ($dupIkCtrl+\".r\")`;	
+"
+		+ "	
+	
+setAttr ($ikCtrl+\".r\") $aRot[0] $aRot[1] $aRot[2];	
+	
+	
+	
+	
+	
+delete $dupIkCtrl;	
+	
+	
+delete $jntLoc;	
+	
+	
+	
+	
+}else{	
+	
+	
+	
+	
+	
+// it's an arm	
+	
+	
+	
+	
+	
+// need ikCtrl.IkCtrlOffsetFromWristJnt value for exact match (rigs created with v.4.3 and above)	
+	
+	
+float $aIkCtrlWristJntOffset[];	
+	
+	
+	
+	
+	
+if (attributeExists(\"IkCtrlOffsetFromWristJnt\", $ikCtrl)){	
+	
+	
+	
+	
+	
+	
+	
+$aIkCtrlWristJntOffset = `getAttr ($ikCtrl+\".IkCtrlOffsetFromWristJnt\")`;	
+	
+	
+}else{	
+	
+	
+	
+	
+	
+	
+	
+string $result = `confirmDialog -title \"Confirm\" -message \"You need to update your rig for IK/FK snap to work properly.\	
+Select one of your character's control curves and run the\	
+following mel in the command line or script window: \	
+\	
+abRTUpdateIkCtrlWristJntOffsetData();\" -button \"OK\" -button \"Update Now\" -defaultButton \"OK\"`;	
+	
+	
+	
+if ($result == \"Update Now\")	
+	
+	
+	
+	
+abRTUpdateIkCtrlWristJntOffsetData();	
+	
+	
+	
+return;	
+	
+	
+}	
+	
+	
+	
+	
+	
+// create loc for ik and fk wrist ctrl	
+	
+	
+string $ikCtrlLoc = abRTMakeLocator(\"snapIkToFkCtrlTempLoc\");	
+	
+	
+string $ikJntLoc = abRTMakeLocator(\"snapIkToFkCtrlTempLoc\");	
+	
+	
+	
+	
+	
+// snap locs to ikCtrl and ikWristJnt	
+"
+		+ "	
+	
+abRTSnapToPosition($aFkJnts[2], $ikJntLoc);	
+	
+	
+abRTSnapToPosition($aFkJnts[2], $ikCtrlLoc);	
+	
+	
+	
+	
+	
+// parent ikCtrlLoc to ikJntLoc	
+	
+	
+$ikCtrlLoc = abRTParent($ikCtrlLoc, $ikJntLoc);	
+	
+	
+	
+	
+	
+// rotate ikCtrlLoc	
+	
+	
+if (size($aIkCtrlWristJntOffset) == 3)	
+	
+	
+	
+setAttr ($ikCtrlLoc+\".r\") $aIkCtrlWristJntOffset[0] $aIkCtrlWristJntOffset[1] $aIkCtrlWristJntOffset[2];	
+	
+	
+	
+	
+	
+// make dup ikCtrl to snap to $ctrlLoc and copy rot values	
+	
+	
+string $aStr[] = `duplicate $ikCtrl`;	
+	
+	
+string $dupIkCtrl = $aStr[0];	
+	
+	
+	
+	
+	
+abRTShowAttr($dupIkCtrl, {\"tx\",\"ty\",\"tz\",\"rx\",\"ry\",\"rz\"});	
+	
+	
+abRTSnapToPosition($ikCtrlLoc, $dupIkCtrl);	
+	
+	
+	
+	
+	
+// now move arm to position (easy)	
+	
+	
+$aTrans = `joint -q -p $aFkJnts[2]`;	
+	
+	
+	
+	
+	
+// position ikCtrl	
+	
+	
+move -a -ws -rpr $aTrans[0] $aTrans[1] $aTrans[2] $ikCtrl;	
+	
+	
+	
+	
+	
+$aRot = `getAttr ($dupIkCtrl+\".r\")`;	
+	
+	
+setAttr ($ikCtrl+\".r\") $aRot[0] $aRot[1] $aRot[2];	
+	
+	
+	
+	
+	
+delete $dupIkCtrl;	
+	
+	
+delete $ikJntLoc;	
+	
+	
+//delete $ikCtrlLoc;	
+	
+	
+	
+	
+	
+// AM rename	
+	
+	
+// not rename but an addition for snapping the IK gimbal ctrl	
+	
+	
+	
+	
+// set rotation of secondary wrist IK ctrls to 0	
+"
+		+ "	
+	
+	
+$wristStr = `listRelatives -c -type transform $ikCtrl`;	
+	
+	
+	
+	
+	
+	
+	
+if ( size( $wristStr ) == 1)	
+	
+	
+	
+{	
+	
+	
+	
+	
+ $secCtrl = $wristStr[0];	
+	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".tx\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".tx\") 0;	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".ty\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".ty\") 0;	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".tz\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".tz\") 0;	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".rx\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".rx\") 0;	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".ry\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".ry\") 0;	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".rz\")`)	
+	
+	
+	
+	
+	
+	
+setAttr ($secCtrl+\".rz\") 0;	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+// now to deal with the pvCtrl	
+	
+float $aPvTrans[] = abRTCalculatePVPosition($aFkJnts);	
+	
+move -a -ws -rpr $aPvTrans[0] $aPvTrans[1] $aPvTrans[2] $pvCtrl;	
+	
+	
+	
+if (size($aSel) > 0) select -r $aSel;	
+	
+	
+}	
+	
+	
+global proc string abRTMakeLocator(string $name){	
+	
+// creates a locator named $name.  returns full path to locator	
+	
+	
+	
+string $ret;	
+	
+string $aStr[] = `spaceLocator`;	
+	
+$aStr = abRTRename($aStr[0], $name);	
+"
+		+ "	
+$ret = $aStr[1];	
+	
+return $ret;	
+	
+	
+}	
+	
+	
+global proc string[] abRTRename(string $fullPath, string $newName){	
+	
+/*	
+	
+renames $obj (send fullPath) to $newName	
+	
+returns string[] where $aRet[0] = object's new name, $aRet[1] = objects new path with name, $aRet[2] = objects new path not including name	
+	
+*/	
+	
+	
+	
+string $aRet[];	
+	
+	
+	
+$fullPath = longNameOf($fullPath);	
+	
+	
+	
+string $newName = `rename $fullPath $newName`;	
+	
+string $aStr[] = stringToStringArray($newName, \"|\");	
+	
+$newName = $aStr[size($aStr)-1];	
+	
+	
+	
+$aStr = stringToStringArray($fullPath, \"|\");	
+	
+$aStr[size($aStr)-1] = $newName;	
+	
+string $newLongName = stringArrayToString($aStr, \"|\");	
+	
+	
+	
+int $i;	
+	
+string $newPath;	
+	
+for ($i=0;$i<(size($aStr)-1);$i++){	
+	
+	
+if ($i>0) $newPath += \"|\";	
+	
+	
+$newPath += $aStr[$i];	
+	
+}	
+	
+	
+	
+$aRet[size($aRet)] = $newName;	
+	
+$aRet[size($aRet)] = \"|\"+$newLongName;	
+	
+$aRet[size($aRet)] = \"|\"+$newPath;	
+	
+	
+	
+return $aRet;	
+}	
+	
+global proc abRTSnapToPosition(string $sourceObj, string $targObj){	
+	
+// snaps targObj to sourceObj position	
+	
+	
+	
+select -r $sourceObj $targObj;	
+	
+abRTPointOrient(1);	
+"
+		+ "	
+select -clear;	
+}	
+	
+global proc abRTPointOrient(int $delete){	
+	
+/*	
+	
+delete: 0 -- keep created constraints	
+	
+delete: 1 -- delete both constraints	
+	
+delete: 2 -- keep point constraint	
+	
+delete: 3 -- keep orient constraint	
+	
+*/	
+	
+	
+	
+string $aPointCons[], $aOrientCons[], $pointCons, $orientCons;	
+	
+	
+	
+$aPointCons = `pointConstraint -offset 0 0 0 -weight 1`;	
+	
+if ($delete == 1 || $delete == 3) for ($pointCons in $aPointCons) delete $pointCons;	
+	
+$aOrientCons = `orientConstraint -offset 0 0 0 -weight 1`;	
+	
+if ($delete || $delete == 2) for ($orientCons in $aOrientCons) delete $orientCons;	
+}	
+	
+global proc string abRTParent(string $child, string $parent){	
+	
+// parents $child to $parent and returns new full path of $child	
+	
+	
+	
+string $ret;	
+	
+	
+	
+string $aStr[] = `ls -long $parent`;	
+	
+$parent = $aStr[0];	
+	
+$aStr = `ls -long $child`;	
+	
+$child = $aStr[0];	
+	
+	
+	
+if (firstParentOf($child) != $parent){	
+	
+	
+$aStr = `parent $child $parent`;	
+	
+	
+$ret = $parent+\"|\"+abRTStripPath($aStr[0]);	
+	
+}else{	
+	
+	
+$ret = $child;	
+	
+}	
+	
+	
+	
+return $ret;	
+}	
+	
+global proc abRTShowAttr(string $obj, string $aAttr[]){	
+"
+		+ "	
+// unlocks and makes keyable $obj's attributes in $aAttr	
+	
+	
+	
+string $attr, $objAttr;	
+	
+     	
+	
+for ($attr in $aAttr){	
+	
+	
+$objAttr = $obj+\".\"+$attr;	
+	
+	
+setAttr -lock false $objAttr;	
+	
+	
+setAttr -keyable true $objAttr;	
+	
+	
+setAttr -channelBox true $objAttr;	
+	
+}	
+}	
+	
+global proc float[] abRTCalculatePVPosition(string $aJnts[]){	
+	
+// returns worldspace position for pv given 3 joints in a chain	
+	
+	
+	
+float $aTrans[];	
+	
+	
+	
+// make 1 degree curve snapped to joints to determine pv location	
+	
+// pv offset is distance of fkKneeCtrl to fkAnkleCtrl (don't want to have to sent ikJnts)	
+	
+	
+	
+float $aUpJntTrans[] = `xform -q -ws -rp $aJnts[0]`;	
+	
+float $aMidJntTrans[] = `xform -q -ws -rp $aJnts[1]`;	
+	
+float $pvOffset = sqrt(pow(($aUpJntTrans[0] - $aMidJntTrans[0]), 2) + pow(($aUpJntTrans[1] - $aMidJntTrans[1]), 2) + pow(($aUpJntTrans[2] - $aMidJntTrans[2]), 2));	
+	
+	
+	
+int $i;	
+	
+string $curveCmd = \"curve -d 1\";	
+	
+	
+	
+for ($i=0;$i<size($aJnts);$i++){	
+	
+	
+	
+	
+	
+if (`nodeType $aJnts[$i]` == \"joint\")	
+	
+	
+	
+$aTrans = `joint -q -p $aJnts[$i]`;	
+	
+	
+else	
+	
+	
+	
+$aTrans = `xform -q -ws -rp $aJnts[$i]`;	
+"
+		+ "	
+	
+	
+	
+	
+$curveCmd += \" -p \"+$aTrans[0]+\" \"+$aTrans[1]+\" \"+$aTrans[2];	
+	
+}	
+	
+	
+	
+string $curve = eval($curveCmd);	
+	
+	
+	
+select -r ($curve+\".cv[1]\");	
+	
+moveVertexAlongDirection -n $pvOffset;	
+	
+select -clear;	
+	
+	
+	
+float $aPvTrans[] = `xform -q -ws -t ($curve+\".cv[1]\")`;	
+	
+	
+	
+delete $curve;	
+	
+	
+	
+return $aPvTrans;	
+	
+	
+}	
+	
+global proc abRTSnapFkToIk(string $aFkCtrls[], string $aFkJnts[], string $aIkJnts[], string $ikAttCtrl){	
+	
+// snaps fk ctrls to ikJnts	
+	
+// aOffsets are rotation offsets (to compensate for fkctrls being zeroed out) in the form of {offsetX|offsetY|offsetZ, offsetX|offsetY|offsetZ}	
+	
+	
+	
+string $dupFkCtrl, $aStr[], $secCtrl;	
+	
+int $i, $h;	
+	
+float $aFlt[], $aRot[];	
+	
+	
+	
+int $badSel = false;	
+	
+int $ok = true;	
+	
+	
+	
+// save current selection for later reselection	
+	
+string $aSel[] = `ls -sl`;	
+	
+	
+	
+if (!objExists($aFkCtrls[0])){	
+	
+	
+warning (\"Cannot find \"+abRTStripPath($aFkCtrls[0])+\" in the current scene.\");	
+	
+	
+return;	
+	
+}	
+	
+	
+	
+// set rotation of any secondary FK ctrls to 0	
+	
+for ($i=0;$i<size($aFkCtrls);$i++){	
+	
+	
+	
+	
+	
+$aStr = `listRelatives -c -type transform $aFkCtrls[$i]`;	
+"
+		+ "	
+	
+	
+	
+	
+if (size($aStr) == 1){	
+	
+	
+	
+	
+	
+	
+	
+$secCtrl = $aStr[0];	
+	
+	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".rx\")`)	
+	
+	
+	
+	
+setAttr ($secCtrl+\".rx\") 0;	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".ry\")`)	
+	
+	
+	
+	
+setAttr ($secCtrl+\".ry\") 0;	
+	
+	
+	
+if (!`getAttr -lock ($secCtrl+\".rz\")`)	
+	
+	
+	
+	
+setAttr ($secCtrl+\".rz\") 0;	
+	
+	
+}	
+	
+}	
+	
+	
+	
+for ($i=0;$i<size($aIkJnts);$i++){	
+	
+	
+if (`objExists $aFkCtrls[$i]` && `objExists $aIkJnts[$i]`){	
+	
+	
+	
+	
+	
+	
+	
+// get blend att and set it to 1 if not already (otherwise match won't work)	
+	
+	
+	
+/* AM Rename	
+	
+	
+	
+float $ikFkBlend = `getAttr ($ikAttCtrl+\".ikFkBlend\")`;	
+	
+	
+	
+*/	
+	
+	
+	
+float $ikFkBlend = `getAttr ($ikAttCtrl+\".fkIkBlend\")`;	
+	
+	
+	
+int $autoKey = `autoKeyframe -q -state`;	
+	
+	
+	
+int $changedIkFkBlend = false;	
+	
+	
+	
+	
+	
+	
+	
+if ($ikFkBlend > 0.0){	
+	
+	
+	
+	
+if ($autoKey) autoKeyframe -state off;	
+	
+	
+	
+	
+/* AM Rename	
+	
+	
+	
+	
+setAttr ($ikAttCtrl+\".ikFkBlend\") 0;	
+	
+	
+	
+	
+*/	
+	
+	
+	
+	
+setAttr ($ikAttCtrl+\".fkIkBlend\") 0;	
+	
+	
+	
+	
+$changedIkFkBlend = true;	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+// create loc for jnt and ctrl	
+	
+	
+	
+string $jntLoc = abRTMakeLocatorV2(\"snapFkToIkCtrlTempLoc\", $aFkJnts[$i], \"\");	
+"
+		+ "	
+	
+	
+string $ctrlLoc = abRTMakeLocatorV2(\"snapFkToIkCtrlTempLoc\", $aFkCtrls[$i], $jntLoc);	
+	
+	
+	
+	
+	
+	
+	
+// snap jntLoc to ikJnt (same translation as the fkAnkle, and it's available) to find ctrl position	
+	
+	
+	
+abRTSnapToPosition($aIkJnts[$i], $jntLoc);	
+	
+	
+	
+	
+	
+	
+	
+// get trans and rot of ctrl loc	
+	
+	
+	
+$aTrans = `xform -q -ws -rp $ctrlLoc`;	
+	
+	
+	
+	
+	
+	
+	
+// reset ikFkBlend and autoKey if necessary	
+	
+	
+	
+if ($changedIkFkBlend){	
+	
+	
+	
+	
+/* AM Rename	
+	
+	
+	
+	
+setAttr ($ikAttCtrl+\".ikFkBlend\") $ikFkBlend;	
+	
+	
+	
+	
+*/	
+	
+	
+	
+	
+setAttr ($ikAttCtrl+\".fkIkBlend\") $ikFkBlend;	
+	
+	
+	
+	
+autoKeyframe -state $autoKey;	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
+	
+	
+// hack attack	
+	
+	
+	
+// make dup fkCtrl to snap to $ctrlLoc and copy rot values	
+	
+	
+	
+$aStr = `duplicate $aFkCtrls[$i]`;	
+	
+	
+	
+$dupFkCtrl = $aStr[0];	
+	
+	
+	
+	
+	
+	
+	
+abRTShowAttr($dupFkCtrl, {\"tx\",\"ty\",\"tz\",\"rx\",\"ry\",\"rz\"});	
+	
+	
+	
+abRTSnapToPosition($ctrlLoc, $dupFkCtrl);	
+	
+	
+	
+	
+	
+	
+	
+$aRot = `getAttr ($dupFkCtrl+\".r\")`;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+if (!`getAttr -lock ($aFkCtrls[$i]+\".rx\")`)	
+	
+	
+	
+	
+setAttr ($aFkCtrls[$i]+\".rx\") $aRot[0];	
+	
+	
+	
+if (!`getAttr -lock ($aFkCtrls[$i]+\".ry\")`)	
+	
+	
+	
+	
+setAttr ($aFkCtrls[$i]+\".ry\") $aRot[1];	
+"
+		+ "	
+	
+	
+if (!`getAttr -lock ($aFkCtrls[$i]+\".rz\")`)	
+	
+	
+	
+	
+setAttr ($aFkCtrls[$i]+\".rz\") $aRot[2];	
+	
+	
+	
+	
+	
+	
+	
+delete $jntLoc;	
+	
+	
+	
+delete $dupFkCtrl;	
+	
+	
+	
+	
+	
+	
+}else{	
+	
+	
+	
+$badSel = true;	
+	
+	
+}	
+	
+}	
+	
+	
+	
+if ($badSel) warning \"One or more specified objects no longer exist\";	
+	
+	
+	
+if (size($aSel) > 0) select -r $aSel;	
+	
+	
+}	
+	
+global proc string abRTMakeLocatorV2(string $name, string $snapToTarget, string $grp){	
+	
+// creates a locator named $name in the position of $snapToTarget, and puts it in $grp;  returns full path to locator	
+	
+	
+	
+string $ret;	
+	
+	
+	
+string $aStr[] = `spaceLocator`;	
+	
+	
+	
+$aStr = abRTRename($aStr[0], $name);	
+	
+$ret = $aStr[1];	
+	
+	
+	
+if (objExists($snapToTarget))	
+	
+	
+abRTSnapToPosition($snapToTarget, $ret);	
+	
+	
+	
+if (objExists($grp))	
+	
+	
+$ret = abRTParent($ret, $grp);	
+	
+	
+	
+return $ret;	
+}");
+	setAttr ".st" 2;
+	

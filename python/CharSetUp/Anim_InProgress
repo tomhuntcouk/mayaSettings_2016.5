@@ -1,0 +1,252 @@
+####################################################
+#
+# Character UI Setup for character Rigging tools
+# Creator = Leo Michalek
+# Created 18.08.2016
+#
+#
+####################################################
+
+import maya.cmds as cmds
+import MASTER
+Anim_ONOFF = True
+
+
+def MatchTransforms(MoveMe,MatchMe,Trans=True,Rot=True):
+	if(Trans):
+		Temp = cmds.pointConstraint(MatchMe,MoveMe)
+		cmds.delete(Temp)
+	if(Rot):
+		Temp = cmds.orientConstraint(MatchMe,MoveMe)
+		cmds.delete(Temp)
+
+		
+def DistanceBetween(Object1,Object2):
+	
+	Loc1 = cmds.spaceLocator(n=Object1 + "_" + "DisLoc")
+	Loc2 = cmds.spaceLocator(n=Object1 + "_" + "DisLoc")
+	D3 = cmds.shadingNode("distanceBetween",n="TestDistance",asUtility=True)
+	cmds.connectAttr(str(Loc1[0]) + ".translate",str(D3) + ".point1")
+	cmds.connectAttr(str(Loc2[0]) + ".translate",str(D3) + ".point2")
+	cmds.matchTransform(Loc1[0],Object1,pos=True)
+	cmds.matchTransform(Loc2[0],Object2,pos=True)
+	Value = cmds.getAttr(str(D3) + ".distance")
+	#remove temp measuring nodes
+	cmds.delete(Loc1[0],Loc2[0],D3)
+	print Value
+	return Value
+
+
+def KeyTangents_Set(Type):
+	if Type == "Stepped":
+		cmds.keyTangent(g=True,itt="flat",ott="step")
+	if Type == "Linear":
+		cmds.keyTangent(g=True,itt="linear",ott="linear")
+	if Type == "Spline":
+		cmds.keyTangent(g=True,itt="spline",ott="spline")
+		
+
+def Anim_Settings():
+	cmds.selectType( allObjects=False )
+	cmds.selectType( curve=True )
+	cmds.modelEditor('modelPanel4',e=True,allObjects=False,manipulators=False)
+	cmds.modelEditor('modelPanel4',e=True,polymeshes=True,nurbsCurves=True)
+	cmds.playbackOptions(v="all",l="continuous")
+	
+	
+
+def IsoSelect():
+    ActivePanels = MASTER.Get_ActivePanels()
+    State = cmds.isolateSelect( ActivePanels[0], query=True,state=True)
+
+    for Panel in ActivePanels:
+    	print Panel
+    	cmds.isolateSelect(Panel,state=not State)
+    	print (not State)
+    	if(not State):
+    		print "Set Stuff"
+    		#cmds.isolateSelect(Panel,addSelected=True)
+    		#cmds.isolateSelect(Panel,ls=True)
+    		cmds.isolateSelect(Panel,u=True)
+    		
+def FHS_ShiftAnims(offset,start=0,end=10000):
+	MASTER.PrintCheck(["FHS_ShiftAnims(offset,start=0,end=10000)",offset,start,end],Anim_ONOFF,["*",""])
+
+	Node = "fhs_scene_settings"
+	Attr = "range_"
+	
+	AttrList = cmds.listAttr(Node)
+	RangeList = []
+	for AL in AttrList:
+	    if Attr in AL:
+	        RangeList.append(AL)
+	
+	#print AttrList
+	#print RangeList
+	for i in RangeList:
+		print i
+		update = False
+		Array = cmds.getAttr(Node + "." + str(i))
+		Array2 = list(Array)
+		print Array[1]
+		print Array[2]
+		
+		if int(Array[1]) >= int(start):
+			print "start"
+			update = True
+			print Array[1]
+			print (int(Array[1]) + int(offset))
+			Array2[1] = unicode(int(Array[1]) + int(offset))
+  
+		if int(Array[2]) >= int(start):
+		  print "End"
+		  update = True
+		  print Array[2]
+		  print (int(Array[2]) + int(offset))
+		  Array2[2] = unicode(int(Array[2]) + int(offset))
+		
+		if update:
+			print Array
+			print Array2
+			cmds.setAttr(Node + "." + str(i),type="stringArray",*([len(Array2)] + Array2))
+
+			
+def ShiftKeys(offset=0,start=0,end=10000):
+	MASTER.PrintCheck(["ShiftKeys(offset=0,start=0,end=10000)",offset,start,end],Anim_ONOFF,["*",""])
+	cmds.keyframe(time=(start,end),timeChange=offset,r=True)
+	
+
+def SaveSelectionNode():
+	Node 		= "Temp_SavedSelection"
+	Attribute 	= "SelectionList"
+	
+	return [Node,Attribute]
+
+def GetSavedSelection():
+	Node 		= SaveSelectionNode()[0]
+	Attribute 	= SaveSelectionNode()[1]
+	List = cmds.getAttr(Node + "." + Attribute).split(",")
+	return List
+	
+def SaveSelection():
+	TempSel	= cmds.ls(sl=True)
+	TempSel = [ x.encode('ascii','ignore')  for x in TempSel]
+	#print TempSel
+	Prefix = TempSel[0].rpartition(':')[0]
+	#print Prefix
+	strList = map(str, TempSel)
+	strList = map( lambda x: x.replace( Prefix + ':', ''), strList)
+	#print strList
+	#save list on node. 
+	#create node
+	Node 		= SaveSelectionNode()[0]
+	Attribute 	= SaveSelectionNode()[1]
+	
+	if (cmds.objExists(Node)):
+		cmds.delete(Node)
+	cmds.createNode('transform', n=Node)
+	cmds.addAttr(Node,ln=Attribute,dt="string")
+	cmds.setAttr(Node + "." + Attribute,cb=True)
+	cmds.setAttr(Node + "." + Attribute,keyable=True)
+	#adjust strList to save cleanly by removing extra bits. 
+	
+	
+	cmds.setAttr(Node + "." + Attribute,','.join(strList),type="string")
+	
+	return [Prefix,strList]
+	#SelList = []
+	#for List in strList:
+	#    print List
+	#    if((cmds.objExists(prefix[0] + ":" + List)) and (cmds.objExists(prefix[1] + ":" + List))):
+	#        SelList.append(List)
+
+	#print SelList
+ 
+def SavePoseAnim_Node():
+	Node 		= "Temp_SavePoseAnim"
+	
+	return Node
+
+def RemoveNamespace(Node):
+	NodeParts = Node.rpartition(':')
+	return NodeParts
+
+def AddNamespace(Namespace,Node):
+	return Namespace + ":" + Node
+
+	
+def SavePose(Constrain = False):
+	Node 	= SavePoseAnim_Node()
+	sel 	= cmds.ls(sl=True,type="transform")
+	if(cmds.objExists(Node)):
+		cmds.delete(Node)
+	cmds.createNode('transform', n=Node)
+	if(Constrain):
+		cmds.createNode('transform', n=Node + "_Constraints",p=Node)
+	
+	CTRLParts = []
+	for CTRL in sel:
+		CTRLParts.append(RemoveNamespace(CTRL))
+		NewNode = Node + "_" + RemoveNamespace(CTRL)[2]
+		print Node
+		print NewNode
+		cmds.createNode('transform', n=NewNode,p=Node)
+		cmds.matchTransform(NewNode,CTRL)
+		if(Constrain):
+			Point 	= cmds.pointConstraint(NewNode,CTRL)
+			Orient 	= cmds.orientConstraint(NewNode,CTRL)
+			cmds.parent(Point,Node + "_Constraints")
+			cmds.parent(Orient,Node + "_Constraints")
+	cmds.select(sel)
+	
+	return sel
+	
+def SetPose(Constrain = False):
+	Node = SavePoseAnim_Node()
+	List = []
+	if(cmds.objExists(Node)):
+		List = cmds.listRelatives(Node,c=True)
+		List.remove(Node + "_Constraints")
+	for L in List:
+		CTRL = L.replace(Node + "_", "")
+		cmds.matchTransform(CTRL,L)
+	cmds.delete(Node)
+    	
+def Old():   
+    Trans  = cmds.xform(sel,q=True,ws=True,t=True)
+    Rot    = cmds.xform(sel,q=True,ws=True,ro=True)
+    cmds.setAttr(sel + ".Orient",0)
+    cmds.setAttr(sel + ".Position",0)
+    cmds.xform(sel,ws=True,t=Trans)
+    cmds.xform(sel,ws=True,ro=Rot)
+    
+def SaveAnim(SaveAnim=False):
+	SavePose()
+	
+	
+	
+def TimeRange():
+	#get Time range to key
+	import maya.mel
+	aPlayBackSliderPython = maya.mel.eval('$tmpVar=$gPlayBackSlider')
+	print aPlayBackSliderPython
+	
+	SelectedRange  = cmds.timeControl(aPlayBackSliderPython,q=True,range=True)
+	print SelectedRange
+	SelectedRange = SelectedRange[1:-1]
+	Start    = SelectedRange.rpartition(':')[0]
+	End    = SelectedRange.rpartition(':')[2]
+	print Start
+	print End
+	if((End-Start) == 1):
+	    print "test"
+        Start = cmds.playbackOptions(q=True,min=True)
+        print "rtest2"
+        End = cmds.playbackOptions(q=True,max=True)
+	TimeRange = (Start + ":" + End )
+	#get keys in time range
+	cmds.select(r=True,CTRLS)
+	FramesKeyedA = cmds.keyframe(time=True,TimeRange,query=True,tc=True)
+	print FramesKeyedA
+
+ 
