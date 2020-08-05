@@ -563,8 +563,8 @@ def FK_CTRL_Setup(JNT_Name,CurveType,FKConstraints=["Point","Orient","Scale"],Ax
                 ScaleCon2.append(HideLoc + "W1")
                 FKConstrained.append(ScaleCon2)
                 #cmds.parent(ScaleCon2[0],GRP)
-                SetDriven_AttributesSetup(CTRL,HideAttr,ScaleCon[0]    ,ScaleCon[1]    ,[[0,1],[1,0]],0)
-                SetDriven_AttributesSetup(CTRL,HideAttr,ScaleCon2[0],ScaleCon2[1]    ,[[0,0],[1,1]],0)
+                SetDriven_AttributesSetup(CTRL,HideAttr,ScaleCon[0]    ,ScaleCon[1]    ,[[1,1],[1,0]],0)
+                SetDriven_AttributesSetup(CTRL,HideAttr,ScaleCon2[0],ScaleCon2[1]    ,[[0,0.001],[1,1]],0)
     
 
     
@@ -821,7 +821,7 @@ def BASECTRLS_Setup():
     
     Types           = BASE_NodeTypes
     BASE_GRP        = "CHAR"
-    BASE_SubGRPS    = [ ["IG",["JNTS","GEO"]] , ["RIG",["JNTS","CTRLS","EXTRAS"]] ]
+    BASE_SubGRPS    = [ ["IG",["JNTS","GEO"]] , ["RIG",["JNTS","CTRLS","EXTRAS"]], ["HIGH",[]]  ]
     CTRLS_GRP       = ["CTRLS_GRP"]
     BASE_CTRL       = BASE_GRP + "_CTRL"
     RIG_CTRLS       = BASE_SubGRPS[1][0] + "_" + BASE_SubGRPS[1][1][1]

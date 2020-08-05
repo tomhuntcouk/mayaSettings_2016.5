@@ -27,28 +27,6 @@ global Target
 
 UI_ONOFF = True
 
-
-def Camera_Setup():
-
-    cmds.setAttr("defaultResolution.width", 2048)
-    cmds.setAttr("defaultResolution.height", 3640)
-    cmds.file("C:/dev/CandyFriends/assets/prod/characters/common/camera/camera.ma", r=True, ignoreVersion = True, namespace ="camera",mergeNamespacesOnClash=False,gl=True)
-
-def LevelStreak_Setup():
-
-    cmds.file("C:/dev/CandyFriends/assets/prod/UI/LiveOps/Level_Streak/rigs/Level_streak_Jar1_rig.ma", r=True, ignoreVersion = True, namespace ="Jar1",mergeNamespacesOnClash=False,gl=True)
-    cmds.file("C:/dev/CandyFriends/assets/prod/UI/LiveOps/Level_Streak/rigs/Level_streak_Jar2_rig.ma", r=True, ignoreVersion = True, namespace ="Jar2",mergeNamespacesOnClash=False,gl=True)
-    cmds.file("C:/dev/CandyFriends/assets/prod/UI/LiveOps/Level_Streak/rigs/Level_streak_Jar3_rig.ma", r=True, ignoreVersion = True, namespace ="Jar3",mergeNamespacesOnClash=False,gl=True)
-    cmds.setAttr("Jar1:CHAR_CTRL.translateY", -300)
-    cmds.setAttr("Jar1:CHAR_CTRL.translateX", -200)
-    cmds.setAttr("Jar2:CHAR_CTRL.translateY", -300)
-    cmds.setAttr("Jar2:CHAR_CTRL.translateX", 0)
-    cmds.setAttr("Jar3:CHAR_CTRL.translateY", -300)
-    cmds.setAttr("Jar3:CHAR_CTRL.translateX", 200)
-
-
-
-
 def CharSetup_LabelTextField(Name,Label = "",Value = "",description = "TEMP -- Need to add Description",Enable=True,Width=75):
     cmds.text("Text_" + Name, label=Label,en=Enable)
     TexFieldname = cmds.textField("TextField_" + Name)
@@ -1611,10 +1589,7 @@ def CharSetUp_Settings_UI(UIName):
     cmds.separator(h=30)
     cmds.button(l='Toggle Scene Units cm/m', c='MASTER.Scene_UnitSettings_Set()',ann="temp")
     cmds.separator(h=30)
-    cmds.button(l='Character Camera Setup', c='UI.Camera_Setup()',ann="import switcher and character selection camera, set renderglobals to default aspect ratio for camera")
-    cmds.separator(h=30)
-    cmds.button(l='level streak setup jars', c='UI.LevelStreak_Setup()',ann="import import Level streak jars")
-    cmds.separator(h=30)
+
     FrameLayout = cmds.frameLayout(label='File Clean Up',cl = True, collapsable = False)
     cmds.separator(h=30)
     
@@ -1641,7 +1616,7 @@ def CharSetUp_UI():
     PrintNote   = "CharSetUp_UI():"
     WindowName  = ["CharSetUpUI","Character Setup"]
 
-    Tabs        = ["Anim","Settings","Skeleton","Rigging"]#"Skeleton SetUp",
+    Tabs        = ["Settings","Skeleton","Rigging"]#"Skeleton SetUp",
     window      = WindowName[0]
     DockWindow  = window + "_Docked"
     IsDocked    = None

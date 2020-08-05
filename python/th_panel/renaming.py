@@ -22,17 +22,10 @@ def create( layout ) :
 	rename_search = pm.textField( 'th_rename_search', pht='Search', p=rename_layout,
 		cc=lambda *args : __update_rename_preview()
 	)
-	rename_replace = pm.textField( 'th_rename_replace', pht='Replace', p=rename_layout,
+	rename_replace = pm.textField( 'th_rename_replace', pht='Replace/Rename', p=rename_layout,
 		cc=lambda *args : __update_rename_preview()
 	)
 
-
-	rename_prefix = pm.textField( 'th_rename_prefix', pht='Prefix', p=rename_layout,
-		cc=lambda *args : __update_rename_preview()
-	)
-	rename_suffix = pm.textField( 'th_rename_suffix', pht='Suffix', p=rename_layout,
-		cc=lambda *args : __update_rename_preview()
-	)
 	renumber_layout = pm.rowLayout( p=rename_layout, nc=2, adj=True )
 	rename_from = pm.textField( 'th_rename_from', pht='Renumber From', p=renumber_layout,
 		cc=lambda *args : __update_rename_preview()
@@ -40,6 +33,14 @@ def create( layout ) :
 	rename_by = pm.textField( 'th_rename_by', pht='Renumber By', p=renumber_layout,
 		cc=lambda *args : __update_rename_preview()
 	)
+
+	rename_prefix = pm.textField( 'th_rename_prefix', pht='Prefix', p=rename_layout,
+		cc=lambda *args : __update_rename_preview()
+	)
+	rename_suffix = pm.textField( 'th_rename_suffix', pht='Suffix', p=rename_layout,
+		cc=lambda *args : __update_rename_preview()
+	)
+	
 	
 
 	pm.button( 
@@ -92,6 +93,8 @@ def __rename_list_from_textfields( *args ) :
 	ret = []
 	for i, name in enumerate(args) :
 		if( search and replace ) : name = re.sub( search, replace, name )
+		else : 
+			if( replace ) : name = replace
 		if( prefix ) : name = prefix + name
 		if( fr and by ) : name = name.rstrip('0123456789') + str( int(fr) + i * int(by) )
 		if( suffix ) : name = name + suffix
